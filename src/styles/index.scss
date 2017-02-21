@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Jura');
+@import 'variables';
+@import 'util';
+@import 'circle';
+@import 'progress';
+@import 'background';
+@import 'effect';
+@import 'marquee';
+@import 'transition';
+
+
+html, body {
+  width:  100%;
+  height: 100%;
+  margin: 0px;
+  overflow: hidden;
+  font-family: 'Jura', sans-serif;
+  color: white;
+}
+
+h1 {
+  font-size: 85px;
+  margin: 20px;
+  max-height: 100%;
+}
+
+h2 {
+  font-size: 36px;
+  margin: 20px;
+  max-height: 100%;
+}
+
+pre {
+  font-size: 18px;
+  margin: 20px;
+}
+
+span {
+  font-size: 46px;
+  max-height: 100%;
+}
+
+.container {
+  position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.content-header {
+  z-index: 1002;
+  position: absolute;
+  max-height: 200px;
+  max-width: 1300px;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  transform: translate(-50%, calc(-50% - 320px));
+  text-align: center;
+  transition: all 1s;
+  opacity: 1;
+}
+
+.content {
+  z-index: 1000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.content-footer {
+  z-index: 1001;
+  width: 1240px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(50% + 160px));
+  text-align: center;
+  color: white;
+  display: block;
+  justify-content: center;
+
+  transition: all 1s;
+  opacity: 1;
+}
+

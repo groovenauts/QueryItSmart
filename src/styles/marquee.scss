@@ -1,0 +1,30 @@
+@keyframes marquee {
+  0%   { transform: translateY(100%); }
+  // 25%   { transform: translate(0%, -100%); }
+  // 25%  { transform: translate(0%, -30%); }
+  // 50%  { transform: translate(0%, 110%); }
+  100% { transform: translateY(-300%); }
+}
+
+
+.box-marquee {
+  z-index: 2000;
+  position: absolute;
+  bottom: 0px;
+  right: 60px;
+  width: 50%;
+  max-width: 700px;
+  height: 340px;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: transparent;
+
+  pre {
+    animation: marquee 12s linear infinite;
+    color: white;
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+  }
+}
+

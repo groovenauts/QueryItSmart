@@ -1,0 +1,40 @@
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(.1);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(8);
+    opacity: .2;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(15);
+    opacity: 0;
+  }
+}
+
+.pulse {
+  div {
+    border-radius: 50%;
+    background-color: #53a0fd;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+
+    &:nth-child(1) { animation: pulse 2s infinite; }
+    &:nth-child(2) { animation: pulse 2s infinite .3s; }
+    &:nth-child(3) { animation: pulse 2s infinite .6s; }
+  }
+}
+
+.center-gradation-blue {
+  z-index: 1;
+  background-image: radial-gradient(circle, #53a0fd, #3023ae 60%, #3023ae);
+}
+
+.blur {
+  pointer-events: none;
+  filter: blur(10px);
+}
