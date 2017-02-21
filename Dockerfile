@@ -7,5 +7,6 @@ RUN npm install --global yarn@0.16.1; \
     npm run build
 
 EXPOSE 8080
+VOLUME /usr/app/config
 
 CMD ["npm", "start"]
