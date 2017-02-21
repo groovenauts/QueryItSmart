@@ -105,7 +105,8 @@ class Background extends Component {
     if (analyzing || !analyzeId) {
       return null;
     }
-    return _.map(resultImages, (image, i) => {
+
+    return _.map(_.reverse(resultImages), (image, i) => {
       return (
         <div name={`circle`} key={`result${i}`} 
           className={ classNames("circle", "thumbnail") }

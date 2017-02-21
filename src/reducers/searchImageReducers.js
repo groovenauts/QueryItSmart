@@ -32,7 +32,6 @@ const searchImage = (state = initialState, action) => {
       const { imageId, results } = action
       let images = _.reject(results, image => image.key === imageId)
       images = fixPosition(images)
-      images = _.reverse(images)
       return {
         ...state,
         analyzing: false,
