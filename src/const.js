@@ -37,9 +37,9 @@ export const CONTENT_CLASSES = [
 export const THUMBNAIL_SIZE = 60,
   IMG_SIZE = 240,
   CHANNEL_IMAGES = [
-    { id: "image", name: "Image", src: './images/image.jpg', className: CONTENT_CLASSES[0] },
-    { id: "text", name: "Text", src: './images/text.jpg', className: CONTENT_CLASSES[1] },
-    { id: "map", name: "Demand forecast", src: './images/map.jpg', className: CONTENT_CLASSES[2] }
+    { id: "image", name: "Wikimedia Images", src: './images/image.jpg', className: CONTENT_CLASSES[0] },
+    { id: "text", name: "Stack Overflow Questions", src: './images/text.jpg', className: CONTENT_CLASSES[1] },
+    { id: "map", name: "NYC City Bike Usage Forecast", src: './images/map.jpg', className: CONTENT_CLASSES[2] }
   ],
   PRESENT_IMAGES = [
     { id: "10000086", src: "./images/10000086.jpg", name: "JELLYFISH" },
