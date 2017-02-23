@@ -99,7 +99,7 @@ class App extends Component {
       <div className="content-footer">
         <div className="flex-container" style={{ height: 100, fontSize: '50px' }}>
           <div className={ classNames("flex-item") }
-            dangerouslySetInnerHTML={{__html: 'Wikimedia Images'}} />
+            dangerouslySetInnerHTML={{__html: 'Wikimedia Commons Images'}} />
           <div className={ classNames("flex-item") }>
             <span>Stack Overflow Questions</span>
           </div>

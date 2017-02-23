@@ -6,11 +6,11 @@
   "searchImage": {
     "select": {
       "title": "Image",
-      "subtitle": "Choose one of those to start finding similar images\nfrom 1 million images on Wikimedia with Google BigQuery."
+      "subtitle": "Choose one of those to start finding similar images\nfrom 1 million images on Wikimedia Commons with Google BigQuery."
     },
     "analyzing": {
       "title": "Searching...",
-      "subtitle": "On 1 million Wikimedia images with BigQuery. Elapsed ${time} sec"
+      "subtitle": "On 1 million Wikimedia Commons images with BigQuery. Elapsed ${time} sec"
     },
     "analyzed": {
       "title": "Finished!",
