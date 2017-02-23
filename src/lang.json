@@ -14,7 +14,7 @@
     },
     "analyzed": {
       "title": "Finished",
-      "subtitle": "1.12M images and ${size} processed in ${time} seconds with Google BigQuery"
+      "subtitle": "1.12M images and ${size} processed</br>in ${time} seconds with Google BigQuery"
     },
     "detail": {
       "title": "",
