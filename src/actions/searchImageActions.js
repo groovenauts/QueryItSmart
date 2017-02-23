@@ -9,7 +9,8 @@ const wrapSelectPresent = imageId => dispatch => {
     dispatch({
       type: types.SIMILARED_IMAGE,
       imageId: imageId,
-      results: res
+      results: res[0],
+      totalBytesProcessed: _.get(res[2], 'totalBytesProcessed'),
     })
   }).catch((err) => {
     console.log("Error", err)
@@ -28,7 +29,7 @@ const wraploadImages = () => dispatch => {
   return runQuery(QUERY.load.sql).then((res) => {
     dispatch({
       type: types.LOAD_IMAGES,
-      images: res,
+      images: res[0],
     })
   }).catch((err) => {
     console.log("Error", err)

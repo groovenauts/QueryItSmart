@@ -6,9 +6,11 @@ const initialState = {
   resultImages: [],
   loadedImageIds: [],
   loadErrorImageIds: [],
+  totalSize: 0,
   analyzeId: null,
   resultId: null,
   analyzing: false,
+  analyzed: false,
   error: null,
 }
 
@@ -25,18 +27,21 @@ const searchImage = (state = initialState, action) => {
       return {
         ...state,
         analyzeId: action.imageId,
+        analyzed: false,
         analyzing: true,
         resultImages: [],
       }
     case types.SIMILARED_IMAGE: {
-      const { imageId, results } = action
+      const { imageId, results, totalBytesProcessed } = action
       let images = _.reject(results, image => image.key === imageId)
       images = fixPosition(images)
       return {
         ...state,
         analyzing: false,
+        analyzed: true,
         analyzeId: imageId,
         resultImages: images,
+        totalSize: bytesToSize(totalBytesProcessed),
       }
     }
     case types.SELECT_RESULT_IMAGE:
@@ -56,6 +61,8 @@ const searchImage = (state = initialState, action) => {
         analyzeId: null,
         resultId: null,
         analyzing: false,
+        analyzed: false,
+        totalSize: 0,
       }
     case types.IMG_LOADED: {
       const { loadedImageIds, loadErrorImageIds } = state
@@ -93,6 +100,15 @@ const fixPosition = (images) => {
     image.y = _.random(0, window.innerHeight)
     return image
   })
+}
+
+const bytesToSize = (bytes=0) => {
+  const sizes = ['Bytes', 'KBs', 'MBs', 'GBs', 'TBs']
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
+  if (i === 0) {
+    return `${bytes} ${sizes[i]})`
+  }
+  return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
 }
 
 export default searchImage

@@ -13,8 +13,8 @@
       "subtitle": "On 1 million Wikimedia images with BigQuery. Elapsed ${time} sec"
     },
     "analyzed": {
-      "title": "Finished!",
-      "subtitle": "1 million images over ${time} seconds"
+      "title": "Finished",
+      "subtitle": "1.12M images and ${size} processed in ${time} seconds with Google BigQuery"
     },
     "detail": {
       "title": "",

@@ -29,7 +29,6 @@ class SearchImageTop extends Component {
       leave: false,
       start: null,
       elapsed: 0,
-      justAnalyzed: false,
     }
   }
 
@@ -39,16 +38,6 @@ class SearchImageTop extends Component {
       if (this.timer) {
         clearInterval(this.timer)
       }
-      this.setState({justAnalyzed: true})
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // Just finished analysis
-    if (!this.props.searchImage.analyzing && prevProps.searchImage.analyzing) {
-      setTimeout(() => {
-        this.setState({justAnalyzed: false})
-      }, 5000)
     }
   }
 
@@ -179,8 +168,7 @@ class SearchImageTop extends Component {
   }
 
   renderHeader() {
-    const { justAnalyzed } = this.state
-    const { resultId, analyzeId, analyzing } = this.props.searchImage
+    const { resultId, analyzeId, analyzing, analyzed, totalSize } = this.props.searchImage
     if (resultId) {
       return (
         <Header title={ this.imageName(analyzeId) } />
@@ -193,11 +181,11 @@ class SearchImageTop extends Component {
             subtitle={ _.template(lang.searchImage.analyzing.subtitle)({time: this.elapsed()}) }
             />
         )
-      } else if (justAnalyzed) {
+      } else if (analyzed) {
         return (
           <Header
             title={ `${lang.searchImage.analyzed.title}` }
-            subtitle={ _.template(lang.searchImage.analyzed.subtitle)({time: this.elapsed()}) }
+            subtitle={ _.template(lang.searchImage.analyzed.subtitle)({size: totalSize, time: this.elapsed()}) }
             />
         )
       }
