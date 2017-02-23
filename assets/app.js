@@ -1351,7 +1351,7 @@
 	module.exports = {
 		"app": {
 			"title": "QueryIt Smart",
-			"subtitle": "There are more than a million images here.\nWhen you click on the image you like.\nAI will analyze and find a similar one from million images."
+			"subtitle": "What kind of data you like to search?"
 		},
 		"searchImage": {
 			"select": {
