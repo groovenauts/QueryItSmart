@@ -4,3 +4,4 @@ npm-debug.log
 /config/service_account*.json
 *.pyc
 __pycache__
+/assets/app.js
