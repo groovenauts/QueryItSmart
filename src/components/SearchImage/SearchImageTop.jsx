@@ -162,6 +162,7 @@ class SearchImageTop extends Component {
           </div>
           <div className={ classNames("flex-item") }>
             <Slider
+              disabled={true}
               min={0}
               max={100}
               value={rate}
