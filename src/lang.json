@@ -9,8 +9,8 @@
       "subtitle": "Choose one of those to start finding similar images\nfrom 1 million images on Wikimedia with Google BigQuery."
     },
     "analyzing": {
-      "title": "Analyzing...",
-      "subtitle": "1 million images / ${time} sec"
+      "title": "Searching...",
+      "subtitle": "On 1 million Wikimedia images with BigQuery. Elapsed ${time} sec"
     },
     "analyzed": {
       "title": "Finished!",
