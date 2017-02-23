@@ -2,6 +2,19 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import _ from 'lodash'
 
+const textStyle={
+  lineHeight: '1.2em',
+  height: '3em',
+  transform: 'translateY(50%)',
+  overflow: 'hidden',
+  lineHeight: '1em',
+  height: '2em',
+  overflow: 'hidden',
+  top: 0,
+  bottom: 0,
+  margin: 'auto 0',
+}
+
 class Button extends Component {
 
   render() {
@@ -24,7 +37,9 @@ class Button extends Component {
       <div className={ classNames("circle", "hover-lite") }
         style={ _.defaults(style, defaultStyle) }
         onClick={ handler }>
-        { label }
+        <div style={textStyle}>
+          { label }
+        </div>
       </div>
     )
   }
