@@ -14,6 +14,7 @@ import Background from './Background'
 import Query from './Query'
 import Restart from '../Restart'
 import Close from '../Close'
+import PopoverButton from '../PopoverButton'
 import lang from '../../lang.json'
 import Circle from './Circle'
 
@@ -201,7 +202,7 @@ class SearchImageTop extends Component {
 
   render() {
     const { app, searchImage } = this.props
-    const { resultId, analyzing, analyzeId, images, resultImages } = searchImage
+    const { resultId, analyzing, analyzed, analyzeId, images, resultImages } = searchImage
     return (
       <MuiThemeProvider muiTheme={darkTheme}>
         <div className={ classNames("container", "center-gradation-blue") }>
@@ -226,6 +227,7 @@ class SearchImageTop extends Component {
             </div>
             { this.renderFooter() }
             <Background />
+            { analyzed ? <PopoverButton className="hover" text={`${QUERY.similar.sql({id: analyzeId})}\n\n${lang.queryExtra}`} /> : null }
             { resultId ? <Close className="hover" /> : !analyzing ? <Restart className="hover" /> : null }
             { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
         </div>
