@@ -11,7 +11,7 @@ class Header extends Component {
     return (
       <div className="content-header" style={style}>
         <p className="title">{ title }</p>
-        <h2>{ subtitle }</h2>
+        <h2 dangerouslySetInnerHTML={{__html: subtitle}} />
       </div>
     )
   }
