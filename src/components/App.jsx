@@ -99,12 +99,12 @@ class App extends Component {
       <div className="content-footer">
         <div className="flex-container" style={{ height: 100, fontSize: '50px' }}>
           <div className={ classNames("flex-item") }
-            dangerouslySetInnerHTML={{__html: 'Image'}} />
+            dangerouslySetInnerHTML={{__html: 'Wikimedia Images'}} />
           <div className={ classNames("flex-item") }>
-            <span>Text</span>
+            <span>Stack Overflow Questions</span>
           </div>
           <div className={ classNames("flex-item") }>
-            <span>Demand forecast</span>
+            <span>NYC City Bike Usage Forecast</span>
           </div>
         </div>
       </div>
