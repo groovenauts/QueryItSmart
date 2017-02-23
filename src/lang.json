@@ -6,7 +6,7 @@
   "searchImage": {
     "select": {
       "title": "Image",
-      "subtitle": "There are more than a million images here.\nWhen you click on the image you like.\nAI will analyze and find a similar one from million images."
+      "subtitle": "Choose one of those to start finding similar images\nfrom 1 million images on Wikimedia with Google BigQuery."
     },
     "analyzing": {
       "title": "Analyzing...",
