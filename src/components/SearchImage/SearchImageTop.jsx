@@ -42,6 +42,12 @@ class SearchImageTop extends Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+  }
+
   onSelectPresent(imageId, e) {
     const { actions } = this.props
     this.setState({ start: new Date() })
