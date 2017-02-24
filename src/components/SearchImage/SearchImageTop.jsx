@@ -11,12 +11,12 @@ import { darkTheme } from '../../styles/thema'
 import { QUERY, IMG_SIZE, PRESENT_NUM, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH } from '../../const'
 import Header from './Header'
 import Background from './Background'
-import Query from './Query'
+import Query from '../Query'
 import Restart from '../Restart'
 import Close from '../Close'
 import PopoverButton from '../PopoverButton'
 import lang from '../../lang.json'
-import Circle from './Circle'
+import Circle from '../Circle'
 
 class SearchImageTop extends Component {
   constructor(props) {
