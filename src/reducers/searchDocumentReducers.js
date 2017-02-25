@@ -53,7 +53,7 @@ const searchDocument = (state = initialState, action) => {
         ...state,
         resultId: action.id,
       }
-    case types.RESTART:
+    case types.SEARCH_DOCUMENT_RESTART:
       return {
         ...initialState
       }

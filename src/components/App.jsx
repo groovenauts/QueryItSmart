@@ -7,6 +7,7 @@ import * as actions from '../actions/appActions'
 import _ from 'lodash'
 import SearchImage from './SearchImage/SearchImageTop'
 import SearchDocument from './SearchDocument/Top'
+import DemandForecast from './DemandForecast/Top'
 import Circle from './Circle'
 import Header from './SearchImage/Header'
 import { CONTENT_CLASSES, CHANNEL_IMAGES } from '../const'
@@ -114,14 +115,19 @@ class App extends Component {
   }
 
   render() {
-    const { app } = this.props
+    const { app, forecast } = this.props
+    const { finished } = forecast
+    // For google map
+    const style = finished ? {pointerEvents: 'none'} : {}
     return (
-      <div id="container">
+      <div id="container" style={style}>
         { do {
             if (app.channel === 0) {
               <SearchImage />
             } else if (app.channel === 1) {
               <SearchDocument />
+            } else if (app.channel === 2) {
+              <DemandForecast />
             } else {
               <div className={ classNames("container") } style={{ backgroundColor: 'black' }}>
                 <ReactCSSTransitionGroup
@@ -152,6 +158,7 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     app: state.app,
+    forecast: state.forecast
   }
 }
 

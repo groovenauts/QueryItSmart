@@ -55,15 +55,9 @@ const searchImage = (state = initialState, action) => {
         ...state,
         resultId: null,
       }
-    case types.RESTART:
+    case types.SEARCH_IMAGE_RESTART:
       return {
-        ...state,
-        resultImages: [],
-        analyzeId: null,
-        resultId: null,
-        analyzing: false,
-        analyzed: false,
-        totalSize: 0,
+        ...initialState,
       }
     case types.IMG_LOADED: {
       const { loadedImageIds, loadErrorImageIds } = state

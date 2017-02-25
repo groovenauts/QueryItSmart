@@ -13,11 +13,13 @@
   bottom: 0px;
   right: 60px;
   width: 50%;
-  max-width: 700px;
-  height: 340px;
+  max-width: 600px;
+  height: 50vh;
   overflow: hidden;
   white-space: nowrap;
   background-color: transparent;
+  text-align: left;
+  word-wrap: break-word;
 
   pre {
     animation: marquee 12s linear infinite;
