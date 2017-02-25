@@ -8,7 +8,6 @@ const style = {
   maxWidth: 800,
   textAlign: 'left',
   display: 'inline-block',
-  backgroundColor: 'rgba(255,255,255,0.1)',
   padding: '0px 20px',
   color: 'white',
 }
@@ -33,18 +32,19 @@ class PopoverButton extends Component {
     })
   }
   render() {
-    const { text } = this.props
+    const { label='Show SQL', text, buttonColor, labelColor, textColor, popupBackgroundColor } = this.props
     return (
       <div>
         <Button
-          label='Show SQL'
+          label={label}
           style={{right: 220}}
           handler={ this.onClick.bind(this) }
+          buttonColor={buttonColor}
+          labelColor={labelColor}
           />
         <Popover
-          style={style}
+          style={_.defaults(style, {backgroundColor: popupBackgroundColor})}
           open={this.state.open}
-          targetOrigin={style}
           anchorEl={this.state.anchorEl}
           anchorOrigin={{"horizontal":"right","vertical":"top"}}
           targetOrigin={{"horizontal":"right","vertical":"bottom"}}

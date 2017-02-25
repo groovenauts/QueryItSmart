@@ -18,19 +18,19 @@ const textStyle={
 class Button extends Component {
 
   render() {
-    const { label, style, handler } = this.props
+    const { label, style, handler, buttonColor, labelColor } = this.props
     const defaultStyle = {
       zIndex: 1000,
       position: 'absolute',
-      backgroundColor: 'white',
+      backgroundColor: buttonColor,
       height: 100,
       width: 100,
       bottom: 60,
       right: 60,
       fontSize: '26px',
       lineHeight: '100px',
-      color: '#3023ae',
-      boxShadow: '0px 0px 0px 8px #3023ae, 0px 0px 0px 18px white',
+      color: labelColor,
+      boxShadow: `0px 0px 0px 8px ${labelColor}, 0px 0px 0px 18px ${buttonColor}`,
       transition: 'show 1.5s linear'
     }
     return (

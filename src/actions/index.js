@@ -1,5 +1,6 @@
 export appActions from './appActions'
 export searchImageActions from './searchImageActions'
+export searchDocumentActions from './searchDocumentActions'
 
 export const types = {
   // for root
@@ -14,4 +15,9 @@ export const types = {
   SIMILARED_IMAGE: "simlared_image",
   SELECT_RESULT_IMAGE: "select_result_image",
   CLOSE_IMAGE_SEARCH: "close_image_search",
+  // for serach document
+  SEARCH_DOCUMENT_START: 'search_document_start',
+  SEARCH_DOCUMENT_FINISHED: 'search_document_finished',
+  SEARCH_DOCUMENT_ERROR: 'search_document_error',
+  SELECT_RESULT_DOCUMENT: 'select_result_document',
 }

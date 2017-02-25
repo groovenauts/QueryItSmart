@@ -1,0 +1,22 @@
+[
+  {
+    "id": 7535498,
+    "title": "UIButton custom font vertical alignment",
+    "body": "<p>I've got a <code>UIButton</code> which uses a custom font which is set when my view loads:</p> <pre><code>- (void)viewDidLoad { [super viewDidLoad]; self.searchButton.titleLabel.font = [UIFont fontWithName: @ FONTNAME size: 15.0 ]; } </code></pre> <p>The problem I've got is that the font is appearing to float up of the center line. If I comment out this line the default font appears vertically centered fine. But changing to the custom font breaks the vertical alignment.</p> <p>I'm getting the same issue on a Table Cell with a custom font too.</p> <p>Do I need to tell the view somewhere that the custom font is not as tall as other fonts?</p> <p>EDIT: I've just realized that the font I'm using is a Windows TrueType Font. I can use it fine in TextEdit on the Mac only a problem with the alignment in my App</p> <p><img src= http://i.stack.imgur.com/nRBCO.png alt= Button text not vertically centered ></p>"
+  },
+  {
+    "id": 10752055,
+    "title": "Cross origin requests are only supported for HTTP. error when loading a local file",
+    "body": "<p>I'm trying to load a 3D model into Three.js with <code>JSONLoader</code> and that 3D model is in the same directory as the entire website.</p> <p>I'm getting the <code> Cross origin requests are only supported for HTTP. </code> error but I don't know what's causing it nor how to fix it.</p>"
+  },
+  {
+    "id": 730916,
+    "title": "What's the difference between jQuery's replaceWith() and html()?",
+    "body": "<p>What's the difference between jQuery's replaceWith() and html() functions when HTML is being passed in as the parameter?</p>"
+  },
+  {
+    "id": 419472,
+    "title": "Have a reloadData for a UITableView animate when changing",
+    "body": "<p>I have a UITableView that has two modes. When we switch between the modes I have a different number of sections and cells per section. Ideally it would do some cool animation when the table grows or shrinks.</p> <p>Here is the code I tried but it doesn't do anything:</p> <pre><code>CGContextRef context = UIGraphicsGetCurrentContext(); [UIView beginAnimations:nil context:context]; [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut]; [UIView setAnimationDuration:0.5]; [self.tableView reloadData]; [UIView commitAnimations]; </code></pre> <p>Any thoughts on how I could do this?</p>"
+  }
+]

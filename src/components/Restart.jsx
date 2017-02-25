@@ -16,6 +16,7 @@ class Restart extends Component {
       <Button
         label='Restart'
         handler={ this.onClick.bind(this) }
+        { ...this.props }
         />
     )
   }

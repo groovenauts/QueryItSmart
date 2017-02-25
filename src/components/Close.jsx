@@ -16,6 +16,7 @@ class Close extends Component {
       <Button
         label='Close'
         handler={ this.onClick.bind(this) }
+        { ...this.props }
         />
     )
   }

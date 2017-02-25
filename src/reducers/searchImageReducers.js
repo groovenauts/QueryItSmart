@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { types } from '../actions/index'
+import { bytesToSize } from '../utils'
 
 const initialState = {
   images: [],
@@ -100,15 +101,6 @@ const fixPosition = (images) => {
     image.y = _.random(0, window.innerHeight)
     return image
   })
-}
-
-const bytesToSize = (bytes=0) => {
-  const sizes = ['Bytes', 'KBs', 'MBs', 'GBs', 'TBs']
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
-  if (i === 0) {
-    return `${bytes} ${sizes[i]})`
-  }
-  return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
 }
 
 export default searchImage
