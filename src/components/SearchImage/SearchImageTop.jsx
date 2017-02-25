@@ -114,24 +114,26 @@ class SearchImageTop extends Component {
     return _.map(contents, (image, i) => {
       return <Circle
                 key={ `select-${i}` }
-                imgSrc={ image.src }
-                onLoad={ this.onImgLoaded.bind(this, image.id) }
-                onError={ this.onImgError.bind(this, image.id) }
                 onClick={ this.onClick.bind(this, i) }
                 onMouseOver={ this.onMouseOver.bind(this, i) }
-                outerClassName={ leave ? "is-center leave":`${image.className}` }
-              />
+                outerClassName={ leave ? "is-center leave":`${image.className}` }>
+                <img src={ image.src }
+                  onLoad={ this.onImgLoaded.bind(this, image.id) }
+                  onError={ this.onImgError.bind(this, image.id) }
+                  />
+              </Circle>
     })
   }
 
   renderContent(imageId, images, callback=()=>{}) {
     const image = _.find(images, image => image.key === imageId)
     return <Circle
-              imgSrc={ THUMBNAIL_PATH({id: imageId}) }
               handler={ callback }
-              outerClassName="is-center"
-              imgClassName="large border-bold"
-            />
+              outerClassName="is-center">
+              <img className="large border-bold"
+                src={ THUMBNAIL_PATH({id: imageId}) }
+                />
+          </Circle>
   }
 
   imageName(imageId) {
@@ -233,8 +235,17 @@ class SearchImageTop extends Component {
             </div>
             { this.renderFooter() }
             <Background />
-            { analyzed ? <PopoverButton className="hover" text={`${QUERY.similar.sql({id: analyzeId})}\n\n${lang.queryExtra}`} /> : null }
-            { resultId ? <Close className="hover" /> : !analyzing ? <Restart className="hover" /> : null }
+            { analyzed ?
+              <PopoverButton
+                className="hover"
+                labelColor="rgb(48, 35, 174)"
+                buttonColor="white"
+                textColor="white"
+                popupBackgroundColor="rgba(255,255,255,0.1)"
+                text={`${QUERY.similar.sql({id: analyzeId})}\n\n${lang.queryExtra}`}/>
+              : null }
+            { resultId ? <Close className="hover" labelColor="#3023ae" buttonColor="white" /> : 
+              !analyzing ? <Restart className="hover" labelColor="#3023ae" buttonColor="white" /> : null }
             { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
         </div>
       </MuiThemeProvider>

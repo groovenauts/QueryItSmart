@@ -1,0 +1,38 @@
+
+#app {
+
+}
+
+#image-search {
+  color: white;
+  
+
+}
+
+#document-search {
+  color: black;
+
+  #document-search-header {
+    position: relative;
+    height: 40vh;
+    bottom: 20px;
+    text-align: center;
+  }
+  #document-search-content {
+    height: 60vh;
+    text-align: center;
+  }
+  #document-search-result {
+
+  }
+}
+
+#searching {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0px auto;
+}

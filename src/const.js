@@ -23,6 +23,44 @@ export const QUERY = {
             ORDER BY dist asc
             LIMIT 50`)
   },
+  hackerNews: {
+    sql: _.template(`CREATE TEMPORARY FUNCTION prod(v1 ARRAY<FLOAT64>, v2 ARRAY<FLOAT64>)
+            RETURNS FLOAT64
+            LANGUAGE js AS """
+              var d = 0.0
+              for (var i=0; i < v1.length; i++) {
+                d += (v1[i] * v2[i])
+              }
+              return d;
+            """;
+
+            SELECT id, prod(a.vector, b.vector) as similarity, title, text
+            FROM
+            (SELECT id, title, text, vector FROM \`queryit-smart.hackernews.stories_with_vector\`) as a
+            CROSS JOIN
+            (SELECT vector FROM \`queryit-smart.hackernews.stories_with_vector\` where id = <%= id %> limit 1) as b
+            ORDER BY similarity desc
+            LIMIT 10`)
+  },
+  stackOverflow: {
+    sql: _.template(`CREATE TEMPORARY FUNCTION dot(v1 ARRAY<FLOAT64>, v2 ARRAY<FLOAT64>)
+            RETURNS FLOAT64
+            LANGUAGE js AS """
+              var v = 0.0
+              for (var i=0; i < v1.length; i++) {
+                v += v1[i] * v2[i];
+              }
+              return v;
+            """;
+            SELECT a.id as id, title, body, dot(a.vector, b.vector) as similarity
+            FROM
+            (SELECT id, title, body, vector FROM \`queryit-smart.stackoverflow.posts_vector_top_100k\`) as a
+            CROSS JOIN
+            (SELECT vector FROM \`queryit-smart.stackoverflow.posts_vector_top_100k\` where id = <%= id %> LIMIT 1) as b
+            ORDER BY similarity DESC
+            LIMIT 10
+            `)
+  }
 }
 
 export const THUMBNAIL_PATH = _.template('https://storage.googleapis.com/queryit_smart/wikimedia/images/${id}.jpg')
@@ -36,6 +74,7 @@ export const CONTENT_CLASSES = [
 
 export const THUMBNAIL_SIZE = 60,
   IMG_SIZE = 240,
+  DOCUMENT_IMAGE = "./images/alfabet.png",
   CHANNEL_IMAGES = [
     { id: "image", name: "Wikimedia Commons Images", src: './images/image.jpg', className: CONTENT_CLASSES[0] },
     { id: "text", name: "Stack Overflow Questions", src: './images/text.jpg', className: CONTENT_CLASSES[1] },
