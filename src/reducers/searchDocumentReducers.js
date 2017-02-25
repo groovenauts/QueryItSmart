@@ -29,13 +29,14 @@ const searchDocument = (state = initialState, action) => {
       }
     case types.SEARCH_DOCUMENT_FINISHED: {
       const { id, time, results, totalBytesProcessed } = action
+      const _results = _.reject(results, ret => ret.id === id)
       return {
         ...state,
         searching: false,
         finished: true,
         finishedTime: time,
-        resultId: _.get(results, '1.id'),
-        results: results,
+        resultId: _.get(_results, '0.id'),
+        results: _results,
         totalSize: bytesToSize(totalBytesProcessed),
       }
     }

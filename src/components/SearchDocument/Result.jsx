@@ -73,7 +73,7 @@ class Result extends Component {
             { _.map(_results, (ret, i) => {
               return (
                 <li key={`doc-${i}`}
-                  className={ classNames(`${ret.id === resultId ? "is-selected":""}`)}
+                  className={ classNames(`${resultId && ret.id === resultId ? "is-selected":""}`)}
                   onClick={this.onSelectDocument.bind(this, ret.id)}>
                   <div className="list-item">
                     <div className="label">{ score(ret.similarity) }</div>
