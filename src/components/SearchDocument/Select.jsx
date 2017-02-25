@@ -105,7 +105,7 @@ class Select extends Component {
                     height: '70%',
                     padding: `20px ${i===0?"0px":"20px"} 20px ${i===_.size(contents)?"0px":"20px"}`,
                   }}>
-                  <div style={labelStyle}>{ content.title || "" }</div>
+                  <div style={labelStyle}>{ content.title || "NO TITLE" }</div>
                   <div style={bodyStyle}>{ content.body || "" }</div>
                 </div>
                 <div className="box" 
