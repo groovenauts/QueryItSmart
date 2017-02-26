@@ -1,15 +1,15 @@
 
 @keyframes pulse {
   0% {
-    transform: translate(-50%, -50%) scale(.1);
+    transform: translate(-50%, -48%) scale(.1);
     opacity: 0;
   }
   50% {
-    transform: translate(-50%, -50%) scale(8);
+    transform: translate(-50%, -48%) scale(8);
     opacity: .2;
   }
   100% {
-    transform: translate(-50%, -50%) scale(15);
+    transform: translate(-50%, -48%) scale(15);
     opacity: 0;
   }
 }
@@ -18,7 +18,7 @@
   div {
     border-radius: 50%;
     background-color: #53a0fd;
-    top: 50%;
+    top: 52%;
     left: 50%;
     width: 60px;
     height: 60px;

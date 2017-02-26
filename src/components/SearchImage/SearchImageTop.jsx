@@ -19,6 +19,16 @@ import PopoverButton from '../PopoverButton'
 import lang from '../../lang.json'
 import Circle from '../Circle'
 
+const styles = {
+  sliderBothEnds: {
+    top: 0,
+    bottom: 0,
+    margin: 'auto 0',
+    fontSize: 40,
+    transform: 'translateY(-25%)',
+  }
+}
+
 class SearchImageTop extends Component {
   constructor(props) {
     super(props)
@@ -159,23 +169,34 @@ class SearchImageTop extends Component {
     const index = _.findIndex(resultImages, image => image.key === resultId) || 0
     const rate = ((index + 1) / _.size(resultImages)) * 100
     return (
-      <div className="content-footer" style={{ 'height': 200 }}>
-        <div className="flex-container">
-          <div className={ classNames("flex-item") }>
-            <span>Near</span>
+      <div className="content-footer">
+        <div className="row center-xs"
+          style={{
+            width: '50vw',
+            position: 'absolute',
+            paddingTop: 40,
+            left: 0,
+            right: 0,
+            margin: '0 auto',
+          }}>
+          <div className="col-xs-2" style={styles.sliderBothEnds}>
+            <div className="box">
+              Near
+            </div>
           </div>
-          <div className={ classNames("flex-item") }>
-            <Slider
-              disabled={true}
-              min={0}
-              max={100}
-              value={rate}
-              style={{
-                width: 500,
-              }}/>
+          <div className="col-xs-8">
+            <div className="box">
+              <Slider
+                disabled={true}
+                min={0}
+                max={100}
+                value={rate}/>
+            </div>
           </div>
-          <div className={ classNames("flex-item") }>
-            <span>Far</span>
+          <div className="col-xs-2" style={styles.sliderBothEnds}>
+            <div className="box">
+              Far
+            </div>
           </div>
         </div>
       </div>

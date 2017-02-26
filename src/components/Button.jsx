@@ -3,16 +3,13 @@ import classNames from 'classnames'
 import _ from 'lodash'
 
 const textStyle={
-  lineHeight: '1.2em',
-  height: '3em',
-  transform: 'translateY(50%)',
-  overflow: 'hidden',
+  position: 'absolute',
   lineHeight: '1em',
-  height: '2em',
+  transform: 'translate(-50%, -50%)',
   overflow: 'hidden',
-  top: 0,
-  bottom: 0,
-  margin: 'auto 0',
+  overflow: 'hidden',
+  top: '50%',
+  left: '50%',
 }
 
 class Button extends Component {

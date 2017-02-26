@@ -66,10 +66,10 @@ class Result extends Component {
           width: '50vw',
           position: 'absolute',
           bottom: 40,
-          maxWidth: 500,
           left: 0,
           right: 0,
           margin: '0 auto',
+          fontWeight: 300,
         }}>
         <div className="col-xs-2" style={styles.sliderBothEnds}>
           <div className="box">

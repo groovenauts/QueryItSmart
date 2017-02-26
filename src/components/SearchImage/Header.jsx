@@ -10,8 +10,8 @@ class Header extends Component {
     const { title, subtitle, style } = this.props
     return (
       <div className="content-header" style={style}>
-        <p className="title">{ title }</p>
-        <h2 dangerouslySetInnerHTML={{__html: subtitle}} />
+        <div className="title">{ title }</div>
+        { subtitle ? <div className="subtitle" dangerouslySetInnerHTML={{__html: subtitle}} /> : null }
       </div>
     )
   }

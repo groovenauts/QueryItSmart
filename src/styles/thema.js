@@ -19,11 +19,11 @@ export const darkTheme = getMuiTheme({
 
 export const demandForecastTheme = getMuiTheme({
   slider: {
-    trackSize: 6,
+    trackSize: 4,
     trackColor: deepPurple900,
     trackColorSelected: deepPurple900,
-    handleSize: 20,
-    handleSizeActive: 30,
+    handleSize: 14,
+    handleSizeActive: 20,
     handleColorZero: deepPurple900,
     handleFillColor: deepPurple900,
     selectionColor: deepPurple900,

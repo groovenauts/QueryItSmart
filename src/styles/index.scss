@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url(https://fonts.googleapis.com/css?family=Roboto:700,400,300,200,100);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:400,700);
 @import 'variables';
 @import 'util';
 @import 'circle';
@@ -17,6 +18,7 @@ html, body {
   margin: 0px;
   overflow: hidden;
   font-family: 'Roboto', sans-serif;
+  font-weight: 100;
   color: white;
 }
 
@@ -34,12 +36,8 @@ h2 {
 
 pre {
   font-size: 18px;
+  font-weight: 100;
   margin: 20px;
-}
-
-span {
-  font-size: 46px;
-  max-height: 100%;
 }
 
 .container {
@@ -56,22 +54,31 @@ span {
   z-index: 1002;
   color: white;
   position: absolute;
-  max-height: 200px;
-  max-width: 1300px;
+  max-width: 70%;
   top: 50%;
   left: 50%;
   width: 70%;
-  transform: translate(-50%, calc(-50% - 320px));
+  transform: translate(-50%, calc(-50% - 34vh));
   text-align: center;
   transition: all 1s;
   opacity: 1;
   pointer-events: none;
+
+  > .title {
+    padding: .2em;
+    font-size: 9vh;
+    font-weight: 300;
+  }
+  > .subtitle {
+    font-size: 4vh;
+    font-weight: 100;
+  }
 }
 
 .content {
   z-index: 1000;
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
 }
 
@@ -81,7 +88,7 @@ span {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, calc(50% + 160px));
+  transform: translate(-50%, calc(50% + 200px));
   text-align: center;
   color: white;
   display: block;
