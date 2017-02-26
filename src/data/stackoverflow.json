@@ -1,5 +1,25 @@
 [
   {
+    "id": 92082,
+    "title": "Add a column with a default value to an existing table in SQL Server",
+    "body": "How can a column with a default value be added to an existing table in SQL Server 2000 / SQL Server 2005?"
+  },
+  {
+    "id": 5585779,
+    "title": "Converting String to Int in Java?",
+    "body": "<p>How can I convert a <code>String</code> to an <code>int</code> in Java?</p> <p>My String contains only numbers and I want to return the number it represents.</p> <p>For example, given the string <code>\"1234\"</code> the result should be the number <code>1234</code>.</p>"
+  },
+  {
+    "id": 503093,
+    "title": "How do I redirect to another page in jQuery?",
+    "body": "<p>How can I redirect the user from one page to another using jQuery?</p>"
+  },
+  {
+    "id": 1789945,
+    "title": "How to check if one string contains another substring in JavaScript?",
+    "body": "<p>Usually, I would expect a <code>String.contains()</code> method, but there doesn't seem to be one. What is a reasonable way to check for this?</p>"
+  },
+  {
     "id": 7535498,
     "title": "UIButton custom font vertical alignment",
     "body": "<p>I've got a <code>UIButton</code> which uses a custom font which is set when my view loads:</p> <pre><code>- (void)viewDidLoad { [super viewDidLoad]; self.searchButton.titleLabel.font = [UIFont fontWithName: @ FONTNAME size: 15.0 ]; } </code></pre> <p>The problem I've got is that the font is appearing to float up of the center line. If I comment out this line the default font appears vertically centered fine. But changing to the custom font breaks the vertical alignment.</p> <p>I'm getting the same issue on a Table Cell with a custom font too.</p> <p>Do I need to tell the view somewhere that the custom font is not as tall as other fonts?</p> <p>EDIT: I've just realized that the font I'm using is a Windows TrueType Font. I can use it fine in TextEdit on the Mac only a problem with the alignment in my App</p> <p><img src= http://i.stack.imgur.com/nRBCO.png alt= Button text not vertically centered ></p>"
