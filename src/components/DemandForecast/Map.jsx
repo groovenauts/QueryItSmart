@@ -4,7 +4,7 @@ const MAP_OPTION = {
   center: {lat: 40.732, lng: -73.981},
   mapTypeId: 'roadmap',
   scaleControl: true,
-  zoom: 14,
+  zoom: 13,
 }
 
 class Map extends Component {

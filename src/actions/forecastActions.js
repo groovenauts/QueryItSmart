@@ -4,7 +4,7 @@ import { QUERY } from '../const'
 
 const wrapRequest = (sql) => dispatch => {
   const options = {
-    maximumBillingTier: 3,
+    maximumBillingTier: 100,
   }
   return runStartQuery(sql, options).then((res) => {
     dispatch({

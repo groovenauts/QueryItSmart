@@ -139,39 +139,27 @@ ORDER BY
   RETURNS FLOAT64
   LANGUAGE js AS """  
               var input = embed(12, month-1).concat(embed(7, wday-1), embed(24, hour), [station_id, latitude, longitude, temp], embed(3, weather))
-              assert_tensor(input, 1, [50], "input");
-              assert_tensor(weights1, 2, [50, 300], "weights1");
-              assert_tensor(biases1, 1, [300], "biases1");
-              assert_tensor(weights2, 2, [300, 150], "weights2");
-              assert_tensor(biases2, 1, [150], "biases2");
-              assert_tensor(weights3, 2, [150, 150], "weights3");
-              assert_tensor(biases3, 1, [150], "biases3");
-              assert_tensor(weights4, 2, [150, 150], "weights4");
-              assert_tensor(biases4, 1, [150], "biases4");
-              assert_tensor(weights5, 2, [150, 1], "weights5");
-              assert_tensor(biases5, 1, [1], "biases5");
               var x;
               // hidden1
               x = matmul(input, weights1);
               x = vecadd(x, biases1);
               x = vec_activate(x, relu);
               // hidden2
-              x = matmul(input, weights2);
+              x = matmul(x, weights2);
               x = vecadd(x, biases2);
               x = vec_activate(x, relu);
               // hidden3
-              x = matmul(input, weights3);
+              x = matmul(x, weights3);
               x = vecadd(x, biases3);
               x = vec_activate(x, relu);
               // hidden4
-              x = matmul(input, weights4);
+              x = matmul(x, weights4);
               x = vecadd(x, biases4);
               x = vec_activate(x, relu);
               // output
               x = matmul(x, weights5);
               x = vecadd(x, biases5);
               x = vec_activate(x, relu);
-              assert_tensor(x, 1, [1], "output");
               return x[0];
               """ OPTIONS ( library="gs://queryit_smart/citibike/udf/weights1.js",
     library="gs://queryit_smart/citibike/udf/biases1.js",
