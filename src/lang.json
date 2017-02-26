@@ -29,7 +29,7 @@
     },
     "select": {
       "title": "Document",
-      "subtitle": "Choose one of those to start finding similar documents from 30 million documents on Hacker News or StackOverflow with BigQuery."
+      "subtitle": "Choose one of those to start finding similar documents from 30 million documents on StackOverflow with BigQuery."
     },
     "analyzing": {
       "title": "Searching...",
