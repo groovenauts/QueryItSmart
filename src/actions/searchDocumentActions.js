@@ -8,7 +8,10 @@ const wrapSearchDocument = (id, sql) => dispatch => {
     dispatch({
       type: types.SEARCH_DOCUMENT_FINISHED,
       id,
-      results: res[0],
+      results: _.map(res[0], (doc, i) => {
+        doc.body = doc.body.replace(/<[^>]+>/g, "").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&").replace(/&[0-9a-zA-Z]+;/, "");
+        return doc;
+      }),
       totalBytesProcessed: _.get(res[2], 'totalBytesProcessed'),
       time: new Date()
     })
