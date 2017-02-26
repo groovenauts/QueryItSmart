@@ -89,12 +89,14 @@ var tf_idf_0 = JSON.parse(tf_idf_json_0);
 var tf_idf_1 = JSON.parse(tf_idf_json_1);
 // calculate cosine similarity
 var similarity = 0;
+var total = 0;
 for (word in tf_idf_0) {
   var t0 = tf_idf_0[word] ? Number(tf_idf_0[word]) : 0;
   var t1 = tf_idf_1[word] ? Number(tf_idf_1[word]) : 0;
   similarity += t0 * t1;
+  total += t0;
 }
-return similarity;
+return similarity/total;
 """;
 SELECT
   id,
