@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import { bindActionCreators } from 'redux'
-import * as actions from '../../actions/searchDocumentActions'
+import * as appActions from '../../actions/appActions'
+import * as documentActions from '../../actions/searchDocumentActions'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import Restart from '../Restart'
@@ -15,7 +16,27 @@ import { QUERY } from '../../const'
 const roundDown = (num, decimals=0) => Math.floor(num * Math.pow(10, decimals)) / Math.pow(10, decimals)
 const score = (num) => _.isNumber(num) ? _.template(lang.searchDocument.detail.label2)({num: roundDown(num * 100)}):''
 
+const styles = {
+  label: {
+    fontSize: 28,
+    color: 'green',
+  },
+  title: {
+    fontSize: 40,
+    color: 'black',
+    margin: '14px 0px',
+  },
+  body: {
+    fontSize: 24,
+    color: 'black',
+  }
+}
 class Result extends Component {
+
+  onRestart() {
+    this.props.actions.restart();
+    this.props.actions.documentRestart();
+  }
 
   onSelectDocument(id, e) {
     const { actions, searchDocument } = this.props
@@ -35,9 +56,9 @@ class Result extends Component {
             overflow: 'auto',
             height: '100vh',
           }}>
-          <div className="label">{ lang.searchDocument.detail.label1 }</div>
-          <div className="title">{ source.title }</div>
-          <div className="body">{ source.body || source.text }</div>
+          <div style={styles.label}>{ lang.searchDocument.detail.label1 }</div>
+          <div style={styles.title}>{ source.title }</div>
+          <div style={styles.body}>{ source.body || source.text }</div>
         </div>
       </div>
     )
@@ -52,7 +73,7 @@ class Result extends Component {
             { _.map(_results, (ret, i) => {
               return (
                 <li key={`doc-${i}`}
-                  className={ classNames(`${ret.id === resultId ? "is-selected":""}`)}
+                  className={ classNames(`${resultId && ret.id === resultId ? "is-selected":""}`)}
                   onClick={this.onSelectDocument.bind(this, ret.id)}>
                   <div className="list-item">
                     <div className="label">{ score(ret.similarity) }</div>
@@ -79,9 +100,9 @@ class Result extends Component {
             overflow: 'auto',
             height: '100vh',          
           }}>
-          <div className="label">{ score(select.similarity) }</div>
-          <div className="title">{select.title}</div>
-          <div className="body">{select.body || select.text }</div>
+          <div style={styles.label}>{ score(select.similarity) }</div>
+          <div style={styles.title}>{select.title}</div>
+          <div style={styles.body}>{select.body || select.text }</div>
         </div>
       </div>
     )
@@ -96,7 +117,7 @@ class Result extends Component {
           { this.renderCenter() }
           { this.renderRight() }
         </div>
-        <Restart className="hover" labelColor="white" buttonColor="black" />
+        <Restart className="hover" labelColor="white" buttonColor="black" onClick={this.onRestart.bind(this)}/>
         <PopoverButton
           className="hover"
           labelColor="white"
@@ -117,7 +138,7 @@ const stateToProps = state => {
 
 const dispatchToProps = dispatch => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators(Object.assign({}, appActions, documentActions), dispatch)
   }
 }
 

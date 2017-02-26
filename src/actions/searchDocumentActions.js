@@ -39,7 +39,7 @@ export const selectDocument = id => {
   return { type: types.SELECT_RESULT_DOCUMENT, id }
 }
 
-export const restart = () => {
-  return { type: types.RESTART }
+export const documentRestart = () => {
+  return { type: types.SEARCH_DOCUMENT_RESTART }
 }
 

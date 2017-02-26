@@ -5,7 +5,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Select from './Select'
 import Result from './Result'
 import { connect } from 'react-redux'
-import Searching from './Searching'
+import Searching from '../Searching'
 import Query from '../Query'
 import Restart from '../Restart'
 import Circle from '../Circle'
@@ -42,15 +42,6 @@ class Top extends Component {
     if (finished) {
       return (
         <Result />
-      )
-    }
-    return null
-  }
-  renderRestart() {
-    const { finished } = this.props.searchDocument
-    if (finished) {
-      return (
-        <Restart className="hover" labelColor="white" buttonColor="black" />
       )
     }
     return null

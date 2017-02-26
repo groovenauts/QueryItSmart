@@ -4,7 +4,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Slider from 'material-ui/Slider'
 import { bindActionCreators } from 'redux'
-import * as actions from '../../actions/searchImageActions'
+import * as appActions from '../../actions/appActions'
+import * as imageActions from '../../actions/searchImageActions'
 import { connect } from 'react-redux'
 
 import { darkTheme } from '../../styles/thema'
@@ -53,6 +54,11 @@ class SearchImageTop extends Component {
     this.setState({ start: new Date() })
     this.timer = setInterval(this.tick.bind(this), 50)
     actions.selectPresent(imageId)
+  }
+
+  onRestart() {
+    this.props.actions.restart();
+    this.props.actions.imageRestart();
   }
 
   onClick(index) {
@@ -245,7 +251,7 @@ class SearchImageTop extends Component {
                 text={`${QUERY.similar.sql({id: analyzeId})}\n\n${lang.queryExtra}`}/>
               : null }
             { resultId ? <Close className="hover" labelColor="#3023ae" buttonColor="white" /> : 
-              !analyzing ? <Restart className="hover" labelColor="#3023ae" buttonColor="white" /> : null }
+              !analyzing ? <Restart className="hover" labelColor="#3023ae" buttonColor="white" onClick={this.onRestart.bind(this)}/> : null }
             { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
         </div>
       </MuiThemeProvider>
@@ -261,7 +267,7 @@ const stateToProps = state => {
 
 const dispatchToProps = dispatch => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators(Object.assign({}, appActions, imageActions), dispatch)
   }
 }
 

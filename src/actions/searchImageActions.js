@@ -55,3 +55,7 @@ export const imgLoaded = (id) => {
 export const imgError = (id) => {
   return { type: types.IMG_LOAD_ERR, id }
 }
+
+export const imageRestart = () => {
+  return { type: types.SEARCH_IMAGE_RESTART }
+}

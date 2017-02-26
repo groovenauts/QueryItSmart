@@ -11,8 +11,7 @@ router.post('/', function(req, res) {
       return job.getQueryResults();
     })
     .then((results) => {
-      const rows = results[0];
-      res.status(200).send(rows);
+      res.status(200).send(results);
     })
     .catch(function(err) {
       res.status(500).send(err);

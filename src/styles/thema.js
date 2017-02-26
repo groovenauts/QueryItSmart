@@ -1,5 +1,5 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import { white } from 'material-ui/styles/colors'
+import { white, deepPurple900 } from 'material-ui/styles/colors'
 
 export const darkTheme = getMuiTheme({
   slider: {
@@ -14,4 +14,19 @@ export const darkTheme = getMuiTheme({
     selectionColor: white,
     rippleColor: 'rgba(255, 255, 255, 0.0)',
   }, 
+})
+
+
+export const demandForecastTheme = getMuiTheme({
+  slider: {
+    trackSize: 6,
+    trackColor: deepPurple900,
+    trackColorSelected: deepPurple900,
+    handleSize: 20,
+    handleSizeActive: 30,
+    handleColorZero: deepPurple900,
+    handleFillColor: deepPurple900,
+    selectionColor: deepPurple900,
+    rippleColor: deepPurple900,
+  },
 })

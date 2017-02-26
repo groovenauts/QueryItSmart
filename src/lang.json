@@ -44,5 +44,14 @@
       "label2": "Score: ${num}%"
     }
   },
+  "demandForecast": {
+    "header": {
+      "title": "New York City Bike",
+      "subtitle": "Choose one of those to start finding similar documents from 1 million images on Hacker News Commons or StackOverflow Commons with Google BigQuery."
+    },
+    "form": {
+      "title": "Please choose a factor"
+    }
+  },
   "queryExtra": "Search 'QueryIt Smart' on GitHub to learn more."
 }

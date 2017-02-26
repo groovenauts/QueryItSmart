@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import Circle from '../Circle'
-import Query from '../Query'
+import Circle from './Circle'
+import Query from './Query'
 
 export default class Searching extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export default class Searching extends Component {
       width: 60,
     }
     return (
-      <div id="searching">
+      <div id="searching" style={{zIndex: 1000}}>
         <div className="content">
           <Circle
             outerClassName="is-center">

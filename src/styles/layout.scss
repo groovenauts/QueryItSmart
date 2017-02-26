@@ -1,4 +1,9 @@
 
+// for google map
+#map {
+  height: 100%;
+}
+
 #app {
 
 }
@@ -11,6 +16,11 @@
 
 #document-search {
   color: black;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 
   #document-search-header {
     position: relative;
@@ -27,11 +37,42 @@
   }
 }
 
+#demand-forecast {
+  color: #311B92;
+  text-align: center;
+  position: absolute;
+
+  #demand-forecast-header {
+    position: relative;
+    height: 40vh;
+    bottom: 20px;
+    // height: 90%;
+    text-align: center;
+
+    .title {
+      font-size: 10vh;
+    }
+    .subtitle {
+      font-size: 30px;
+      padding: 20px;
+    }
+  }
+
+  #demand-forecast-content {
+    position: relative;
+    text-align: center;
+  }
+
+  #demand-forecast-result {
+  }
+}
+
 #searching {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
+	bottom: 0;
   width: 100%;
   height: 100%;
   margin: 0px auto;

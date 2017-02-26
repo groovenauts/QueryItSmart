@@ -11,16 +11,18 @@
   z-index: 2000;
   position: absolute;
   bottom: 0px;
-  right: 60px;
+  right: 20px;
   width: 50%;
-  max-width: 700px;
-  height: 340px;
+  max-width: 600px;
+  height: 60vh;
   overflow: hidden;
   white-space: nowrap;
   background-color: transparent;
+  text-align: left;
+  word-wrap: break-word;
 
   pre {
-    animation: marquee 12s linear infinite;
+    animation: marquee 18s linear infinite;
     color: white;
     position: absolute;
     display: inline-block;
