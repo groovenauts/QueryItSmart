@@ -124,7 +124,7 @@ class Result extends Component {
           buttonColor="black"
           textColor="black"
           popupBackgroundColor="rgba(0, 0, 0, 0.7)"
-          text={`${QUERY.hackerNews.sql({id: searchId})}\n\n${lang.queryExtra}`}/>
+          text={`${QUERY.stackOverflow.sql({id: searchId})}\n\n${lang.queryExtra}`}/>
       </div>
     )
   }
