@@ -9,16 +9,18 @@
   color: black;
   background-color: white;
   border: 1px solid black;
-  box-shadow: white 0px 0px 0px 8px, #E0E0E0 0px 0px 0px 18px;
+  box-shadow: white 0px 0px 0px 8px, #E0E0E0 0px 0px 0px 16px;
 
   &:hover {
     color: white;
     border-width: 0px;
     background-color: black;
-    box-shadow: white 0px 0px 0px 8px, #EEEEEE 0px 0px 0px 18px;
-    transition: border-width .1s ease-out;
-    transition: box-shadow .8s ease-out;
-    transition: background-color .5s ease-in;
+    box-shadow: white 0px 0px 0px 8px, #EEEEEE 0px 0px 0px 16px;
+    transform: scale(1.2);
+    transition: transform .8s ease-out,
+                border-width .1s ease-out,
+                box-shadow .8s ease-out,
+                background-color .5s ease-in;
   }
 }
 
