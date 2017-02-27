@@ -23,6 +23,8 @@ export const types = {
   SEARCH_DOCUMENT_ERROR: 'search_document_error',
   SELECT_RESULT_DOCUMENT: 'select_result_document',
   SEARCH_DOCUMENT_RESTART: "search_document_restart",
+  SEARCH_DOCUMENT_SQL_SHOW: "search_document_sql_show",
+  SEARCH_DOCUMENT_SQL_CLOSE: "search_document_sql_close",
   // for demand forecast
   FORECAST_HOUR_CHANGE: "forecast_hour_change",
   FORECAST_PARAM_CHANGE: "forecast_param_change",

@@ -11,7 +11,7 @@ const styles = {
     zIndex: 1002,
     height: '100%',
     top: '50%',
-    position: 'relative',
+    position: 'absolute',
     transform: 'translateY(-50%)',
   },
   inner: {
@@ -24,25 +24,29 @@ const styles = {
   header: {
     fontSize: '3em',
     fontWeight: 100,
+    left: '50%',
+    position: 'absolute',
+    transform: 'translate(-50%)',
   },
   body: {
     overflow: 'auto',
     fontSize: '1.4em',
     textAlign: 'left',
     fontWeight: 100,
-    paddingLeft: '20%',
     position: 'absolute',
     bottom: 'calc(6vh + 60px)',
     top: 'calc(8vh + 20px)',
+    left: '50%',
+    transform: 'translate(-50%)',
   },
   footer: {
     fontSize: '2em',
     fontWeight: 100,
     bottom: 0,
     position: 'absolute',
-    left: 0,
-    right: 0,
-    margin: 'auto 0',
+    left: '50%',
+    position: 'absolute',
+    transform: 'translate(-50%)',
     paddingBottom: '60px',
   }
 }

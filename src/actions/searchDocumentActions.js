@@ -36,6 +36,14 @@ export const selectDocument = id => {
   return { type: types.SELECT_RESULT_DOCUMENT, id }
 }
 
+export const showSQL = () => {
+  return { type: types.SEARCH_DOCUMENT_SQL_SHOW }
+}
+
+export const closeSQL = () => {
+  return { type: types.SEARCH_DOCUMENT_SQL_CLOSE }
+}
+
 export const documentRestart = () => {
   return { type: types.SEARCH_DOCUMENT_RESTART }
 }

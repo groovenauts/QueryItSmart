@@ -110,7 +110,7 @@ class Result extends Component {
         <Restart className="hover" labelColor="white" buttonColor={deepPurple900} onClick={this.onRestart.bind(this)} />
         <Button className="hover"
           style={{right: 220}}
-          label="Show SQL"
+          label={lang.button.sql}
           labelColor="white"
           buttonColor={deepPurple900}
           handler={this.onShowSQL.bind(this)}

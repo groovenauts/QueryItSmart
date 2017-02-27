@@ -56,5 +56,8 @@
   "sql": {
     "header": "SQL",
     "footer": "Search 'QueryIt Smart' on GitHub to learn more."
+  },
+  "button": {
+    "sql": "Show SQL"
   }
 }
