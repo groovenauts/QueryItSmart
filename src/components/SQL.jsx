@@ -66,7 +66,6 @@ class SQL extends Component {
           { footer ? <div style={{...styles.footer, ...{color: footerColor}}}>{ footer }</div> : null }
         </div>
         <Button
-          className="hover"
           labelColor={backgroundColor}
           buttonColor={white}
           label='Close'
