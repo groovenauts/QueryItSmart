@@ -2,30 +2,25 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import Circle from './Circle'
 import Query from './Query'
+import Header from './Header'
 
 export default class Searching extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      
-    }
-  }
-
   render() {
-    const { imgSrc, pulseClassName="", marqueeText="", textColor="black" } = this.props
+    const { imgSrc, title, subtitle, pulseColor="", marqueeText="", textColor } = this.props
     const style = {
       height: 60,
       width: 60,
     }
     return (
       <div id="searching" style={{zIndex: 1000}}>
+        <Header title={ title } subtitle={ subtitle } style={{color: textColor}}/>
         <div className="content">
           <Circle
             outerClassName="is-center">
             <img src={ imgSrc } className="large border-bold" />
           </Circle>
         </div>
-        <div className={`pulse ${pulseClassName}`}>
+        <div className="pulse" style={{backgroundColor: pulseColor}}>
           <div className="is-center" style={style}/>
           <div className="is-center" style={style}/>
           <div className="is-center" style={style}/>

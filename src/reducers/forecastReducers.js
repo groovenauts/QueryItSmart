@@ -51,6 +51,7 @@ const forecast = (state = initialState, action) => {
         searching: false,
         finished: true,
         finishedTime: time,
+        elapsedTime: time - state.startTime,
         results: results,
         basedTimeResult: basedTime(results),
         totalSize: bytesToSize(totalBytesProcessed),

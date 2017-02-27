@@ -25,11 +25,12 @@ const wrapSearchDocument = (queryType, id, sql) => dispatch => {
   })
 }
 
-export const searchDocument = (queryType, id, sql) => dispatch => {
+export const searchDocument = (queryType, id, sql, category) => dispatch => {
   dispatch({
     type: types.SEARCH_DOCUMENT_START,
     id,
     sql,
+    category,
     time: new Date(),
   })
   return dispatch(wrapSearchDocument(queryType, id, sql))

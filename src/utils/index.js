@@ -8,3 +8,8 @@ export const bytesToSize = (bytes=0) => {
   }
   return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
 }
+
+export const roundElapsed = (time) => {
+  const elapsed = Math.round(time / 100)
+  return (elapsed / 10).toFixed(1)
+}

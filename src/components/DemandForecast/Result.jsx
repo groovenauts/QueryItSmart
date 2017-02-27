@@ -11,6 +11,8 @@ import Circle from '../Circle'
 import Button from '../Button'
 import Restart from '../Restart'
 import lang from '../../lang.json'
+import Header from '../Header'
+import { roundElapsed } from '../../utils'
 
 const START_HOUR = 5
 const TIME_MAP = _.times(24, num => {
@@ -50,6 +52,23 @@ class Result extends Component {
     }
   }
 
+  renderHeader() {
+    const { error, elapsedTime, size } = this.props.forecast
+    if (!error) {
+      const subtitle = _.template(lang.demandForecast.finished.subtitle)({
+        size: size || '-',
+        time: roundElapsed(elapsedTime),
+      })
+      return (
+        <Header
+          title={lang.demandForecast.finished.title}
+          subtitle={subtitle}
+          style={{color: deepPurple900}}
+          />
+      )
+    }
+    return null
+  }
   renderTitle() {
     return (
       <div style={{
@@ -105,7 +124,8 @@ class Result extends Component {
     const { results, sql } = this.props.forecast
     return (
       <div style={{pointerEvents: 'auto'}}>
-        { this.renderTitle() }
+        { this.renderHeader() }
+        {/*{ this.renderTitle() }*/}
         { this.renderSlider() }
         <Restart className="hover" labelColor="white" buttonColor={deepPurple900} onClick={this.onRestart.bind(this)} />
         <Button className="hover"
