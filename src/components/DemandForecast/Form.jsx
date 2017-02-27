@@ -11,8 +11,9 @@ import lang from '../../lang.json'
 
 class Form extends Component {
 
-  onChange = (key, e, value) => {
+  onChange_ = (key, e) => {
     const { actions } = this.props
+    const value = e.target.value
     actions.changeParam(key, value)
   }
 
@@ -67,7 +68,7 @@ class Form extends Component {
         name={name}
         placeholder={label}
         value={value}
-        onChange={this.onChange.bind(this)}>
+        onChange={this.onChange_.bind(this, name)}>
         { options }
       </select>
     )

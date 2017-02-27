@@ -5,7 +5,7 @@ import { QUERY } from '../const'
 
 const wrapSelectPresent = imageId => dispatch => {
   const sql = QUERY.similar.sql({id: imageId})
-  return runQuery(sql).then((res) => {
+  return runQuery("similar", {id: imageId}).then((res) => {
     dispatch({
       type: types.SIMILARED_IMAGE,
       imageId: imageId,
@@ -26,7 +26,7 @@ export const selectPresent = imageId => dispatch => {
 }
 
 const wraploadImages = () => dispatch => {
-  return runQuery(QUERY.load.sql).then((res) => {
+  return runQuery("load", {}).then((res) => {
     dispatch({
       type: types.LOAD_IMAGES,
       images: res[0],

@@ -7,14 +7,15 @@ const defaultOptions = {
   timeoutMs: 600000
 }
 
-export function runQuery(sqlQuery) {
+export function runQuery(queryType, queryParams) {
   return new Promise((resolve, reject) => {
     superagent
       .post("/query")
       .send({
+        queryType: queryType,
+        queryParams: queryParams,
         options: {
           ...defaultOptions,
-          query: sqlQuery,
         }
       })
       .timeout(600000)
@@ -28,14 +29,15 @@ export function runQuery(sqlQuery) {
     })
 }
 
-export function runStartQuery(sqlQuery, options={}) {
+export function runStartQuery(queryType, queryParams, options={}) {
   return new Promise((resolve, reject) => {
     superagent
       .post("./startQuery")
       .send({
+        queryType: queryType,
+        queryParams: queryParams,
         options: {
           ...defaultOptions,
-          query: sqlQuery,
           ...options
         }
       })

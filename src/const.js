@@ -1,204 +1,21 @@
 import _ from 'lodash';
+import QUERY_TEMPLATES from "../config/queries.json"
 
 export const QUERY = {
   load: {
-    sql: "SELECT key, original_url, rand() as rand FROM `wikimedia.image_vectors` ORDER BY rand LIMIT 70",
+    sql: QUERY_TEMPLATES.load
   },
   similar: {
-    sql: _.template(`CREATE TEMPORARY FUNCTION distance(v1 ARRAY<FLOAT64>,
-    v2 ARRAY<FLOAT64>)
-  RETURNS FLOAT64
-  LANGUAGE js AS """
-              var dist = 0.0
-              for (var i=0; i < v1.length; i++) {
-                dist += (v1[i] - v2[i])**2
-              }
-              return Math.sqrt(dist);
-            """;
-SELECT
-  a.key,
-  distance(a.vector,
-    b.vector) AS dist,
-  original_url
-FROM (
-  SELECT
-    key,
-    vector,
-    original_url
-  FROM
-    \`wikimedia.image_vectors\`) AS a
-CROSS JOIN (
-  SELECT
-    vector
-  FROM
-    \`wikimedia.image_vectors_1\`
-  WHERE
-    key = "<%= id %>") AS b
-ORDER BY
-  dist ASC
-LIMIT
-  50`)
+    sql: _.template(QUERY_TEMPLATES.similar)
   },
   hackerNews: {
-    sql: _.template(`  CREATE TEMPORARY FUNCTION prod(v1 ARRAY<FLOAT64>,
-    v2 ARRAY<FLOAT64>)
-  RETURNS FLOAT64
-  LANGUAGE js AS """
-              var d = 0.0
-              for (var i=0; i < v1.length; i++) {
-                d += (v1[i] * v2[i])
-              }
-              return d;
-            """;
-SELECT
-  id,
-  prod(a.vector,
-    b.vector) AS similarity,
-  title,
-  text
-FROM (
-  SELECT
-    id,
-    title,
-    text,
-    vector
-  FROM
-    \`queryit-smart.hackernews.stories_with_vector\`) AS a
-CROSS JOIN (
-  SELECT
-    vector
-  FROM
-    \`queryit-smart.hackernews.stories_with_vector\`
-  WHERE
-    id = <%= id %>
-  LIMIT
-    1) AS b
-ORDER BY
-  similarity DESC
-LIMIT
-  10`)
+    sql: _.template(QUERY_TEMPLATES.hackerNews)
   },
   stackOverflow: {
-    sql: _.template(`CREATE TEMPORARY FUNCTION
-  calc_similarity(tf_idf_json_0 STRING,
-    tf_idf_json_1 STRING)
-  RETURNS FLOAT64
-  LANGUAGE js AS """
-// parse JSON to extract tf_idf
-var tf_idf_0 = JSON.parse(tf_idf_json_0);
-var tf_idf_1 = JSON.parse(tf_idf_json_1);
-// calculate cosine similarity
-var similarity = 0;
-for (word in tf_idf_0) {
-  var t0 = tf_idf_0[word] ? Number(tf_idf_0[word]) : 0;
-  var t1 = tf_idf_1[word] ? Number(tf_idf_1[word]) : 0;
-  similarity += t0 * t1;
-}
-return similarity;
-""";
-SELECT
-  id,
-  title,
-  body,
-  tags,
-  similarity
-FROM (
-  SELECT
-    t1.id,
-    calc_similarity(tf_idf_0,
-      t1.tf_idf) AS similarity
-  FROM (
-    SELECT
-      tf_idf AS tf_idf_0
-    FROM
-      \`queryit-smart.stackoverflow.top3M_posts_tf_idf\` AS t0
-    WHERE
-      id = <%= id %> )
-  CROSS JOIN
-    \`queryit-smart.stackoverflow.top100K_posts_tf_idf\` AS t1
-  ORDER BY
-    similarity DESC
-  LIMIT
-    10 )
-JOIN
-  \`queryit-smart.stackoverflow.top3M_posts\` AS t2
-USING
-  (id)
-ORDER BY
-  similarity DESC`)
+    sql: _.template(QUERY_TEMPLATES.stackOverflow)
   },
   citibike: {
-    sql: _.template(`CREATE TEMPORARY FUNCTION usage(month INT64,
-    wday INT64,
-    hour INT64,
-    station_id INT64,
-    latitude FLOAT64,
-    longitude FLOAT64,
-    temp FLOAT64,
-    weather INT64)
-  RETURNS FLOAT64
-  LANGUAGE js AS """  
-              var input = embed(12, month-1).concat(embed(7, wday-1), embed(24, hour), [station_id, latitude, longitude, temp], embed(3, weather))
-              assert_tensor(input, 1, [50], "input");
-              assert_tensor(weights1, 2, [50, 300], "weights1");
-              assert_tensor(biases1, 1, [300], "biases1");
-              assert_tensor(weights2, 2, [300, 150], "weights2");
-              assert_tensor(biases2, 1, [150], "biases2");
-              assert_tensor(weights3, 2, [150, 150], "weights3");
-              assert_tensor(biases3, 1, [150], "biases3");
-              assert_tensor(weights4, 2, [150, 150], "weights4");
-              assert_tensor(biases4, 1, [150], "biases4");
-              assert_tensor(weights5, 2, [150, 1], "weights5");
-              assert_tensor(biases5, 1, [1], "biases5");
-              var x;
-              // hidden1
-              x = matmul(input, weights1);
-              x = vecadd(x, biases1);
-              x = vec_activate(x, relu);
-              // hidden2
-              x = matmul(input, weights2);
-              x = vecadd(x, biases2);
-              x = vec_activate(x, relu);
-              // hidden3
-              x = matmul(input, weights3);
-              x = vecadd(x, biases3);
-              x = vec_activate(x, relu);
-              // hidden4
-              x = matmul(input, weights4);
-              x = vecadd(x, biases4);
-              x = vec_activate(x, relu);
-              // output
-              x = matmul(x, weights5);
-              x = vecadd(x, biases5);
-              x = vec_activate(x, relu);
-              assert_tensor(x, 1, [1], "output");
-              return x[0];
-              """ OPTIONS ( library="gs://queryit_smart/citibike/udf/weights1.js",
-    library="gs://queryit_smart/citibike/udf/biases1.js",
-    library="gs://queryit_smart/citibike/udf/weights2.js",
-    library="gs://queryit_smart/citibike/udf/biases2.js",
-    library="gs://queryit_smart/citibike/udf/weights3.js",
-    library="gs://queryit_smart/citibike/udf/biases3.js",
-    library="gs://queryit_smart/citibike/udf/weights4.js",
-    library="gs://queryit_smart/citibike/udf/biases4.js",
-    library="gs://queryit_smart/citibike/udf/weights5.js",
-    library="gs://queryit_smart/citibike/udf/biases5.js",
-    library="gs://queryit_smart/citibike/udf/tensor.js" );
-SELECT
-  station_id,
-  latitude,
-  longitude,
-  hour,
-  usage(<%= month %>,
-    <%= wday %>,
-    hour,
-    station_id,
-    latitude,
-    longitude,
-    <%= temp %>,
-    <%= weather %>) AS usage
-FROM
-  \`queryit-smart.citibike.stations_hours\``)
+    sql: _.template(QUERY_TEMPLATES.citibike)
   }
 }
 
@@ -255,5 +72,5 @@ export const THUMBNAIL_SIZE = 60,
   MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   WEEKDAYS = ["Sunday", "Monday","Thesday","Wednesday", "Thursday", "Friday", "Saturday"],
   WEATHERS = ["Sunny", "Rain", "Thunder"],
-  TEMPERATURES = _.range(-10, 36) //[-10...35]
+  TEMPERATURES = _.range(-10, 76)
 
