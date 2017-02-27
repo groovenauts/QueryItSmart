@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 
 import { darkTheme } from '../../styles/thema'
 import { QUERY, IMG_SIZE, PRESENT_NUM, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH } from '../../const'
-import Header from './Header'
+import Header from '../Header'
 import Background from './Background'
 import Query from '../Query'
 import Restart from '../Restart'
