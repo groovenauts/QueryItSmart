@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import QUERY_TEMPLATES from "../config/queries.json"
+import QUERY_TEMPLATES from "../data/queries.json"
 
 export const QUERY = {
   load: {
