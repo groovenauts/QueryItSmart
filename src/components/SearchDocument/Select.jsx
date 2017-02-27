@@ -35,10 +35,12 @@ class Select extends Component {
   constructor(props) {
     super(props)
     let contents = _.map(HACKER_NEWS, item => _.defaults(item, {
+      queryType: "hackerNews",
       compiledQuery: QUERY.hackerNews.sql,
       categoryName: lang.searchDocument.category.hackerNews,
     }))
     contents = contents.concat(_.map(STACK_OVERFLOW, item => _.defaults(item, {
+      queryType: "stackOverflow",
       compiledQuery: QUERY.stackOverflow.sql,
       categoryName: lang.searchDocument.category.hackerNews,
     })))
@@ -52,7 +54,7 @@ class Select extends Component {
   onClick(id, e) {
     const { actions } = this.props
     const target = _.find(this.state.contents, item => item.id === id)
-    actions.searchDocument(id, target.compiledQuery({id}))
+    actions.searchDocument(target.queryType, id, target.compiledQuery({id}))
   }
 
   renderHeader() {

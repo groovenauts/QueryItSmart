@@ -3,8 +3,8 @@ import { types } from './index'
 import { runQuery } from './ajax'
 import { QUERY } from '../const'
 
-const wrapSearchDocument = (id, sql) => dispatch => {
-  return runQuery(sql).then((res) => {
+const wrapSearchDocument = (queryType, id, sql) => dispatch => {
+  return runQuery(queryType, {id: id}).then((res) => {
     dispatch({
       type: types.SEARCH_DOCUMENT_FINISHED,
       id,
@@ -25,14 +25,14 @@ const wrapSearchDocument = (id, sql) => dispatch => {
   })
 }
 
-export const searchDocument = (id, sql) => dispatch => {
+export const searchDocument = (queryType, id, sql) => dispatch => {
   dispatch({
     type: types.SEARCH_DOCUMENT_START,
     id,
     sql,
     time: new Date(),
   })
-  return dispatch(wrapSearchDocument(id, sql))
+  return dispatch(wrapSearchDocument(queryType, id, sql))
 }
 
 export const selectDocument = id => {
