@@ -31,11 +31,11 @@
       "title": "Document",
       "subtitle": "Choose one of those to start finding similar documents from 30 million documents on StackOverflow with BigQuery."
     },
-    "analyzing": {
+    "searching": {
       "title": "Searching...",
       "subtitle": "On 30 million ${source} documents<br />with BigQuery. Elapsed ${time} sec"
     },
-    "analyzed": {
+    "finished": {
       "title": "Finished",
       "subtitle": "3,000,000 documents and ${size} processed<br />in ${time} seconds with BigQuery"
     },
@@ -51,6 +51,14 @@
     },
     "form": {
       "title": "Please choose a factor"
+    },
+    "searching": {
+      "title": "Searching...",
+      "subtitle": "On 1 million Wikimedia Commons images<br />with BigQuery. Elapsed ${time} sec"
+    },
+    "finished": {
+      "title": "Finished",
+      "subtitle": "1,127,714 images and ${size} processed<br />in ${time} seconds with with Google BigQuery"
     }
   },
   "sql": {

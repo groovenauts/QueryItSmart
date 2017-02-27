@@ -22,6 +22,7 @@ export const types = {
   // for serach document
   SEARCH_DOCUMENT_START: 'search_document_start',
   SEARCH_DOCUMENT_FINISHED: 'search_document_finished',
+  SEARCH_DOCUMENT_FINISHED_CLOSE: "search_document_finished_close",
   SEARCH_DOCUMENT_ERROR: 'search_document_error',
   SELECT_RESULT_DOCUMENT: 'select_result_document',
   SEARCH_DOCUMENT_RESTART: "search_document_restart",
@@ -33,6 +34,7 @@ export const types = {
   FORECAST_REQUEST_START: "forecast_request_start",
   FORECAST_REQUEST_FINISH: "forecast_request_finish",
   FORECAST_REQUEST_ERROR: "forecast_request_error",
+  FORECAST_FINISHED_CLOSE: "forecast_finished_close",
   FORECAT_RESTART: "forecast_restart",
   FORECAT_SQL_SHOW: "forecast_sql_show",
   FORECAT_SQL_CLOSE: "forecast_sql_close",

@@ -71,6 +71,6 @@ export const THUMBNAIL_SIZE = 60,
   ],
   MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   WEEKDAYS = ["Sunday", "Monday","Thesday","Wednesday", "Thursday", "Friday", "Saturday"],
-  WEATHERS = ["Sunny", "Rain", "Thunder"],
+  WEATHERS = ["Sunny", "Rain", "Snow"],
   TEMPERATURES = _.range(-10, 76)
 

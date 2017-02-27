@@ -6,7 +6,9 @@ const initialState = {
   searching: false,
   finished: false,
   sql: null,
+  category: null,
   showSQL: false,
+  hideFinished: false,
   results: [],
   searchId: null,
   resultId: null,
@@ -20,11 +22,12 @@ const initialState = {
 const searchDocument = (state = initialState, action) => {
   switch (action.type) {
     case types.SEARCH_DOCUMENT_START:
-      const { id, sql, time } = action
+      const { id, sql, category, time } = action
       return {
         ...state,
         searchId: id,
         sql,
+        category,
         searching: true,
         startTime: time,
       }
@@ -36,6 +39,7 @@ const searchDocument = (state = initialState, action) => {
         searching: false,
         finished: true,
         finishedTime: time,
+        elapsedTime: time - state.startTime,
         resultId: _.get(_results, '0.id'),
         results: _results,
         totalSize: bytesToSize(totalBytesProcessed),
@@ -64,6 +68,11 @@ const searchDocument = (state = initialState, action) => {
       return {
         ...state,
         showSQL: false,
+      }
+    case types.SEARCH_DOCUMENT_FINISHED_CLOSE:
+      return {
+        ...state,
+        hideFinished: true,
       }
     case types.SEARCH_DOCUMENT_RESTART:
       return {

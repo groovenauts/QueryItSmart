@@ -13,12 +13,43 @@ import Form from './Form'
 import Result from './Result'
 import Map from './Map'
 import Query from '../Query'
-import Overlay from '../Overlay'
+import SQL from '../SQL'
 import Restart from '../Restart'
 import lang from '../../lang'
 import { QUERY, BIKE_IMAGE } from '../../const'
+import { roundElapsed } from '../../utils'
 
 class Top extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      elapsed: 0,
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const startSearch = !this.props.forecast.searching && nextProps.forecast.searching
+    if (startSearch) {
+      this.timer = setInterval(this.tick.bind(this), 50)
+    } else {
+      const finishedSearch = this.props.forecast.searching && !nextProps.forecast.searching
+      if (finishedSearch) {
+        if (this.timer) {
+          clearInterval(this.timer)
+        }
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+  }
+
+  tick() {
+    this.setState({ elapsed: new Date() })
+  }
 
   onCloseSQL() {
     const { actions } = this.props
@@ -36,14 +67,18 @@ class Top extends Component {
   }
 
   renderSearch() {
-    const { searching, sql } = this.props.forecast
+    const { searching, sql, startTime } = this.props.forecast
     if (searching) {
+      const elapsed = roundElapsed(this.state.elapsed - startTime)
+      const subtitle = _.template(lang.demandForecast.searching.subtitle)({time: elapsed})
       return (
         <Searching
           imgSrc={BIKE_IMAGE}
+          title={lang.searchDocument.searching.title}
+          subtitle={subtitle}
           marqueeText={sql}
-          pulseClassName="#311B92"
-          textColor="#311B92"
+          pulseColor={deepPurple900}
+          textColor={deepPurple900}
           />
       )
     }
@@ -65,7 +100,7 @@ class Top extends Component {
     const { showSQL, sql } = this.props.forecast
     if (showSQL) {
       return (
-        <Overlay
+        <SQL
           header={lang.sql.header}
           body={sql}
           footer={lang.sql.footer}

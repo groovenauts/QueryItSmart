@@ -43,7 +43,7 @@ class Select extends Component {
     contents = contents.concat(_.map(STACK_OVERFLOW, item => _.defaults(item, {
       queryType: "stackOverflow",
       compiledQuery: QUERY.stackOverflow.sql,
-      categoryName: lang.searchDocument.category.hackerNews,
+      categoryName: lang.searchDocument.category.stackOverflow,
     })))
     contents = _.sampleSize(contents, 4)
     this.state = {
@@ -55,7 +55,7 @@ class Select extends Component {
   onClick(id, e) {
     const { actions } = this.props
     const target = _.find(this.state.contents, item => item.id === id)
-    actions.searchDocument(target.queryType, id, target.compiledQuery({id}))
+    actions.searchDocument(target.queryType, id, target.compiledQuery({id}), target.categoryName)
   }
 
   renderHeader() {

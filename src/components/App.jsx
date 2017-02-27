@@ -9,7 +9,7 @@ import SearchImage from './SearchImage/SearchImageTop'
 import SearchDocument from './SearchDocument/Top'
 import DemandForecast from './DemandForecast/Top'
 import Circle from './Circle'
-import Header from './SearchImage/Header'
+import Header from './Header'
 import { CONTENT_CLASSES, CHANNEL_IMAGES } from '../const'
 import lang from '../lang.json'
 
