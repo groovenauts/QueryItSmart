@@ -63,7 +63,7 @@ class Top extends Component {
           header={lang.sql.header}
           body={sql}
           footer={lang.sql.footer}
-          backgroundColor='rgba(0, 0, 0, 0.8)'
+          backgroundColor='rgba(0, 0, 0, 0.9)'
           headerColor={white}
           bodyColor={white}
           footerColor={yellow500}

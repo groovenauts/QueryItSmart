@@ -253,7 +253,7 @@ class SearchImageTop extends Component {
           header={lang.sql.header}
           body={`${QUERY.similar.sql({id: analyzeId})}\n\n${lang.queryExtra}`}
           footer={lang.sql.footer}
-          backgroundColor='rgba(26, 35, 126, 0.9)'
+          backgroundColor='rgba(10, 10, 37, 0.9)'
           headerColor={white}
           bodyColor={white}
           footerColor={yellow500}
