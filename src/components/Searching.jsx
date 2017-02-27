@@ -20,10 +20,10 @@ export default class Searching extends Component {
             <img src={ imgSrc } className="large border-bold" />
           </Circle>
         </div>
-        <div className="pulse" style={{backgroundColor: pulseColor}}>
-          <div className="is-center" style={style}/>
-          <div className="is-center" style={style}/>
-          <div className="is-center" style={style}/>
+        <div className="pulse">
+          <div className="is-center" style={{...style, ...{backgroundColor: pulseColor}}}/>
+          <div className="is-center" style={{...style, ...{backgroundColor: pulseColor}}}/>
+          <div className="is-center" style={{...style, ...{backgroundColor: pulseColor}}}/>
         </div>
         <Query text={ marqueeText } color={textColor}/>
       </div>
