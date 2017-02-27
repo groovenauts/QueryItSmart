@@ -100,14 +100,15 @@ class App extends Component {
     }
     return (
       <div className="content-footer">
-        <div className="flex-container" style={{ height: 100, fontSize: '50px' }}>
-          <div className={ classNames("flex-item") }
-            dangerouslySetInnerHTML={{__html: 'Wikimedia Commons Images'}} />
+        <div className="flex-container">
           <div className={ classNames("flex-item") }>
-            <span>Stack Overflow Questions</span>
+            Wikimedia Commons Images
           </div>
           <div className={ classNames("flex-item") }>
-            <span>NYC City Bike Usage Forecast</span>
+            Stack Overflow Questions
+          </div>
+          <div className={ classNames("flex-item") }>
+            NYC City Bike Usage Forecast
           </div>
         </div>
       </div>
@@ -116,9 +117,9 @@ class App extends Component {
 
   render() {
     const { app, forecast } = this.props
-    const { finished } = forecast
+    const { finished, showSQL } = forecast
     // For google map
-    const style = finished ? {pointerEvents: 'none'} : {}
+    const style = finished && !showSQL ? {pointerEvents: 'none'} : {}
     return (
       <div id="container" style={style}>
         { do {

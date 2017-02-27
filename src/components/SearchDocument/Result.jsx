@@ -1,33 +1,37 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
+import { black, white } from 'material-ui/styles/colors'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/appActions'
 import * as documentActions from '../../actions/searchDocumentActions'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import Restart from '../Restart'
-import PopoverButton from '../PopoverButton'
+import Button from '../Button'
+import Overlay from '../Overlay'
 import lang from '../../lang.json'
 import Circle from '../Circle'
 import HACKER_NEWS from '../../data/hacker_news.json'
 import STACK_OVERFLOW from '../../data/stackoverflow.json'
-import { QUERY } from '../../const'
 
 const roundDown = (num, decimals=0) => Math.floor(num * Math.pow(10, decimals)) / Math.pow(10, decimals)
 const score = (num) => _.isNumber(num) ? _.template(lang.searchDocument.detail.label2)({num: roundDown(num * 100)}):''
 
 const styles = {
   label: {
-    fontSize: 28,
+    fontSize: '3vh',
+    fontWeight: 400,
     color: 'green',
   },
   title: {
-    fontSize: 40,
+    fontSize: '5vh',
+    fontWeight: 400,
     color: 'black',
     margin: '14px 0px',
   },
   body: {
-    fontSize: 24,
+    fontSize: '3vh',
+    fontWeight: 300,
     color: 'black',
   }
 }
@@ -36,6 +40,10 @@ class Result extends Component {
   onRestart() {
     this.props.actions.restart();
     this.props.actions.documentRestart();
+  }
+
+  onShowSQL() {
+    this.props.actions.showSQL()
   }
 
   onSelectDocument(id, e) {
@@ -52,7 +60,7 @@ class Result extends Component {
       <div className="col-xs-4" style={{position: 'relative', height: '100%'}}>
         <div className="box" style={{
             wordWrap: 'break-word', 
-            padding: '20px 0px 20px 20px',
+            padding: '30px 10px 30px 30px',
             overflow: 'auto',
             height: '100vh',
           }}>
@@ -96,7 +104,7 @@ class Result extends Component {
         <div className="box"
           style={{
             wordWrap: 'break-word',
-            padding: '20px 20px 20px 0px',
+            padding: '30px 30px 30px 10px',
             overflow: 'auto',
             height: '100vh',          
           }}>
@@ -118,13 +126,13 @@ class Result extends Component {
           { this.renderRight() }
         </div>
         <Restart className="hover" labelColor="white" buttonColor="black" onClick={this.onRestart.bind(this)}/>
-        <PopoverButton
-          className="hover"
-          labelColor="white"
-          buttonColor="black"
-          textColor="black"
-          popupBackgroundColor="rgba(0, 0, 0, 0.7)"
-          text={`${QUERY.stackOverflow.sql({id: searchId})}\n\n${lang.queryExtra}`}/>
+        <Button className="hover"
+          style={{right: 220}}
+          label={lang.button.sql}
+          labelColor={white}
+          buttonColor={black}
+          handler={this.onShowSQL.bind(this)}
+          />
       </div>
     )
   }

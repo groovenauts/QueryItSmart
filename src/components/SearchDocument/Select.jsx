@@ -16,6 +16,7 @@ import Circle from '../Circle'
 const labelStyle = {
   color: 'black',
   fontSize: 32,
+  fontWeight: 400,
   wordBreak: 'breakAll',
   paddingBottom: 10,
   height: '3em',
@@ -25,7 +26,7 @@ const labelStyle = {
 
 const bodyStyle = {
   color: 'black',
-  fontSize: 18,
+  fontSize: '2vh',
   wordBreak: 'breakAll',
   height: '51%',
   overflow: 'hidden',
@@ -72,12 +73,12 @@ class Select extends Component {
                   overflow: 'hidden',
                   wordWrap: 'break-word',
                   maxWidth: '80%',
-                  transform: 'translateY(14vh)',
+                  transform: 'translateY(10vh)',
                 }}>
-              <div className="large" style={{fontSize: 80}}>
+              <div style={{fontSize: '12vh', fontWeight: 400}}>
                 { lang.searchDocument.select.title }
               </div>
-              <div style={{fontSize: 24, padding: 20}}>
+              <div style={{fontSize: '4vh', padding: 20}}>
                 { lang.searchDocument.select.subtitle }
               </div>
             </div>
@@ -125,6 +126,7 @@ class Select extends Component {
                       height: 100,
                       width: 100,
                       opacity: 1,
+                      fontSize: '1.5em',
                       lineHeight: '100px',
                     }}>
                     Start

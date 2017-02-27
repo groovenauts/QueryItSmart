@@ -7,6 +7,7 @@ const initialState = {
   resultImages: [],
   loadedImageIds: [],
   loadErrorImageIds: [],
+  showSQL: false,
   totalSize: 0,
   analyzeId: null,
   resultId: null,
@@ -54,6 +55,16 @@ const searchImage = (state = initialState, action) => {
       return {
         ...state,
         resultId: null,
+      }
+    case types.SEARCH_IMAGE_SQL_SHOW:
+      return {
+        ...state,
+        showSQL: true,
+      }
+    case types.SEARCH_IMAGE_SQL_CLOSE:
+      return {
+        ...state,
+        showSQL: false,
       }
     case types.SEARCH_IMAGE_RESTART:
       return {

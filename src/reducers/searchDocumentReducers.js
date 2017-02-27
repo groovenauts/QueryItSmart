@@ -6,6 +6,7 @@ const initialState = {
   searching: false,
   finished: false,
   sql: null,
+  showSQL: false,
   results: [],
   searchId: null,
   resultId: null,
@@ -53,6 +54,16 @@ const searchDocument = (state = initialState, action) => {
       return {
         ...state,
         resultId: action.id,
+      }
+    case types.SEARCH_DOCUMENT_SQL_SHOW:
+      return {
+        ...state,
+        showSQL: true,
+      }
+    case types.SEARCH_DOCUMENT_SQL_CLOSE:
+      return {
+        ...state,
+        showSQL: false,
       }
     case types.SEARCH_DOCUMENT_RESTART:
       return {

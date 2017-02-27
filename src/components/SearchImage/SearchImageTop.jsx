@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Slider from 'material-ui/Slider'
+import { white, deepPurple900, yellow500 } from 'material-ui/styles/colors'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/appActions'
 import * as imageActions from '../../actions/searchImageActions'
@@ -15,9 +16,20 @@ import Background from './Background'
 import Query from '../Query'
 import Restart from '../Restart'
 import Close from '../Close'
-import PopoverButton from '../PopoverButton'
+import Overlay from '../Overlay'
+import Button from '../Button'
 import lang from '../../lang.json'
 import Circle from '../Circle'
+
+const styles = {
+  sliderBothEnds: {
+    top: 0,
+    bottom: 0,
+    margin: 'auto 0',
+    fontSize: 40,
+    transform: 'translateY(-25%)',
+  }
+}
 
 class SearchImageTop extends Component {
   constructor(props) {
@@ -59,6 +71,14 @@ class SearchImageTop extends Component {
   onRestart() {
     this.props.actions.restart();
     this.props.actions.imageRestart();
+  }
+
+  onShowSQL() {
+    this.props.actions.showSQL()
+  }
+
+  onCloseSQL() {
+    this.props.actions.closeSQL()
   }
 
   onClick(index) {
@@ -159,23 +179,34 @@ class SearchImageTop extends Component {
     const index = _.findIndex(resultImages, image => image.key === resultId) || 0
     const rate = ((index + 1) / _.size(resultImages)) * 100
     return (
-      <div className="content-footer" style={{ 'height': 200 }}>
-        <div className="flex-container">
-          <div className={ classNames("flex-item") }>
-            <span>Near</span>
+      <div className="content-footer">
+        <div className="row center-xs"
+          style={{
+            width: '50vw',
+            position: 'absolute',
+            paddingTop: 40,
+            left: 0,
+            right: 0,
+            margin: '0 auto',
+          }}>
+          <div className="col-xs-2" style={styles.sliderBothEnds}>
+            <div className="box">
+              Near
+            </div>
           </div>
-          <div className={ classNames("flex-item") }>
-            <Slider
-              disabled={true}
-              min={0}
-              max={100}
-              value={rate}
-              style={{
-                width: 500,
-              }}/>
+          <div className="col-xs-8">
+            <div className="box">
+              <Slider
+                disabled={true}
+                min={0}
+                max={100}
+                value={rate}/>
+            </div>
           </div>
-          <div className={ classNames("flex-item") }>
-            <span>Far</span>
+          <div className="col-xs-2" style={styles.sliderBothEnds}>
+            <div className="box">
+              Far
+            </div>
           </div>
         </div>
       </div>
@@ -214,6 +245,25 @@ class SearchImageTop extends Component {
     return null
   }
 
+  renderSQL() {
+    const { analyzeId, showSQL, sql } = this.props.searchImage
+    if (showSQL) {
+      return (
+        <Overlay
+          header={lang.sql.header}
+          body={`${QUERY.similar.sql({id: analyzeId})}\n\n${lang.queryExtra}`}
+          footer={lang.sql.footer}
+          backgroundColor='rgba(10, 10, 37, 0.9)'
+          headerColor={white}
+          bodyColor={white}
+          footerColor={yellow500}
+          closeHandler={this.onCloseSQL.bind(this)}
+          />
+      )
+    }
+    return null
+  }
+
   render() {
     const { app, searchImage } = this.props
     const { resultId, analyzing, analyzed, analyzeId, images, resultImages } = searchImage
@@ -242,17 +292,18 @@ class SearchImageTop extends Component {
             { this.renderFooter() }
             <Background />
             { analyzed ?
-              <PopoverButton
-                className="hover"
-                labelColor="rgb(48, 35, 174)"
-                buttonColor="white"
-                textColor="white"
-                popupBackgroundColor="rgba(255,255,255,0.1)"
-                text={`${QUERY.similar.sql({id: analyzeId})}\n\n${lang.queryExtra}`}/>
+              <Button className="hover"
+                style={{right: 220}}
+                label={lang.button.sql}
+                labelColor={deepPurple900}
+                buttonColor={white}
+                handler={this.onShowSQL.bind(this)}
+                />
               : null }
             { resultId ? <Close className="hover" labelColor="#3023ae" buttonColor="white" /> : 
               !analyzing ? <Restart className="hover" labelColor="#3023ae" buttonColor="white" onClick={this.onRestart.bind(this)}/> : null }
             { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
+          { this.renderSQL() }
         </div>
       </MuiThemeProvider>
     )

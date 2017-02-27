@@ -56,6 +56,14 @@ export const imgError = (id) => {
   return { type: types.IMG_LOAD_ERR, id }
 }
 
+export const showSQL = () => {
+  return { type: types.SEARCH_IMAGE_SQL_SHOW }
+}
+
+export const closeSQL = () => {
+  return { type: types.SEARCH_IMAGE_SQL_CLOSE }
+}
+
 export const imageRestart = () => {
   return { type: types.SEARCH_IMAGE_RESTART }
 }
