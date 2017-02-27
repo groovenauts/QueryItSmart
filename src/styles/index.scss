@@ -55,10 +55,10 @@ pre, code {
   color: white;
   position: absolute;
   max-width: 70%;
-  top: 50%;
+  top: 54%;
   left: 50%;
   width: 70%;
-  transform: translate(-50%, calc(-50% - 34vh));
+  transform: translate(-50%, calc(-54% - 34vh));
   text-align: center;
   transition: all 1s;
   opacity: 1;
@@ -78,7 +78,7 @@ pre, code {
 .content {
   z-index: 1000;
   position: absolute;
-  top: 52%;
+  top: 54%;
   left: 50%;
 }
 
@@ -86,9 +86,9 @@ pre, code {
   z-index: 1001;
   width: 1240px;
   position: absolute;
-  top: 50%;
+  top: 54%;
   left: 50%;
-  transform: translate(-50%, calc(50% + 200px));
+  transform: translate(-50%, calc(54% + 200px));
   text-align: center;
   color: white;
   display: block;
