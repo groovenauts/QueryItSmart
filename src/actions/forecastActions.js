@@ -2,11 +2,11 @@ import { types } from './index'
 import { runStartQuery } from './ajax'
 import { QUERY } from '../const'
 
-const wrapRequest = (sql) => dispatch => {
+const wrapRequest = (queryType, queryParams) => dispatch => {
   const options = {
     maximumBillingTier: 100,
   }
-  return runStartQuery(sql, options).then((res) => {
+  return runStartQuery(queryType, queryParams, options).then((res) => {
     dispatch({
       type: types.FORECAST_REQUEST_FINISH,
       time: new Date(),
@@ -36,7 +36,7 @@ export const requestForecast = param => dispatch => {
     sql,
     time: new Date()
   })
-  return dispatch(wrapRequest(sql))
+  return dispatch(wrapRequest("citibike", {month: month, wday: weekday, temp: temperature, weather: weather}))
 }
 
 export const changeParam = (key, value) => {

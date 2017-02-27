@@ -29,14 +29,15 @@ export function runQuery(queryType, queryParams) {
     })
 }
 
-export function runStartQuery(sqlQuery, options={}) {
+export function runStartQuery(queryType, queryParams, options={}) {
   return new Promise((resolve, reject) => {
     superagent
       .post("./startQuery")
       .send({
+        queryType: queryType,
+        queryParams: queryParams,
         options: {
           ...defaultOptions,
-          query: sqlQuery,
           ...options
         }
       })
