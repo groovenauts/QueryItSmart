@@ -53,5 +53,8 @@
       "title": "Please choose a factor"
     }
   },
-  "queryExtra": "Search 'QueryIt Smart' on GitHub to learn more."
+  "sql": {
+    "header": "SQL",
+    "footer": "Search 'QueryIt Smart' on GitHub to learn more."
+  }
 }

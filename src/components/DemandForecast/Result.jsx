@@ -8,8 +8,8 @@ import * as forecastActions from '../../actions/forecastActions'
 import { connect } from 'react-redux'
 import { WEATHERS, MONTHS, WEEKDAYS, TEMPERATURES } from '../../const'
 import Circle from '../Circle'
+import Button from '../Button'
 import Restart from '../Restart'
-import PopoverButton from '../PopoverButton'
 import lang from '../../lang.json'
 
 const START_HOUR = 5
@@ -36,6 +36,10 @@ class Result extends Component {
   onRestart() {
     this.props.actions.restart();
     this.props.actions.forecastRestart();
+  }
+
+  onShowSQL() {
+    this.props.actions.showSQL()
   }
 
   onChangeSlider(e, value) {
@@ -104,13 +108,13 @@ class Result extends Component {
         { this.renderTitle() }
         { this.renderSlider() }
         <Restart className="hover" labelColor="white" buttonColor={deepPurple900} onClick={this.onRestart.bind(this)} />
-        <PopoverButton
-          className="hover"
+        <Button className="hover"
+          style={{right: 220}}
+          label="Show SQL"
           labelColor="white"
           buttonColor={deepPurple900}
-          textColor={deepPurple900}
-          popupBackgroundColor="rgba(0, 0, 0, 0.7)"
-          text={`${sql}\n\n${lang.queryExtra}`}/>
+          handler={this.onShowSQL.bind(this)}
+          />
       </div>
     )
   }

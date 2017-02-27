@@ -30,4 +30,6 @@ export const types = {
   FORECAST_REQUEST_FINISH: "forecast_request_finish",
   FORECAST_REQUEST_ERROR: "forecast_request_error",
   FORECAT_RESTART: "forecast_restart",
+  FORECAT_SQL_SHOW: "forecast_sql_show",
+  FORECAT_SQL_CLOSE: "forecast_sql_close",
 }

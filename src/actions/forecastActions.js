@@ -47,6 +47,14 @@ export const changeHour = (hour) => {
   return { type: types.FORECAST_HOUR_CHANGE, hour }
 }
 
+export const showSQL = () => {
+  return { type: types.FORECAT_SQL_SHOW }
+}
+
+export const closeSQL = () => {
+  return { type: types.FORECAT_SQL_CLOSE }
+}
+
 export const forecastRestart = () => {
   return { type: types.FORECAT_RESTART }
 }

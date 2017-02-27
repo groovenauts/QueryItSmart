@@ -34,10 +34,10 @@ h2 {
   max-height: 100%;
 }
 
-pre {
-  font-size: 18px;
+pre, code {
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
   font-weight: 100;
-  margin: 20px;
 }
 
 .container {

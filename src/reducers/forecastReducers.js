@@ -10,6 +10,7 @@ const initialState = {
     temperature: _.random(-5, 25),
     weather: _.random(0, 2),
   },
+  sql: null,
   searching: false,
   finished: false,
   hour: new Date().getHours(),
@@ -18,6 +19,7 @@ const initialState = {
   startTime: null,
   finishedTime: null,
   elapsedTime: null,
+  showSQL: false,
   error: null,
 }
 
@@ -64,6 +66,16 @@ const forecast = (state = initialState, action) => {
       return {
         ...state,
         hour: action.hour
+      }
+    case types.FORECAT_SQL_SHOW:
+      return {
+        ...state,
+        showSQL: true
+      }
+    case types.FORECAT_SQL_CLOSE:
+      return {
+        ...state,
+        showSQL: false
       }
     case types.FORECAT_RESTART:
       return {

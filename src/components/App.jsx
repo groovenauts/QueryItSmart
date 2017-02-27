@@ -117,9 +117,9 @@ class App extends Component {
 
   render() {
     const { app, forecast } = this.props
-    const { finished } = forecast
+    const { finished, showSQL } = forecast
     // For google map
-    const style = finished ? {pointerEvents: 'none'} : {}
+    const style = finished && !showSQL ? {pointerEvents: 'none'} : {}
     return (
       <div id="container" style={style}>
         { do {
