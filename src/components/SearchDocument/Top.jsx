@@ -10,7 +10,7 @@ import Select from './Select'
 import Result from './Result'
 import Searching from '../Searching'
 import Query from '../Query'
-import Overlay from '../Overlay'
+import SQL from '../SQL'
 import Restart from '../Restart'
 import Circle from '../Circle'
 import lang from '../../lang'
@@ -96,7 +96,7 @@ class Top extends Component {
     const { showSQL, sql } = this.props.searchDocument
     if (showSQL) {
       return (
-        <Overlay
+        <SQL
           header={lang.sql.header}
           body={sql}
           footer={lang.sql.footer}

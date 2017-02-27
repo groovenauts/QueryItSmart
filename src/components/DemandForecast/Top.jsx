@@ -13,7 +13,7 @@ import Form from './Form'
 import Result from './Result'
 import Map from './Map'
 import Query from '../Query'
-import Overlay from '../Overlay'
+import SQL from '../SQL'
 import Restart from '../Restart'
 import lang from '../../lang'
 import { QUERY, BIKE_IMAGE } from '../../const'
@@ -100,7 +100,7 @@ class Top extends Component {
     const { showSQL, sql } = this.props.forecast
     if (showSQL) {
       return (
-        <Overlay
+        <SQL
           header={lang.sql.header}
           body={sql}
           footer={lang.sql.footer}

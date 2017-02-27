@@ -13,7 +13,7 @@ import lang from '../../lang.json'
 import Circle from '../Circle'
 import HACKER_NEWS from '../../data/hacker_news.json'
 import STACK_OVERFLOW from '../../data/stackoverflow.json'
-import Header from '../Header'
+import Finished from '../Finished'
 import { roundElapsed } from '../../utils'
 
 const roundDown = (num, decimals=0) => Math.floor(num * Math.pow(10, decimals)) / Math.pow(10, decimals)
@@ -48,6 +48,10 @@ class Result extends Component {
     this.props.actions.showSQL()
   }
 
+  onCloseFinished() {
+    this.props.actions.closeFinished()
+  }
+
   onSelectDocument(id, e) {
     const { actions, searchDocument } = this.props
     const { resultId } = searchDocument
@@ -56,18 +60,20 @@ class Result extends Component {
     }
   }
 
-  renderHeader() {
-    const { error, elapsedTime, size } = this.props.searchDocument
-    if (!error) {
+  renderFinished() {
+    const { error, elapsedTime, size, hideFinished } = this.props.searchDocument
+    if (!error && !hideFinished) {
       const subtitle = _.template(lang.searchDocument.finished.subtitle)({
         size: size || '-',
         time: roundElapsed(elapsedTime),
       })
       return (
-        <Header
+        <Finished
           title={lang.searchDocument.finished.title}
           subtitle={subtitle}
-          style={{color: black}}
+          color={black}
+          backgroundColor="rgba(255,255,255,0.9)"
+          closeHandler={this.onCloseFinished.bind(this)}
           />
       )
     }
@@ -140,7 +146,7 @@ class Result extends Component {
     const { searchId } = this.props.searchDocument
     return (
       <div id="document-search-result">
-        { this.renderHeader() }
+        { this.renderFinished() }
         <div className="row">
           { this.renderLeft() }
           { this.renderCenter() }

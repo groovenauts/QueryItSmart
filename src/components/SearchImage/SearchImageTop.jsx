@@ -249,7 +249,7 @@ class SearchImageTop extends Component {
     const { analyzeId, showSQL, sql } = this.props.searchImage
     if (showSQL) {
       return (
-        <Overlay
+        <SQL
           header={lang.sql.header}
           body={`${QUERY.similar.sql({id: analyzeId})}\n\n${lang.queryExtra}`}
           footer={lang.sql.footer}

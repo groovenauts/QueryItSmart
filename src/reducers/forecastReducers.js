@@ -20,6 +20,7 @@ const initialState = {
   finishedTime: null,
   elapsedTime: null,
   showSQL: false,
+  hideFinished: false,
   error: null,
 }
 
@@ -67,6 +68,11 @@ const forecast = (state = initialState, action) => {
       return {
         ...state,
         hour: action.hour
+      }
+    case types.FORECAST_FINISHED_CLOSE:
+      return {
+        ...state,
+        hideFinished: true,
       }
     case types.FORECAT_SQL_SHOW:
       return {

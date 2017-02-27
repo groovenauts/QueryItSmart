@@ -11,7 +11,7 @@ import Circle from '../Circle'
 import Button from '../Button'
 import Restart from '../Restart'
 import lang from '../../lang.json'
-import Header from '../Header'
+import Finished from '../Finished'
 import { roundElapsed } from '../../utils'
 
 const START_HOUR = 5
@@ -44,6 +44,10 @@ class Result extends Component {
     this.props.actions.showSQL()
   }
 
+  onCloseFinished() {
+    this.props.actions.closeFinished()
+  }
+
   onChangeSlider(e, value) {
     const { actions, forecast } = this.props
     const currentHour = TIME_MAP[value | 0]
@@ -52,18 +56,20 @@ class Result extends Component {
     }
   }
 
-  renderHeader() {
-    const { error, elapsedTime, size } = this.props.forecast
-    if (!error) {
+  renderFinished() {
+    const { error, elapsedTime, size, hideFinished } = this.props.forecast
+    if (!error && !hideFinished) {
       const subtitle = _.template(lang.demandForecast.finished.subtitle)({
         size: size || '-',
         time: roundElapsed(elapsedTime),
       })
       return (
-        <Header
+        <Finished
           title={lang.demandForecast.finished.title}
           subtitle={subtitle}
-          style={{color: deepPurple900}}
+          color={deepPurple900}
+          backgroundColor="rgba(255,255,255,0.7)"
+          closeHandler={this.onCloseFinished.bind(this)}
           />
       )
     }
@@ -124,7 +130,7 @@ class Result extends Component {
     const { results, sql } = this.props.forecast
     return (
       <div style={{pointerEvents: 'auto'}}>
-        { this.renderHeader() }
+        { this.renderFinished() }
         {/*{ this.renderTitle() }*/}
         { this.renderSlider() }
         <Restart className="hover" labelColor="white" buttonColor={deepPurple900} onClick={this.onRestart.bind(this)} />

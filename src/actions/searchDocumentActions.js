@@ -48,6 +48,9 @@ export const closeSQL = () => {
   return { type: types.SEARCH_DOCUMENT_SQL_CLOSE }
 }
 
+export const closeFinished = () => {
+  return { type: types.SEARCH_DOCUMENT_FINISHED_CLOSE }
+}
 export const documentRestart = () => {
   return { type: types.SEARCH_DOCUMENT_RESTART }
 }

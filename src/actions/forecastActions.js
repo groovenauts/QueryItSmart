@@ -55,6 +55,10 @@ export const closeSQL = () => {
   return { type: types.FORECAT_SQL_CLOSE }
 }
 
+export const closeFinished = () => {
+  return { type: types.FORECAST_FINISHED_CLOSE }
+}
+
 export const forecastRestart = () => {
   return { type: types.FORECAT_RESTART }
 }
