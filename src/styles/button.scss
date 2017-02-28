@@ -9,16 +9,26 @@
   color: black;
   background-color: white;
   border: 1px solid black;
-  box-shadow: white 0px 0px 0px 8px, #E0E0E0 0px 0px 0px 18px;
+  box-shadow: white 0px 0px 0px 8px, #E0E0E0 0px 0px 0px 16px;
 
   &:hover {
     color: white;
     border-width: 0px;
     background-color: black;
-    box-shadow: white 0px 0px 0px 8px, #EEEEEE 0px 0px 0px 18px;
-    transition: border-width .1s ease-out;
-    transition: box-shadow .8s ease-out;
-    transition: background-color .5s ease-in;
+    box-shadow: white 0px 0px 0px 8px, #EEEEEE 0px 0px 0px 16px;
+    transform: scale(1.2);
+    transition: transform .8s ease-out,
+                border-width .1s ease-out,
+                box-shadow .8s ease-out,
+                background-color .5s ease-in;
+  }
+  &.disable {
+    &:hover {
+      color: black;
+      background-color: white;
+      border: 1px solid black;
+      box-shadow: white 0px 0px 0px 8px, #E0E0E0 0px 0px 0px 16px;
+    }
   }
 }
 
@@ -29,15 +39,15 @@
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
-  color: #311B92;
+  color: $indigo900;
   background-color: white;
-  border: 1px solid #311B92;
+  border: 1px solid $indigo900;
   box-shadow: white 0px 0px 0px 8px, #D1C4E9 0px 0px 0px 18px;
 
   &:hover {
     color: white;
     border-width: 0px;
-    background-color: #311B92;
+    background-color: $indigo900;
     box-shadow: white 0px 0px 0px 8px, #EDE7F6 0px 0px 0px 18px;
     transition: border-width .1s ease-out;
     transition: box-shadow .8s ease-out;

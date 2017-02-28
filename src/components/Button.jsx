@@ -31,7 +31,7 @@ class Button extends Component {
       transition: 'show 1.5s linear'
     }
     return (
-      <div className={ classNames("circle", "hover-lite") }
+      <div className={ classNames("circle") }
         style={ _.defaults(style, defaultStyle) }
         onClick={ handler }>
         <div style={textStyle}>

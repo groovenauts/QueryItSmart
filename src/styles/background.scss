@@ -1,15 +1,15 @@
 
 @keyframes pulse {
   0% {
-    transform: translate(-50%, -48%) scale(.1);
-    opacity: 0;
+    transform: translate(-50%, -46%) scale(.1);
+    opacity: .1;
   }
   50% {
-    transform: translate(-50%, -48%) scale(8);
-    opacity: .2;
+    transform: translate(-50%, -46%) scale(5);
+    opacity: .5;
   }
   100% {
-    transform: translate(-50%, -48%) scale(15);
+    transform: translate(-50%, -46%) scale(10);
     opacity: 0;
   }
 }
@@ -18,14 +18,14 @@
   div {
     border-radius: 50%;
     background-color: #53a0fd;
-    top: 52%;
+    top: 54%;
     left: 50%;
     width: 60px;
     height: 60px;
 
-    &:nth-child(1) { animation: pulse 2s infinite; }
-    &:nth-child(2) { animation: pulse 2s infinite .3s; }
-    &:nth-child(3) { animation: pulse 2s infinite .6s; }
+    &:nth-child(1) { animation: pulse 2.4s infinite; }
+    &:nth-child(2) { animation: pulse 2.4s infinite .3s; }
+    &:nth-child(3) { animation: pulse 2.4s infinite .6s; }
   }
 }
 

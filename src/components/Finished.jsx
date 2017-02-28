@@ -47,7 +47,6 @@ class Finished extends Component {
             : null }
         </div>
         <Button
-          className="hover"
           labelColor={backgroundColor}
           buttonColor={color}
           label='Close'

@@ -292,7 +292,7 @@ class SearchImageTop extends Component {
             { this.renderFooter() }
             <Background />
             { analyzed ?
-              <Button className="hover"
+              <Button
                 style={{right: 220}}
                 label={lang.button.sql}
                 labelColor={deepPurple900}
@@ -300,8 +300,8 @@ class SearchImageTop extends Component {
                 handler={this.onShowSQL.bind(this)}
                 />
               : null }
-            { resultId ? <Close className="hover" labelColor="#3023ae" buttonColor="white" /> : 
-              !analyzing ? <Restart className="hover" labelColor="#3023ae" buttonColor="white" onClick={this.onRestart.bind(this)}/> : null }
+            { resultId ? <Close labelColor="#3023ae" buttonColor="white" /> : 
+              !analyzing ? <Restart labelColor="#3023ae" buttonColor="white" onClick={this.onRestart.bind(this)}/> : null }
             { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
           { this.renderSQL() }
         </div>

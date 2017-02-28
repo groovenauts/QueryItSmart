@@ -5,10 +5,10 @@ import { bytesToSize } from '../utils'
 
 const initialState = {
   param: {
-    month: _.random(1, 12),
-    weekday: _.random(1, 7),
-    temperature: _.random(-5, 25),
-    weather: _.random(0, 2),
+    month: "",
+    weekday: "",
+    temperature: "",
+    weather: "",
   },
   sql: null,
   searching: false,

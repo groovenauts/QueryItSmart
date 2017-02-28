@@ -133,8 +133,8 @@ class Result extends Component {
         { this.renderFinished() }
         {/*{ this.renderTitle() }*/}
         { this.renderSlider() }
-        <Restart className="hover" labelColor="white" buttonColor={deepPurple900} onClick={this.onRestart.bind(this)} />
-        <Button className="hover"
+        <Restart labelColor="white" buttonColor={deepPurple900} onClick={this.onRestart.bind(this)} />
+        <Button
           style={{right: 220}}
           label={lang.button.sql}
           labelColor="white"

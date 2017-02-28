@@ -152,8 +152,8 @@ class Result extends Component {
           { this.renderCenter() }
           { this.renderRight() }
         </div>
-        <Restart className="hover" labelColor="white" buttonColor="black" onClick={this.onRestart.bind(this)}/>
-        <Button className="hover"
+        <Restart labelColor="white" buttonColor="black" onClick={this.onRestart.bind(this)}/>
+        <Button
           style={{right: 220}}
           label={lang.button.sql}
           labelColor={white}
