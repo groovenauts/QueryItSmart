@@ -1,10 +1,13 @@
 import _ from 'lodash'
 import { types } from './index'
-import { runQuery } from './ajax'
+import { runQuery, runStartQuery } from './ajax'
 import { QUERY } from '../const'
 
 const wrapSearchDocument = (queryType, id, sql) => dispatch => {
-  return runQuery(queryType, {id: id}).then((res) => {
+  const options = {
+    maximumBillingTier: 100,
+  }
+  return runStartQuery(queryType, {id: id}, options).then((res) => {
     dispatch({
       type: types.SEARCH_DOCUMENT_FINISHED,
       id,

@@ -13,7 +13,10 @@ router.post('/', function(req, res) {
       return job.promise();
     })
     .then(() => {
-      return job.getQueryResults();
+      return job.getQueryResults()
+    })
+    .then((row) => {
+      return [_.flatten(row), _.pick(job.metadata.statistics, 'startTime', 'endTime', 'totalBytesProcessed')]
     })
     .then((results) => {
       res.status(200).send(results);
