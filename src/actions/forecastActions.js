@@ -11,7 +11,7 @@ const wrapRequest = (queryType, queryParams) => dispatch => {
       type: types.FORECAST_REQUEST_FINISH,
       time: new Date(),
       results: res[0],
-      totalBytesProcessed: _.get(res[2], 'totalBytesProcessed'),
+      totalBytesProcessed: _.get(res[1], 'totalBytesProcessed'),
     })
   }).catch((err) => {
     console.log("Error", err)

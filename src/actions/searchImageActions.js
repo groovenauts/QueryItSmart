@@ -12,7 +12,7 @@ const wrapSelectPresent = imageId => dispatch => {
       type: types.SIMILARED_IMAGE,
       imageId: imageId,
       results: res[0],
-      totalBytesProcessed: _.get(res[2], 'totalBytesProcessed'),
+      totalBytesProcessed: _.get(res[1], 'totalBytesProcessed'),
     })
   }).catch((err) => {
     console.log("Error", err)

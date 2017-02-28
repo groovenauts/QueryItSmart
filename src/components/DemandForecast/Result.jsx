@@ -57,10 +57,10 @@ class Result extends Component {
   }
 
   renderFinished() {
-    const { error, elapsedTime, size, hideFinished } = this.props.forecast
+    const { error, elapsedTime, totalSize, hideFinished } = this.props.forecast
     if (!error && !hideFinished) {
       const subtitle = _.template(lang.demandForecast.finished.subtitle)({
-        size: size || '-',
+        size: totalSize || '-',
         time: roundElapsed(elapsedTime),
       })
       return (

@@ -15,7 +15,7 @@ const wrapSearchDocument = (queryType, id, sql) => dispatch => {
         doc.body = doc.body.replace(/<[^>]+>/g, "").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&").replace(/&[0-9a-zA-Z]+;/, "");
         return doc;
       }),
-      totalBytesProcessed: _.get(res[2], 'totalBytesProcessed'),
+      totalBytesProcessed: _.get(res[1], 'totalBytesProcessed'),
       time: new Date()
     })
   }).catch((err) => {

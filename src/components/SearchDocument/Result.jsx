@@ -61,10 +61,10 @@ class Result extends Component {
   }
 
   renderFinished() {
-    const { error, elapsedTime, size, hideFinished } = this.props.searchDocument
+    const { error, elapsedTime, totalSize, hideFinished } = this.props.searchDocument
     if (!error && !hideFinished) {
       const subtitle = _.template(lang.searchDocument.finished.subtitle)({
-        size: size || '-',
+        size: totalSize || '-',
         time: roundElapsed(elapsedTime),
       })
       return (
