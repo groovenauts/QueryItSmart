@@ -29,15 +29,15 @@
     },
     "select": {
       "title": "Document",
-      "subtitle": "Choose one of those to start finding similar documents from 3 million documents on StackOverflow with BigQuery."
+      "subtitle": "Choose one of those to start finding similar documents from 10 million documents on StackOverflow with BigQuery."
     },
     "searching": {
       "title": "Searching...",
-      "subtitle": "On 3 million ${source} documents<br />with BigQuery. Elapsed ${time} sec"
+      "subtitle": "On 10 million ${source} documents<br />with BigQuery. Elapsed ${time} sec"
     },
     "finished": {
       "title": "Finished",
-      "subtitle": "3,000,000 documents and ${size} processed<br />in ${time} seconds with BigQuery"
+      "subtitle": "10,000,000 documents and ${size} processed<br />in ${time} seconds with BigQuery"
     },
     "detail": {
       "label1": "Source",
