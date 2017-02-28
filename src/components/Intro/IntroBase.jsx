@@ -42,6 +42,7 @@ const styles = {
     margin: '0 auto',
   },
   button: {
+    position: 'relative',
     height: '8vw',
     width: '8vw',
     lineHeight: '8vw',
@@ -50,8 +51,9 @@ const styles = {
     cursor: 'pointer',
     color: themeColor,
     backgroundColor: white,
-    margin: '0px auto',
-    marginTop: 30,
+    margin: '30px auto 0',
+    top: 0,
+    left: 0,
     fontSize: '2vw',
   }
 }
@@ -60,12 +62,16 @@ class IntroBase extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      finishedTyping: false
+      finishedTyping: false,
+      clicked: false,
     }
   }
 
   onClick() {
-    this.props.actions.finshedIntro()
+    this.setState({clicked: true})
+    setTimeout(() => {
+      this.props.actions.finshedIntro()
+    }, 300)
   }
 
   onTypingDone() {
@@ -73,7 +79,7 @@ class IntroBase extends Component {
   }
 
   render() {
-    const { finishedTyping } = this.state
+    const { finishedTyping, clicked } = this.state
     const { title, subtitle, titleStyle } = this.props
     return (
       <div style={styles.outer}>
@@ -95,9 +101,10 @@ class IntroBase extends Component {
             </div>
           }
           <div
+            className={`${clicked ? "pulse-fullscreen":"beacon"}`}
             style={styles.button}
             onClick={this.onClick.bind(this)}>
-            Start
+            { `${clicked ? "":"Start"}` }
           </div>
         </section>
       </div>
