@@ -29,11 +29,11 @@
     },
     "select": {
       "title": "Document",
-      "subtitle": "Choose one of those to start finding similar documents from 30 million documents on StackOverflow with BigQuery."
+      "subtitle": "Choose one of those to start finding similar documents from 3 million documents on StackOverflow with BigQuery."
     },
     "searching": {
       "title": "Searching...",
-      "subtitle": "On 30 million ${source} documents<br />with BigQuery. Elapsed ${time} sec"
+      "subtitle": "On 3 million ${source} documents<br />with BigQuery. Elapsed ${time} sec"
     },
     "finished": {
       "title": "Finished",
