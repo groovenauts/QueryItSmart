@@ -15,6 +15,7 @@ const initialState = {
   finished: false,
   hour: new Date().getHours(),
   results: [],
+  totalSize: 0,
   basedTimeResult: {},
   startTime: null,
   finishedTime: null,

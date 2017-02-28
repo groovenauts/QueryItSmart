@@ -1,16 +1,18 @@
 import _ from 'lodash'
 import { types } from './index'
-import { runQuery } from './ajax'
+import { runQuery, runStartQuery } from './ajax'
 import { QUERY } from '../const'
 
 const wrapSelectPresent = imageId => dispatch => {
-  const sql = QUERY.similar.sql({id: imageId})
-  return runQuery("similar", {id: imageId}).then((res) => {
+  const options = {
+    maximumBillingTier: 100,
+  }
+  return runStartQuery("similar", {id: imageId}, options).then((res) => {
     dispatch({
       type: types.SIMILARED_IMAGE,
       imageId: imageId,
       results: res[0],
-      totalBytesProcessed: _.get(res[2], 'totalBytesProcessed'),
+      totalBytesProcessed: _.get(res[1], 'totalBytesProcessed'),
     })
   }).catch((err) => {
     console.log("Error", err)
