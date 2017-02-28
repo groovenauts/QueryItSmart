@@ -85,11 +85,11 @@ pre, code {
 
 .content-footer {
   z-index: 1001;
-  width: 1240px;
+  width: calc(96vh + 8vh + 14vw);
   position: absolute;
   top: 54%;
   left: 50%;
-  transform: translate(-50%, calc(54% + 200px));
+  transform: translate(-50%, calc(54% + 18vh));
   text-align: center;
   color: white;
   display: block;

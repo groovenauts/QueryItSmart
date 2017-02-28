@@ -26,8 +26,6 @@
   }
 }
 
-$img-size: 344px;
-
 .circle {
   height: $img-size;
   width: $img-size;
@@ -62,8 +60,8 @@ $img-size: 344px;
 }
 
 .circle-outer {
-  height: $img-size + 1;
-  width: $img-size + 1;
+  height: $img-size;
+  width: $img-size;
   background-color: white;    
   border-radius: 50%;
   border: 0px;
@@ -86,7 +84,7 @@ $img-size: 344px;
 
     &.large {
       border: solid 8px white;
-      transform: scale(1.1);
+      transform: scale(1.2);
     }
   }
 }
@@ -104,11 +102,11 @@ $img-size: 344px;
 
 .is-right {
   position: absolute;
-  transform: translate(70%, -50%);
+  transform: translate(14vw, -50%);
 }
 .is-left {
   position: absolute;
-  transform: translate(-170%, -50%);
+  transform: translate(calc(-14vw - 100%), -50%);
 }
 
 .hover-lite {
