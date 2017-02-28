@@ -19,6 +19,7 @@ export const QUERY = {
   }
 }
 
+export const INTRO_TIME = 8000
 export const THUMBNAIL_PATH = _.template('https://storage.googleapis.com/queryit_smart/wikimedia/images/${id}.jpg')
 
 export const PRESENT_NUM = 3

@@ -15,3 +15,9 @@ export const resizeWindow = (width, height) => {
     height
   }
 }
+
+export const nextPage = () => {
+  return {
+    type: types.NEXT_INTRO
+  }
+}

@@ -3,6 +3,14 @@
     "title": "QueryIt Smart",
     "subtitle": "What kind of data you like to search?"
   },
+  "intro": {
+    "title": "QueryIt",
+    "subtitle": "Powered by BigQuery"
+  },
+  "intro2": {
+    "title": "Try BigQuery",
+    "subtitle": "cloud.google.com/<b>bigquery</b>"
+  },
   "searchImage": {
     "select": {
       "title": "Image",
