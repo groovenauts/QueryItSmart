@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import App from './components/App'
 import configureStore from './store/configureStore'
 import '../node_modules/flexboxgrid/css/flexboxgrid.min.css'
+import '../node_modules/react-typist/dist/Typist.css'
 import './styles/index.scss'
 
 const store = configureStore()

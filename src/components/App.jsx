@@ -30,19 +30,14 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { channel } = this.props.app
-    console.log("App componentWillReceiveProps")
-    const selectedChannel = channel === -1 && nextProps.app.channel !== -1
-    if (selectedChannel) {
+    const { finishedIntro } = this.props.app
+    if (!finishedIntro && nextProps.app.finishedIntro) {
       if (this.timer) {
         clearInterval(this.timer)
       }
-    } else {
-      const restarted = channel !== -1 && nextProps.app.channel == -1
-      if (restarted) {
-        if (this.timer) {
-          this.startInterval()
-        }
+    } else if (finishedIntro && !nextProps.app.finishedIntro) {
+      if (this.timer) {
+        this.startInterval()
       }
     }
   }
@@ -54,12 +49,11 @@ class App extends Component {
   }
 
   onReplacePage() {
-    this.props.actions.nextPage()
+    this.props.actions.nextIntro()
   }
 
-  onClick(index) {
-    const { actions } = this.props
-    actions.nextIntro()
+  onClick() {
+    this.props.actions.finshedIntro()
   }
 
   startInterval() {

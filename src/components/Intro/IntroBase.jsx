@@ -4,6 +4,9 @@ import { white, indigo900 } from 'material-ui/styles/colors'
 import { bindActionCreators } from 'redux'
 import * as actions from '../../actions/appActions'
 import { connect } from 'react-redux'
+import Typist from 'react-typist';
+import { TYPING_OPTION } from '../../const'
+import { removeHTMLTag } from '../../utils'
 
 const themeColor = '#3c85f4'
 const styles = {
@@ -54,20 +57,43 @@ const styles = {
 }
 
 class IntroBase extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      finishedTyping: false
+    }
+  }
 
   onClick() {
-    this.props.actions.nextPage()
+    this.props.actions.finshedIntro()
+  }
+
+  onTypingDone() {
+    this.setState({finishedTyping: true})
   }
 
   render() {
+    const { finishedTyping } = this.state
     const { title, subtitle, titleStyle } = this.props
     return (
       <div style={styles.outer}>
         <section style={styles.inner}>
-          <div style={{...styles.title, ...titleStyle}}
-            dangerouslySetInnerHTML={{__html: title}} />
-          <div style={styles.subtitle}
-            dangerouslySetInnerHTML={{__html: subtitle}} />
+          <div style={{...styles.title, ...titleStyle}}>
+            {title}
+          </div>
+          { finishedTyping ? 
+            <div style={styles.subtitle}
+              dangerouslySetInnerHTML={{__html: subtitle}} />
+            :
+            <div style={styles.subtitle}>
+              <Typist
+                avgTypingDelay={100}
+                cursor={TYPING_OPTION.cursor}
+                onTypingDone={this.onTypingDone.bind(this)}>
+                { removeHTMLTag(subtitle) }
+              </Typist>
+            </div>
+          }
           <div
             style={styles.button}
             onClick={this.onClick.bind(this)}>

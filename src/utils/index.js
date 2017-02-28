@@ -13,3 +13,7 @@ export const roundElapsed = (time) => {
   const elapsed = Math.round(time / 100)
   return (elapsed / 10).toFixed(1)
 }
+
+export function removeHTMLTag(str) {
+  return str.replace(/<(?:.|\n)*?>/gm, '')
+}

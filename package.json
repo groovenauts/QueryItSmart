@@ -35,6 +35,7 @@
     "react-gsap-enhancer": "^0.3.0",
     "react-redux": "^5.0.2",
     "react-tap-event-plugin": "^2.0.1",
+    "react-typist": "^1.0.3",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "superagent": "^3.4.3",

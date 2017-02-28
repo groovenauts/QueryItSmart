@@ -6,6 +6,7 @@ const initialState = {
   height: _.get(window, 'innerHeight', 0),
   page: 0,
   channel: -1,
+  finishedIntro: false,
 }
 
 const app = (state = initialState, action) => {
@@ -28,11 +29,18 @@ const app = (state = initialState, action) => {
         ...state,
         page: state.page + 1 > 2 ? 0 : state.page + 1
       }
+    case types.FINISHED_INTRO:
+      return {
+        ...state,
+        finishedIntro: true,
+        page: 1,
+      }
     case types.SELECT_CHANNEL:
       const { index } = action
       return {
         ...state,
         channel: index,
+        finishedIntro: true,
       }
     default:
       return state

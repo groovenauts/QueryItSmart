@@ -7,6 +7,7 @@ export const types = {
   // for root
   RESIZE_WINDOW: "resize_window",
   RESTART: "restart",
+  FINISHED_INTRO: "finished_intro",
   NEXT_INTRO: "next_intro",
   SELECT_CHANNEL: "select_channel",
   // for search image

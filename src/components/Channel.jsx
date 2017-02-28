@@ -57,9 +57,10 @@ class Channel extends Component {
     }
     return (
       <Header
-        title={ lang.app.title }
-        subtitle={ lang.app.subtitle }
-        style={{color: 'white'}}/>
+        title={ lang.channel.title }
+        subtitle={ lang.channel.subtitle }
+        style={{color: 'white'}}
+        animate={true} />
     )
   }
 
@@ -106,7 +107,6 @@ class Channel extends Component {
   }
 
   render() {
-    console.log("Channel render")
     const { app, forecast } = this.props
     const { finished, showSQL } = forecast
     // For google map
