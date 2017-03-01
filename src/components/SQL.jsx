@@ -32,6 +32,7 @@ const styles = {
     top: 'calc(8vh + 20px)',
     left: '50%',
     transform: 'translate(-50%)',
+    maxWidth: '90%',
   },
   footer: {
     fontSize: '2em',
