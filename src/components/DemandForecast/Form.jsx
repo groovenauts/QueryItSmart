@@ -93,7 +93,7 @@ class Form extends Component {
             }}>
             <div className="box"
               style={{
-                fontSize: 44,
+                fontSize: '2.5vw',
                 paddingTop: 60,
                 paddingBottom: 40,
                 fontWeight: 500,
