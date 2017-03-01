@@ -49,11 +49,11 @@
 @keyframes pulsate2right {
   0% { box-shadow: none; }
   5% {
-    transform: translate(70%, -50%);
+    transform: translate(14vw, -50%);
     box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26);
   }
   10% {
-    transform: translate(70%, -50%);
+    transform: translate(14vw, -50%);
     box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26), 0px 0px 0px 47px rgba(255, 255, 255, 0.1);
   }
   100% { box-shadow: none; }
@@ -62,11 +62,11 @@
 @keyframes pulsate2left {
   0% { box-shadow: none; }
   5% {
-    transform: translate(-170%, -50%);
+    transform: translate(calc(-14vw - 100%), -50%);
     box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26);
   }
   10% {
-    transform: translate(-170%, -50%);
+    transform: translate(calc(-14vw - 100%), -50%);
     box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26), 0px 0px 0px 47px rgba(255, 255, 255, 0.1);
   }
   100% { box-shadow: none; }
