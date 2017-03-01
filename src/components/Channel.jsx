@@ -106,12 +106,9 @@ class Channel extends Component {
   }
 
   render() {
-    const { app, forecast } = this.props
-    const { finished, showSQL } = forecast
-    // For google map
-    const style = finished && !showSQL ? {pointerEvents: 'none'} : {}
+    const { app } = this.props
     return (
-      <div id="channel" style={style}>
+      <div id="channel">
         { do {
             if (app.channel === 0) {
               <SearchImage />
@@ -149,7 +146,6 @@ class Channel extends Component {
 const mapStateToProps = state => {
   return {
     app: state.app,
-    forecast: state.forecast
   }
 }
 

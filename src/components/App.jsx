@@ -81,10 +81,13 @@ class App extends Component {
   }
 
   render() {
-    const { app } = this.props
+    const { app, forecast } = this.props
     const { page } = app
+    const { finished, showSQL } = forecast
+    // For google map
+    const style = finished && !showSQL ? {pointerEvents: 'none'} : {}
     return (
-      <div id="app">
+      <div id="app" style={style}>
         { page === 0 ? <Intro /> : page === 1 ? <Channel /> : <Intro2 /> }
       </div>
     )
@@ -94,6 +97,7 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     app: state.app,
+    forecast: state.forecast,
   }
 }
 
