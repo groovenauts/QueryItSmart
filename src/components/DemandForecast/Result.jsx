@@ -13,6 +13,8 @@ import lang from '../../lang.json'
 import Finished from '../Finished'
 import { roundElapsed } from '../../utils'
 
+const AUTO_SLIDER_INTERVAL = 1200
+const DISPLAY_HOURS = ['6','12','18','0','5']
 const START_HOUR = 5
 const TIME_MAP = _.times(24, num => {
   if (num + START_HOUR >= 24) {
@@ -22,17 +24,35 @@ const TIME_MAP = _.times(24, num => {
   }
 })
 
+const hour2index = (hour) => _.findIndex(TIME_MAP, time => time === hour)
+
 const styles = {
-  sliderBothEnds: {
+  sliderPrefix: {
     top: 0,
     bottom: 0,
     margin: 'auto 0',
-    fontSize: 20,
-    transform: 'translateY(-50%)',
   }
 }
 
 class Result extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      autoMode: true,
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { hideFinished } = this.props.forecast
+    if (!hideFinished && nextProps.forecast.hideFinished) {
+      this.timer = setInterval(this.autoSlider.bind(this), AUTO_SLIDER_INTERVAL)
+    }
+  }
+  componentWillUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+  }
 
   onRestart() {
     this.props.actions.restart();
@@ -47,11 +67,48 @@ class Result extends Component {
     this.props.actions.closeFinished()
   }
 
+  onDragStartSlider() {
+    this.pauseAutoSlider()
+  }
+
   onChangeSlider(e, value) {
     const { actions, forecast } = this.props
     const currentHour = TIME_MAP[value | 0]
     if (currentHour !== forecast.hour) {
       actions.changeHour(currentHour)
+    }
+  }
+
+  restartAutoSlider() {
+    const { autoMode } = this.state
+    if (!autoMode) {
+      this.setState({autoMode: true})
+      this.timer = setInterval(this.autoSlider.bind(this), AUTO_SLIDER_INTERVAL)
+    }
+  }
+
+  pauseAutoSlider() {
+    const { autoMode } = this.state
+    if (autoMode) {
+      this.setState({autoMode: false})
+      clearInterval(this.timer)
+    }
+  }
+
+  autoSlider() {
+    const { autoMode } = this.state
+    const { actions, forecast } = this.props
+    const { hour } = forecast
+    if (autoMode) {
+      const currentIndex = hour2index(hour)
+      const nextIndex = do {
+        if (currentIndex >= 23) {
+          0
+        } else {
+          currentIndex + 1
+        }
+      }
+      actions.changeHour(TIME_MAP[nextIndex])
     }
   }
 
@@ -87,7 +144,11 @@ class Result extends Component {
     )    
   }
   renderSlider() {
-    const { hour } = this.props.forecast
+    const { autoMode } = this.state
+    const { hour, hideFinished } = this.props.forecast
+    if (!hideFinished) {
+      return null
+    }
     return (
       <div className="row center-xs"
         style={{
@@ -99,26 +160,48 @@ class Result extends Component {
           margin: '0 auto',
           fontWeight: 300,
         }}>
-        <div className="col-xs-2" style={styles.sliderBothEnds}>
-          <div className="box">
-            Morning
+        <div className="col-xs-1" style={styles.sliderPrefix}>
+          <div style={{
+              color: deepPurple900,
+            }}>
+            <i className="material-icons" style={{
+                fontSize: '5vh',
+                lineHeight: '5vh',
+              }}
+              onClick={ autoMode ? this.pauseAutoSlider.bind(this) : this.restartAutoSlider.bind(this) }>
+              { autoMode ? "pause" : "play_arrow" }
+            </i>
           </div>
         </div>
-        <div className="col-xs-8">
-          <div className="box">
+        <div className="col-xs-9">
+          <div className="box" style={{position: 'relative'}}>
+            <div className="row between-xs" style={{
+                  color: deepPurple900,
+                  transform: 'translateY(70px)',
+                  fontWeight: 500,
+                  pointerEvents: 'none',
+                }}>
+              { _.map(DISPLAY_HOURS, (scale, i) => {
+                return (
+                  <div key={`${scale}-${i}`}
+                      className="col-xs-2"
+                      style={{textAlign: `${i === 0 ? 'left' : _.size(DISPLAY_HOURS)-1 === i ? 'right' : "center"}`}}>
+                    <div className="box">{scale}</div>
+                  </div>
+                )
+              }) }
+            </div>
             <Slider
               min={0}
               max={23}
               value={_.indexOf(TIME_MAP, hour) || 0}
               style={{
+                paddingRight: 4,
+                paddingLeft: 4,
               }}
+              onDragStart={ this.onDragStartSlider.bind(this) }
               onChange={ this.onChangeSlider.bind(this) }
               />
-          </div>
-        </div>
-        <div className="col-xs-2" style={styles.sliderBothEnds}>
-          <div className="box">
-            Night
           </div>
         </div>
       </div>
@@ -126,20 +209,23 @@ class Result extends Component {
   }
 
   render() {
-    const { results, sql } = this.props.forecast
+    const { results, sql, hideFinished } = this.props.forecast
     return (
       <div style={{pointerEvents: 'auto'}}>
         { this.renderFinished() }
         {/*{ this.renderTitle() }*/}
         { this.renderSlider() }
-        <Restart labelColor="white" buttonColor={deepPurple900} onClick={this.onRestart.bind(this)} />
-        <Button
-          style={{right: 220}}
-          label={lang.button.sql}
-          labelColor="white"
-          buttonColor={deepPurple900}
-          handler={this.onShowSQL.bind(this)}
-          />
+        { hideFinished ?
+          <Restart labelColor="white" buttonColor={deepPurple900} onClick={this.onRestart.bind(this)} />
+          : null }
+        { hideFinished ?
+          <Button
+            style={{right: 220}}
+            label={lang.button.sql}
+            labelColor="white"
+            buttonColor={deepPurple900}
+            handler={this.onShowSQL.bind(this)} />
+          : null }
       </div>
     )
   }
