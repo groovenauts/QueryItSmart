@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:700,400,300,200,100);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Mono:400,700);
+@import url(https://fonts.googleapis.com/css?family=Inconsolata:100);
 @import 'variables';
 @import 'util';
 @import 'circle';
@@ -37,7 +38,7 @@ h2 {
 
 pre, code {
   font-size: 14px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inconsolata', monospace;
   font-weight: 100;
 }
 
