@@ -16,7 +16,6 @@ import lang from '../lang.json'
 class Channel extends Component {
   constructor(props) {
     super(props)
-    console.log("Channel constructor")
     this.state = {
       contents: CHANNEL_IMAGES,
       leave: false,

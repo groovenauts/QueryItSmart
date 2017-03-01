@@ -6,8 +6,8 @@ import { TEMPERATURES } from '../const'
 
 const initialState = {
   param: {
-    month: new Date().getMonth(),
-    weekday: new Date().getDay(),
+    month: new Date().getMonth()+1,
+    weekday: new Date().getDay()+1,
     temperature: TEMPERATURES[(_.size(TEMPERATURES)/2) | 0],
     weather: "sunny",
   },

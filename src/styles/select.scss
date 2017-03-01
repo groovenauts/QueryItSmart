@@ -18,7 +18,7 @@
     position: absolute;
     color: $indigo900;
     background-color: $indigo900;
-    width: 58px;
+    width: 3vw;
     height: 58px;
     right: 0;
     border-top-right-radius: 4px;
@@ -30,11 +30,11 @@
     content: "";
     display: inline-block;
     position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 12px;
-    height: 12px;
-    right: 22px;
+    top: 50%;
+    bottom: 60%;
+    width: 0.7vw;
+    height: 0.7vw;
+    right: 1.1vw;
     margin: auto 0;
     transform: rotate(135deg);
     border-top: 1px solid white;
@@ -43,3 +43,21 @@
   }
 }
 
+.select-box-suffix {
+  position: relative;
+
+  &.temperature-f {
+    &:after {
+      content: "F";
+      display: inline-block;
+      position: absolute;
+      color: gray;
+      font-size: 1.2vw;
+      left: calc(35px + 1.2vw);
+      top: 50%;
+      width: 0.7vw;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+  }
+}
