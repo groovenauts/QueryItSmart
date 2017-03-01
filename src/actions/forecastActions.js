@@ -25,9 +25,9 @@ const wrapRequest = (queryType, queryParams) => dispatch => {
 export const requestForecast = param => dispatch => {
   const { month, weekday, temperature, weather } = param
   const sql = QUERY.citibike.sql({
-    month,
-    wday: weekday,
-    temp: temperature,
+    month: parseInt(month)+1,
+    wday: parseInt(weekday)+1,
+    temp: parseInt(temperature)-10,
     weather
   })
   dispatch({
