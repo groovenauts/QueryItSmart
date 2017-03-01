@@ -5,13 +5,12 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actions from '../actions/appActions'
 import _ from 'lodash'
-import SearchImage from './SearchImage/SearchImageTop'
-import SearchDocument from './SearchDocument/Top'
-import DemandForecast from './DemandForecast/Top'
 import Circle from './Circle'
-import Header from './Header'
-import { CONTENT_CLASSES, CHANNEL_IMAGES } from '../const'
+import Intro from './Intro/Intro'
+import Intro2 from './Intro/Intro2'
+import Channel from './Channel'
 import lang from '../lang.json'
+import { INTRO_TIME } from '../const'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
@@ -19,10 +18,7 @@ injectTapEventPlugin()
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      contents: CHANNEL_IMAGES,
-      leave: false,
-    }
+    this.startInterval()
   }
   onWindowResize(e) {
     this.props.actions.resizeWindow(window.innerWidth, window.innerHeight)
@@ -33,44 +29,35 @@ class App extends Component {
     window.addEventListener('resize', this.onWindowResize.bind(this))
   }
 
-  onClick(index) {
-    const { contents } = this.state
-    const { actions } = this.props
-    const id = contents[index].id
-    this.setState({leave: true})
-    // For animation of leave
-    setTimeout(() => {
-      actions.selectChannel(index)
-      this.setState({leave: false})
-    }, 1000)
-  }
-
-  onMouseOver(index) {
-    const BASE_INDEX = 100
-    const { contents } = this.state
-    const id = contents[index].id
-    this.setState({
-      contents: _.map(contents, (content, i) => {
-        content.zIndex = BASE_INDEX + i
-        if (content.id === id) {
-          content.zIndex = BASE_INDEX + _.size(contents)
-        }
-        return content
-      })
-    })
-  }
-
-  renderHeader() {
-    const { leave } = this.state
-    if (leave) {
-      return null
+  componentWillReceiveProps(nextProps) {
+    const { finishedIntro } = this.props.app
+    if (!finishedIntro && nextProps.app.finishedIntro) {
+      if (this.timer) {
+        clearInterval(this.timer)
+      }
+    } else if (finishedIntro && !nextProps.app.finishedIntro) {
+      if (this.timer) {
+        this.startInterval()
+      }
     }
-    return (
-      <Header
-        title={ lang.app.title }
-        subtitle={ lang.app.subtitle }
-        style={{color: 'white'}}/>
-    )
+  }
+
+  componentWillUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+  }
+
+  onReplacePage() {
+    this.props.actions.nextIntro()
+  }
+
+  onClick() {
+    this.props.actions.finshedIntro()
+  }
+
+  startInterval() {
+    this.timer = setInterval(this.onReplacePage.bind(this), INTRO_TIME)
   }
 
   renderContents() {
@@ -93,64 +80,12 @@ class App extends Component {
     )
   }
 
-  renderFooter() {
-    const { leave } = this.state
-    if (leave) {
-      return null
-    }
-    return (
-      <div className="content-footer">
-        <div className="flex-container">
-          <div className={ classNames("flex-item") }>
-            Wikimedia Commons Images
-          </div>
-          <div className={ classNames("flex-item") }>
-            Stack Overflow Questions
-          </div>
-          <div className={ classNames("flex-item") }>
-            NYC City Bike Usage Forecast
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   render() {
-    const { app, forecast } = this.props
-    const { finished, showSQL } = forecast
-    // For google map
-    const style = finished && !showSQL ? {pointerEvents: 'none'} : {}
+    const { app } = this.props
+    const { page } = app
     return (
-      <div id="container" style={style}>
-        { do {
-            if (app.channel === 0) {
-              <SearchImage />
-            } else if (app.channel === 1) {
-              <SearchDocument />
-            } else if (app.channel === 2) {
-              <DemandForecast />
-            } else {
-              <div className={ classNames("container") } style={{ backgroundColor: 'black' }}>
-                <ReactCSSTransitionGroup
-                  transitionName="fadeinout"
-                  transitionAppear={true}
-                  transitionAppearTimeout={500}
-                  transitionEnterTimeout={500}
-                  transitionLeaveTimeout={300}>
-                  { this.renderHeader() }
-                </ReactCSSTransitionGroup>
-                { this.renderContents() }
-                <ReactCSSTransitionGroup
-                  transitionName="fadeinout"
-                  transitionAppear={true}
-                  transitionAppearTimeout={500}
-                  transitionEnterTimeout={500}
-                  transitionLeaveTimeout={300}>
-                  { this.renderFooter() }
-                </ReactCSSTransitionGroup>
-              </div>
-            }
-        }}
+      <div id="app">
+        { page === 0 ? <Intro /> : page === 1 ? <Channel /> : <Intro2 /> }
       </div>
     )
   }
@@ -159,7 +94,6 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     app: state.app,
-    forecast: state.forecast
   }
 }
 

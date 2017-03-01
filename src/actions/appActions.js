@@ -15,3 +15,15 @@ export const resizeWindow = (width, height) => {
     height
   }
 }
+
+export const nextIntro = () => {
+  return {
+    type: types.NEXT_INTRO
+  }
+}
+
+export const finshedIntro = () => {
+  return {
+    type: types.FINISHED_INTRO
+  }
+}

@@ -1,29 +1,4 @@
 
-@keyframes sample {
-  20% {
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.05);
-  }
-  40% {
-    //5%
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 47px rgba(255, 255, 255, 0.05);
-  }
-  60% {
-    //10%
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 77px rgba(255, 255, 255, 0.1);
-  }
-  80% {
-    //26%
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 107px rgba(255, 255, 255, 2.6);
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
 @keyframes simple {
   50% {
     box-shadow: 0px 0px 0px 8px #3023ae, 
@@ -70,4 +45,51 @@
     box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26), 0px 0px 0px 47px rgba(255, 255, 255, 0.1);
   }
   100% { box-shadow: none; }
+}
+
+
+@keyframes pulse-fullscreen {
+  from {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  to {
+    opacity: 0.2;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(100, 100, 1);
+  }
+}
+
+.pulse-fullscreen {
+  animation: pulse-fullscreen 2s;
+  animation-iteration-count: 1;
+}
+
+
+@keyframes beacon {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale (3);
+    opacity: 0;
+  }
+}
+
+.beacon {
+  &:before {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 0px 0px 20px 2px white;
+    animation: beacon 3s infinite ease-in-out;
+  }
 }

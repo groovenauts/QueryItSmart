@@ -3316,6 +3316,10 @@ react-tap-event-plugin:
   dependencies:
     fbjs "^0.8.6"
 
+react-typist:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-typist/-/react-typist-1.0.3.tgz#030a6cb5bad57835c185ae7e6874674171072fa3"
+
 read-pkg-up@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-1.0.1.tgz#9d63c13276c065918d57f002a57f40a1b643fb02"

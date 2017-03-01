@@ -3,15 +3,53 @@ import classNames from 'classnames'
 import Slider from 'material-ui/Slider'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Typist from 'react-typist';
+import { TYPING_OPTION } from '../const'
+import { removeHTMLTag } from '../utils'
 
 class Header extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      finishedTyping: false
+    }
+  }
+
+  onTypingDone() {
+    this.setState({finishedTyping: true})
+  }
+
+  renderSubTitle() {
+    const { finishedTyping } = this.state
+    const { title, subtitle, style, animate } = this.props
+    const className = classNames("subtitle", `${title ? "":"large"}`)
+    if (subtitle) {
+      if (animate && !finishedTyping) {
+        return (
+          <div className={className}>
+            <Typist
+              cursor={TYPING_OPTION.cursor}
+              onTypingDone={this.onTypingDone.bind(this)}>
+              { removeHTMLTag(subtitle) }
+            </Typist>
+          </div>
+        )
+      } else {
+        return (
+          <div className={className}
+            dangerouslySetInnerHTML={{__html: subtitle}} />
+        )
+      }
+    }
+    return null
+  }
 
   render() {
-    const { title, subtitle, style } = this.props
+    const { title, style } = this.props
     return (
       <div className="content-header" style={style}>
-        <div className="title">{ title }</div>
-        { subtitle ? <div className="subtitle" dangerouslySetInnerHTML={{__html: subtitle}} /> : null }
+        { title ? <div className="title">{ title }</div> : null }
+        { this.renderSubTitle() }
       </div>
     )
   }

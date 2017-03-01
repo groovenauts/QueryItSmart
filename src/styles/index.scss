@@ -42,6 +42,10 @@ pre, code {
   font-weight: 100;
 }
 
+b {
+  font-weight: 500;
+}
+
 .container {
   position: absolute;
 	top: 0;
@@ -74,6 +78,9 @@ pre, code {
   > .subtitle {
     font-size: 4vh;
     font-weight: 100;
+    &.large {
+      font-size: 7vh;
+    }
   }
 }
 

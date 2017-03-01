@@ -1,7 +1,15 @@
 {
-  "app": {
-    "title": "QueryIt Smart",
+  "intro": {
+    "title": "QueryIt",
+    "subtitle": "Powered by BigQuery"
+  },
+  "channel": {
+    "title": "",
     "subtitle": "What kind of data you like to search?"
+  },
+  "intro2": {
+    "title": "Try BigQuery",
+    "subtitle": "cloud.google.com/<b>bigquery</b>"
   },
   "searchImage": {
     "select": {

@@ -19,6 +19,7 @@ export const QUERY = {
   }
 }
 
+export const INTRO_TIME = 8000
 export const THUMBNAIL_PATH = _.template('https://storage.googleapis.com/queryit_smart/wikimedia/images/${id}.jpg')
 
 export const PRESENT_NUM = 3
@@ -72,5 +73,12 @@ export const THUMBNAIL_SIZE = 60,
   MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   WEEKDAYS = ["Sunday", "Monday","Thesday","Wednesday", "Thursday", "Friday", "Saturday"],
   WEATHERS = ["Sunny", "Rain", "Snow"],
-  TEMPERATURES = _.range(-10, 76)
+  TEMPERATURES = _.range(-10, 76),
+  TYPING_OPTION = {
+    cursor: {
+      show: false,
+      blink: true,
+      element: '',
+    },
+  }
 
