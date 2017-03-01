@@ -43,3 +43,21 @@
   }
 }
 
+.select-box-suffix {
+  position: relative;
+  
+  &.temperature-f {
+    &:after {
+      content: "F";
+      display: inline-block;
+      position: absolute;
+      color: gray;
+      width: 5vw;
+      height: 100%;
+      right: 3vw;
+      top: 40%;
+      transform: scale(1.2);
+      pointer-events: none;
+    }
+  }
+}

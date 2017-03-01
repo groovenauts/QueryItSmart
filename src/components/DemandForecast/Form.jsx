@@ -120,7 +120,7 @@ class Form extends Component {
                     { this.renderSelectField("weather", param.weather, WEATHERS) }
                   </section>
                 </div>
-                <div className="col-xs-3">
+                <div className="col-xs-3 select-box-suffix temperature-f">
                   <section className="box select-box">
                     { this.renderSelectField("temperature", param.temperature, TEMPERATURES) }
                   </section>
