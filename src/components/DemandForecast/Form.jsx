@@ -5,7 +5,7 @@ import { indigo900, grey400 } from 'material-ui/styles/colors'
 import { bindActionCreators } from 'redux'
 import * as actions from '../../actions/forecastActions'
 import { connect } from 'react-redux'
-import { WEATHERS, MONTHS, WEEKDAYS, TEMPERATURES } from '../../const'
+import { MONTH_LABELS, MONTH_VALUES, WEEKDAY_LABELS, WEEKDAY_VALUES, WEATHERS, TEMPERATURES } from '../../const'
 import Circle from '../Circle'
 import lang from '../../lang.json'
 
@@ -54,11 +54,12 @@ class Form extends Component {
     )
   }
 
-  renderSelectField(name, label, value, values) {
-    let options = _.map(values, (text, i) => {
+  renderSelectField(name, value, values, labels=values) {
+    let options = _.map(values, (v, i) => {
       return (
-        <option key={`${name}-${i+1}`} value={i}>
-          {text}
+        <option key={`${name}-${i}`}
+          value={v}>
+          {_.get(labels, i)}
         </option>
       )
     })
@@ -106,22 +107,22 @@ class Form extends Component {
               <div className="row center-xs">
                 <div className="col-xs-3">
                   <section className="box select-box">
-                    { this.renderSelectField("month", "MONTHS", param.month, MONTHS) }
+                    { this.renderSelectField("month", param.month, MONTH_VALUES, MONTH_LABELS) }
                   </section>
                 </div>
                 <div className="col-xs-3">
                   <section className="box select-box">
-                    { this.renderSelectField("weekday", "WEEKDAYS", param.weekday, WEEKDAYS) }
+                    { this.renderSelectField("weekday", param.weekday, WEEKDAY_VALUES, WEEKDAY_LABELS) }
                   </section>
                 </div>
                 <div className="col-xs-3">
                   <section className="box select-box">
-                    { this.renderSelectField("weather", "WEATHERS", param.weather, WEATHERS) }
+                    { this.renderSelectField("weather", param.weather, WEATHERS) }
                   </section>
                 </div>
                 <div className="col-xs-3">
                   <section className="box select-box">
-                    { this.renderSelectField("temperature", "TEMPERATURES", param.temperature, TEMPERATURES) }
+                    { this.renderSelectField("temperature", param.temperature, TEMPERATURES) }
                   </section>
                 </div>
               </div>

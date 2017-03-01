@@ -70,9 +70,9 @@ export const THUMBNAIL_SIZE = 60,
     { id: "00009400", src: "./images/00009400.jpg", name: "CLUCULATOR" },
     { id: "10000086", src: "./images/10000086.jpg", name: "JELLYFISH" },
   ],
-  MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-  WEEKDAYS = ["Sunday", "Monday","Thesday","Wednesday", "Thursday", "Friday", "Saturday"],
-  WEATHERS = ["Sunny", "Rain", "Snow"],
+  MONTH_LABELS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  WEEKDAY_LABELS = ["Sunday", "Monday","Thesday","Wednesday", "Thursday", "Friday", "Saturday"],
+  WEATHERS = ["sunny", "rain", "snow"],
   TEMPERATURES = _.range(-10, 76),
   TYPING_OPTION = {
     cursor: {
@@ -81,4 +81,8 @@ export const THUMBNAIL_SIZE = 60,
       element: '',
     },
   }
+
+export const MONTH_VALUES = _.times(_.size(MONTH_LABELS), i => i+1)
+export const WEEKDAY_VALUES = _.times(_.size(WEEKDAY_LABELS), i => i+1)
+
 
