@@ -14,6 +14,7 @@ import Finished from '../Finished'
 import { roundElapsed } from '../../utils'
 
 const AUTO_SLIDER_INTERVAL = 1200
+const SLIDER_SCALE = 6
 const DISPLAY_HOURS = ['6','12','18','0','5']
 const START_HOUR = 5
 const TIME_MAP = _.times(24, num => {
@@ -175,18 +176,23 @@ class Result extends Component {
         </div>
         <div className="col-xs-9">
           <div className="box" style={{position: 'relative'}}>
-            <div className="row between-xs" style={{
-                  color: deepPurple900,
-                  transform: 'translateY(70px)',
-                  fontWeight: 500,
-                  pointerEvents: 'none',
-                }}>
-              { _.map(DISPLAY_HOURS, (scale, i) => {
+            <div style={{
+                color: deepPurple900,
+                transform: 'translateY(70px)',
+                fontWeight: 500,
+                pointerEvents: 'none',
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: 'calc(100% + 8px)',
+                position: 'absolute',
+                transform: 'translate(-4px, 30px)',
+              }}>
+              { _.map(TIME_MAP, (_hour, i) => {
                 return (
-                  <div key={`${scale}-${i}`}
-                      className="col-xs-2"
-                      style={{textAlign: `${i === 0 ? 'left' : _.size(DISPLAY_HOURS)-1 === i ? 'right' : "center"}`}}>
-                    <div className="box">{scale}</div>
+                  <div key={`hour-${i}`}
+                    className="box"
+                    style={{width: '1em'}}>
+                    {`${ i === 0 || _.size(TIME_MAP)-1 === i || _hour % 6 === 0 ? _hour : "" }`}
                   </div>
                 )
               }) }
