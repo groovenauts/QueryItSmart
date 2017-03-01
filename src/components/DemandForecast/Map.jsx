@@ -25,7 +25,7 @@ class Map extends Component {
       this.heatmap = new google.maps.visualization.HeatmapLayer({
         dissipating: true,
         data: data,
-        maxIntensity: 1.0,
+        maxIntensity: 26.0,
         radius: 20,
         map: this.map
       })
