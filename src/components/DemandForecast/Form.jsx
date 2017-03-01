@@ -54,7 +54,7 @@ class Form extends Component {
     )
   }
 
-  renderSelectField(name, label, value, values, placeholder) {
+  renderSelectField(name, label, value, values) {
     let options = _.map(values, (text, i) => {
       return (
         <option key={`${name}-${i+1}`} value={i}>
@@ -62,12 +62,10 @@ class Form extends Component {
         </option>
       )
     })
-    options.unshift(<option key={`${name}-0`} value="" disabled hidden>{ placeholder }</option>)
     return (
       <select
-        style={{color: `${_.isEmpty(value) ? grey400:indigo900}`}}
+        style={{color: indigo900}}
         name={name}
-        placeholder={label}
         value={value}
         onChange={this.onChange_.bind(this, name)}>
         { options }
@@ -78,7 +76,7 @@ class Form extends Component {
   renderContent() {
     const { param } = this.props.forecast
     const disabled = _.reduce(param, (ret, value, key) => {
-      if (!ret && _.isEmpty(value)) {
+      if (!ret && _.isNull(value)) {
         ret = true
       }
       return ret
@@ -93,7 +91,7 @@ class Form extends Component {
             }}>
             <div className="box"
               style={{
-                fontSize: 44,
+                fontSize: '2.5vw',
                 paddingTop: 60,
                 paddingBottom: 40,
                 fontWeight: 500,
@@ -108,22 +106,22 @@ class Form extends Component {
               <div className="row center-xs">
                 <div className="col-xs-3">
                   <section className="box select-box">
-                    { this.renderSelectField("month", "MONTHS", param.month, MONTHS, lang.demandForecast.form.month) }
+                    { this.renderSelectField("month", "MONTHS", param.month, MONTHS) }
                   </section>
                 </div>
                 <div className="col-xs-3">
                   <section className="box select-box">
-                    { this.renderSelectField("weekday", "WEEKDAYS", param.weekday, WEEKDAYS, lang.demandForecast.form.wday) }
+                    { this.renderSelectField("weekday", "WEEKDAYS", param.weekday, WEEKDAYS) }
                   </section>
                 </div>
                 <div className="col-xs-3">
                   <section className="box select-box">
-                    { this.renderSelectField("weather", "WEATHERS", param.weather, WEATHERS, lang.demandForecast.form.weather) }
+                    { this.renderSelectField("weather", "WEATHERS", param.weather, WEATHERS) }
                   </section>
                 </div>
                 <div className="col-xs-3">
                   <section className="box select-box">
-                    { this.renderSelectField("temperature", "TEMPERATURES", param.temperature, TEMPERATURES, lang.demandForecast.form.temperature) }
+                    { this.renderSelectField("temperature", "TEMPERATURES", param.temperature, TEMPERATURES) }
                   </section>
                 </div>
               </div>
