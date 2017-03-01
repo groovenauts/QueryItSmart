@@ -53,7 +53,7 @@
       position: absolute;
       color: gray;
       font-size: 1.2vw;
-      left: 44px;
+      left: calc(35px + 1.2vw);
       top: 50%;
       width: 0.7vw;
       transform: translateY(-50%);
