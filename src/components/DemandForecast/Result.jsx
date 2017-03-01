@@ -15,8 +15,7 @@ import { roundElapsed } from '../../utils'
 
 const AUTO_SLIDER_INTERVAL = 1200
 const SLIDER_SCALE = 6
-const DISPLAY_HOURS = ['6','12','18','0','5']
-const START_HOUR = 5
+const START_HOUR = 6
 const TIME_MAP = _.times(24, num => {
   if (num + START_HOUR >= 24) {
     return num - (24 - START_HOUR)
