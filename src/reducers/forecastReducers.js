@@ -1,14 +1,15 @@
 import _ from 'lodash'
 import { types } from '../actions/index'
 import { bytesToSize } from '../utils'
+import { TEMPERATURES } from '../const'
 // import stations from '../config/stations'
 
 const initialState = {
   param: {
-    month: "",
-    weekday: "",
-    temperature: "",
-    weather: "",
+    month: new Date().getMonth(),
+    weekday: new Date().getDay(),
+    temperature: TEMPERATURES[(_.size(TEMPERATURES)/2) | 0],
+    weather: "sunny",
   },
   sql: null,
   searching: false,
