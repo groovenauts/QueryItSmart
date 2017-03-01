@@ -44,7 +44,7 @@ tmp_json = "/tmp/output.json"
 with open(tmp_json, "w") as jfile:
     with tf.Session() as sess:
         files = gfile.Glob(target_jpeg)
-        group_by = 10
+        group_by = 100
         groups = [files[i:i + group_by] for i in range(0, len(files), group_by)]
         for fs in groups:
             imgs = []
