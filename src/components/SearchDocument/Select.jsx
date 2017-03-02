@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { bindActionCreators } from 'redux'
 import * as actions from '../../actions/searchDocumentActions'
 import { connect } from 'react-redux'

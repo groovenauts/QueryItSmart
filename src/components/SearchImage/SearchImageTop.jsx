@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Slider from 'material-ui/Slider'
 import { white, deepPurple900, yellow500 } from 'material-ui/styles/colors'
@@ -135,8 +134,6 @@ class SearchImageTop extends Component {
   renderContents = () => {
     const { contents, leave } = this.state
     const { resultId, loadedImageIds } = this.props.searchImage
-    // const loaded = _.size(loadedImageIds) === _.size(contents)
-                // outerClassName={ leave ? "is-center leave":`${image.className} ${loaded ? "":"bg-clear"}` }
     return _.map(contents, (image, i) => {
       return <Circle
                 key={ `select-${i}` }
@@ -270,39 +267,32 @@ class SearchImageTop extends Component {
     return (
       <MuiThemeProvider muiTheme={darkTheme}>
         <div className={ classNames("container", "center-gradation-blue") }>
-          <ReactCSSTransitionGroup
-            transitionName="fadeinout"
-            transitionAppear={true}
-            transitionAppearTimeout={500}
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}>
-            { this.renderHeader() }
-          </ReactCSSTransitionGroup>
-            <div className="content">
-              { do {
-                if (resultId) {
-                  { this.renderContent(resultId, resultImages, this.onClickResult.bind(this)) }
-                } else if (analyzeId) {
-                  { this.renderContent(analyzeId, PRESENT_IMAGES) }
-                } else {
-                  { this.renderContents() }
-                }
-              }}
-            </div>
-            { this.renderFooter() }
-            <Background />
-            { analyzed ?
-              <Button
-                style={{right: 220}}
-                label={lang.button.sql}
-                labelColor={deepPurple900}
-                buttonColor={white}
-                handler={this.onShowSQL.bind(this)}
-                />
-              : null }
-            { resultId ? <Close labelColor="#3023ae" buttonColor="white" /> : 
-              !analyzing ? <Restart labelColor="#3023ae" buttonColor="white" onClick={this.onRestart.bind(this)}/> : null }
-            { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
+          { this.renderHeader() }
+          <div className="content">
+            { do {
+              if (resultId) {
+                { this.renderContent(resultId, resultImages, this.onClickResult.bind(this)) }
+              } else if (analyzeId) {
+                { this.renderContent(analyzeId, PRESENT_IMAGES) }
+              } else {
+                { this.renderContents() }
+              }
+            }}
+          </div>
+          { this.renderFooter() }
+          <Background />
+          { analyzed ?
+            <Button
+              style={{right: 220}}
+              label={lang.button.sql}
+              labelColor={deepPurple900}
+              buttonColor={white}
+              handler={this.onShowSQL.bind(this)}
+              />
+            : null }
+          { resultId ? <Close labelColor="#3023ae" buttonColor="white" /> : 
+            !analyzing ? <Restart labelColor="#3023ae" buttonColor="white" onClick={this.onRestart.bind(this)}/> : null }
+          { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
           { this.renderSQL() }
         </div>
       </MuiThemeProvider>
