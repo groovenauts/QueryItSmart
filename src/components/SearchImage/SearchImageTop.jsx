@@ -10,7 +10,7 @@ import * as imageActions from '../../actions/searchImageActions'
 import { connect } from 'react-redux'
 
 import { darkTheme } from '../../styles/thema'
-import { QUERY, IMG_SIZE, PRESENT_NUM, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH } from '../../const'
+import { QUERY, IMG_SIZE, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH } from '../../const'
 import Header from '../Header'
 import Background from './Background'
 import Query from '../Query'
@@ -34,7 +34,7 @@ const styles = {
 class SearchImageTop extends Component {
   constructor(props) {
     super(props)
-    let contents = _.sampleSize(PRESENT_IMAGES, PRESENT_NUM)
+    let contents = props.searchImage.candidateImages
     this.state = {
       contents: _.map(contents, (content, i) => {
         content.className = CONTENT_CLASSES[i]
