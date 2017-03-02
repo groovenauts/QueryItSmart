@@ -1,95 +1,10 @@
-
-@keyframes simple {
-  50% {
-    box-shadow: 0px 0px 0px 8px #3023ae, 
-                0px 0px 0px 18px white,
-                0px 0px 0px 28px rgba(255, 255, 255, 0.1);
-  }
+.center-gradation-blue {
+  z-index: 1;
+  background-image: radial-gradient(circle, #53a0fd, #3023ae 60%, #3023ae);
 }
 
-@keyframes pulsate2center {
-  0% { box-shadow: none; }
-  5% {
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26);
-  }
-  10% {
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26), 0px 0px 0px 47px rgba(255, 255, 255, 0.1);
-  }
-  100% { box-shadow: none; }
-}
-
-
-@keyframes pulsate2right {
-  0% { box-shadow: none; }
-  5% {
-    transform: translate(14vw, -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26);
-  }
-  10% {
-    transform: translate(14vw, -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26), 0px 0px 0px 47px rgba(255, 255, 255, 0.1);
-  }
-  100% { box-shadow: none; }
-}
-
-@keyframes pulsate2left {
-  0% { box-shadow: none; }
-  5% {
-    transform: translate(calc(-14vw - 100%), -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26);
-  }
-  10% {
-    transform: translate(calc(-14vw - 100%), -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26), 0px 0px 0px 47px rgba(255, 255, 255, 0.1);
-  }
-  100% { box-shadow: none; }
-}
-
-
-@keyframes pulse-fullscreen {
-  from {
-    opacity: 1;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-
-  to {
-    opacity: 0.2;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(100, 100, 1);
-  }
-}
-
-.pulse-fullscreen {
-  animation: pulse-fullscreen 2s;
-  animation-iteration-count: 1;
-}
-
-
-@keyframes beacon {
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: scale (3);
-    opacity: 0;
-  }
-}
-
-.beacon {
-  &:before {
-    position: absolute;
-    content: "";
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    background-color: transparent;
-    border-radius: 50%;
-    box-shadow: 0px 0px 20px 2px white;
-    animation: beacon 3s infinite ease-in-out;
-  }
+.blur {
+  pointer-events: none;
+  filter: blur(10px);
+  transition: filter 1.5s ease-in;
 }

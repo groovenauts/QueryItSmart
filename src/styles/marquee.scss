@@ -1,8 +1,5 @@
 @keyframes marquee {
   0%   { transform: translateY(100%); }
-  // 25%   { transform: translate(0%, -100%); }
-  // 25%  { transform: translate(0%, -30%); }
-  // 50%  { transform: translate(0%, 110%); }
   100% { transform: translateY(-300%); }
 }
 
