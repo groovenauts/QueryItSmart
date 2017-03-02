@@ -73,14 +73,12 @@
 .thumbnail {
   display: inline-block;
   img {
-    transition: all 1.5s;
     width: $img-size;
     height: $img-size;
     position: relative;
     border-radius: 50%;
     box-sizing: border-box;
     border: solid 1px white;
-    transition: all 1s;
 
     &.large {
       border: solid 8px white;
