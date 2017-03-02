@@ -1,12 +1,14 @@
 import _ from 'lodash'
 import { types } from '../actions/index'
-import { bytesToSize } from '../utils'
+import { bytesToSize, randomCoordinate } from '../utils'
+import { THUMBNAIL_SIZE } from '../const'
 
 const initialState = {
   images: [],
   resultImages: [],
   loadedImageIds: [],
   loadErrorImageIds: [],
+  loadedRandomImages: false,
   showSQL: false,
   totalSize: 0,
   analyzeId: null,
@@ -22,7 +24,8 @@ const searchImage = (state = initialState, action) => {
       const { images, error } = action
       return {
         ...state,
-        images,
+        images: addMetadata(images),
+        loadedRandomImages: true,
         error,
       }
     case types.SELECT_PRESENT_IMAGE:
@@ -36,7 +39,7 @@ const searchImage = (state = initialState, action) => {
     case types.SIMILARED_IMAGE: {
       const { imageId, results, totalBytesProcessed } = action
       let images = _.reject(results, image => image.key === imageId)
-      images = fixPosition(images)
+      images = addMetadata2(images)
       return {
         ...state,
         analyzing: false,
@@ -93,7 +96,25 @@ const searchImage = (state = initialState, action) => {
   }
 }
 
-const fixPosition = (images) => {
+const addMetadata = (images) => {
+  const height = window.innerHeight
+  const width = window.innerWidth
+  return _.map(images, (image, i) => {
+    const offset = _.random(-19, 80)
+    const size = THUMBNAIL_SIZE + offset // min: 41, max: 140
+    const rate = (size - 40) // 1 - 100
+    const opacity = (rate / 100) / 2.5
+    const { x, y } = randomCoordinate(width - size, height - size)
+    image.offset = offset
+    image.size = size
+    image.x = x
+    image.y = y
+    image.opacity = opacity
+    return image
+  })
+}
+
+const addMetadata2 = (images) => {
   const MAX_SIZE = 200
   const MIN_SIZE = 3
   const AJUST_SIZE = 3
