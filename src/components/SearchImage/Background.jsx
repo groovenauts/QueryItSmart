@@ -152,6 +152,7 @@ class Background extends Component {
               width: image.size,
               margin: 0,
               opacity: image.opacity,
+              borderWidth: 0,
             }}/>
         </div>
       )
@@ -189,6 +190,7 @@ class Background extends Component {
               height: image.size,
               width: image.size,
               margin: 0,
+              borderWidth: 0,
             }}/>
         </div>
       )
