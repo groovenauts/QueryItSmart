@@ -1,9 +1,14 @@
 import _ from 'lodash'
 import { types } from '../actions/index'
 import { bytesToSize } from '../utils'
+import { PRESENT_IMAGES, PRESENT_NUM } from '../const'
+
+const shuffled = _.shuffle(PRESENT_IMAGES)
 
 const initialState = {
   images: [],
+  contents: shuffled,
+  candidateImages: _.slice(shuffled, 0, PRESENT_NUM),
   resultImages: [],
   loadedImageIds: [],
   loadErrorImageIds: [],
@@ -25,7 +30,7 @@ const searchImage = (state = initialState, action) => {
         images,
         error,
       }
-    case types.SELECT_PRESENT_IMAGE:
+    case types.SELECT_PRESENT_IMAGE: 
       return {
         ...state,
         analyzeId: action.imageId,
@@ -66,10 +71,13 @@ const searchImage = (state = initialState, action) => {
         ...state,
         showSQL: false,
       }
-    case types.SEARCH_IMAGE_RESTART:
+    case types.SEARCH_IMAGE_RESTART: {
+      const { contents, candidateImages } = state
       return {
         ...initialState,
+        candidateImages: nextCandidateImages(contents, candidateImages),
       }
+    }
     case types.IMG_LOADED: {
       const { loadedImageIds, loadErrorImageIds } = state
       const { id } = action
@@ -106,6 +114,12 @@ const fixPosition = (images) => {
     image.y = _.random(0, window.innerHeight)
     return image
   })
+}
+
+const nextCandidateImages = (contents, currents) => {
+  const prevLastId = _.last(currents).id
+  const nextFirstIndex = _.findIndex(contents, content => content.id === prevLastId) + 1
+  return _.slice([...contents, ...contents], nextFirstIndex, nextFirstIndex + PRESENT_NUM)
 }
 
 export default searchImage
