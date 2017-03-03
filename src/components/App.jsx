@@ -70,7 +70,7 @@ class App extends Component {
                     key={ `channel-${i}` }
                     onClick={ this.onClick.bind(this, i) }
                     onMouseOver={ this.onMouseOver.bind(this, i) }
-                    outerClassName={ leave ? "is-center leave":image.className }>
+                    outerClassName={ leave ? "is-center":image.className }>
                     <img src={ image.src } />
                   </Circle>
           })

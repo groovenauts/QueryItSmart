@@ -3,11 +3,6 @@
     100% {opacity: 1}
 }
 
-@-webkit-keyframes fadeIn {
-    0% {opacity: .3}
-    100% {opacity: 1}
-}
-
 @keyframes pulse {
   0% {
     transform: translate(-50%, -46%) scale(.1);
@@ -38,45 +33,19 @@
   }
 }
 
-@keyframes pulsate2center {
+@keyframes pulseContents {
   0% { box-shadow: none; }
   5% {
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26);
+    box-shadow: 0px 0px 0px 2.2vh rgba(255, 255, 255, 0.25);
   }
-  10% {
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26), 0px 0px 0px 47px rgba(255, 255, 255, 0.1);
+  50% {
+    box-shadow: 0px 0px 0px .4vh rgba(255, 255, 255, 0.25), 0px 0px 0px 4.2vh rgba(255, 255, 255, 0.1);
   }
   100% { box-shadow: none; }
 }
 
 
-@keyframes pulsate2right {
-  0% { box-shadow: none; }
-  5% {
-    transform: translate(14vw, -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26);
-  }
-  10% {
-    transform: translate(14vw, -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26), 0px 0px 0px 47px rgba(255, 255, 255, 0.1);
-  }
-  100% { box-shadow: none; }
-}
 
-@keyframes pulsate2left {
-  0% { box-shadow: none; }
-  5% {
-    transform: translate(calc(-14vw - 100%), -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26);
-  }
-  10% {
-    transform: translate(calc(-14vw - 100%), -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.26), 0px 0px 0px 47px rgba(255, 255, 255, 0.1);
-  }
-  100% { box-shadow: none; }
-}
 
 @keyframes pulse-fullscreen {
   from {
@@ -122,15 +91,4 @@
     box-shadow: 0px 0px 20px 2px white;
     animation: beacon 3s infinite ease-in-out;
   }
-}
-
-@keyframes leave { 
-    from { }
-    to { opacity: translateX(500px); }
-    // to { transform: translate(-50%, -50%); }
-}
-
-.leave {
-  opacity: 0.1;
-  transition: opacity 1s ease-in;
 }
