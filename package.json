@@ -39,6 +39,7 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "superagent": "^3.4.3",
+    "swig": "^1.4.2",
     "webpack": "1.13.3"
   },
   "devDependencies": {
