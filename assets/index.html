@@ -6,11 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="shortcut icon" href="./favicon.ico">
+</script>
   </head>
   <body>
     <div id="map"></div>
     <div id="root"></div>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbmd4B3R9eyb4DgWYJsRHxvLjlQ8vz7Bw&libraries=visualization" async defer></script>
-    <script src="./app.js"></script>
+    <div id="results"></div>
+    <script>
+      function getConfig(success, failure) {
+        var results = document.getElementById("results");
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "./config.json", true);
+        xhr.setRequestHeader("Content-type", "application/json", true);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("hr.responseText", xhr.responseText)
+            var data = JSON.parse(xhr.responseText);
+            success(data)
+          } else {
+            failure(xhr.statusText)
+          }
+        }
+        xhr.send(null);
+      }
+      function loadScript(src, callback) {
+        console.log("loadScript", src)
+          var done = false;
+          var script = document.createElement('script');
+          script.setAttribute("type", "text/javascript");
+          script.setAttribute("src", src);
+          document.body.appendChild(script);
+          // Attach handlers for all browsers
+          script.onload = script.onreadystatechange = function() {
+            if (!done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {
+              done = true;
+              callback();
+            }
+          };
+      }
+      getConfig(function(config) {
+        if (config.api_key) {
+          loadScript("https://maps.googleapis.com/maps/api/js?libraries=visualization&key=" + config.api_key, function() {
+            loadScript("./app.js", function(){
+              console.log("Scripts loaded successfully.")
+            });
+          });
+        }
+      }, function(errorText) {
+        console.log("Required 'config.json' missing for google map rendering. " + errorText)
+      });
+    </script>
   </body>
 </html>
