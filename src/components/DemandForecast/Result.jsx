@@ -8,7 +8,6 @@ import * as forecastActions from '../../actions/forecastActions'
 import { connect } from 'react-redux'
 import Circle from '../Circle'
 import Button from '../Button'
-import Restart from '../Restart'
 import lang from '../../lang.json'
 import Finished from '../Finished'
 import { roundElapsed } from '../../utils'
@@ -125,6 +124,7 @@ class Result extends Component {
           subtitle={subtitle}
           color={deepPurple900}
           backgroundColor="rgba(255,255,255,0.7)"
+          buttonClassName="button-deep-purple-white"
           closeHandler={this.onCloseFinished.bind(this)}
           />
       )
@@ -221,14 +221,16 @@ class Result extends Component {
         {/*{ this.renderTitle() }*/}
         { this.renderSlider() }
         { hideFinished ?
-          <Restart labelColor="white" buttonColor={deepPurple900} onClick={this.onRestart.bind(this)} />
+          <Button
+            label="Restart"
+            className="button-deep-purple-white"
+            handler={this.onRestart.bind(this)} />
           : null }
         { hideFinished ?
           <Button
-            style={{right: 220}}
+            style={{right: '22vh'}}
             label={lang.button.sql}
-            labelColor="white"
-            buttonColor={deepPurple900}
+            className="button-deep-purple-white"
             handler={this.onShowSQL.bind(this)} />
           : null }
       </div>

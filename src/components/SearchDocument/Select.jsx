@@ -8,27 +8,30 @@ import { QUERY } from '../../const'
 import HACKER_NEWS from '../../data/hacker_news.json'
 import STACK_OVERFLOW from '../../data/stackoverflow.json'
 import Query from '../Query'
-import Restart from '../Restart'
 import lang from '../../lang.json'
 import Circle from '../Circle'
 
-const labelStyle = {
-  color: 'black',
-  fontSize: 32,
-  fontWeight: 400,
-  wordBreak: 'breakAll',
-  paddingBottom: 10,
-  height: '3em',
-  lineHeight: '1.5em',
-  overflow: 'hidden',
-}
-
-const bodyStyle = {
-  color: 'black',
-  fontSize: '2vh',
-  wordBreak: 'breakAll',
-  height: '51%',
-  overflow: 'hidden',
+const styles = {
+  label: {
+    color: 'black',
+    fontSize: 32,
+    fontWeight: 400,
+    wordBreak: 'breakAll',
+    paddingBottom: 10,
+    height: '3em',
+    lineHeight: '1.5em',
+    overflow: 'hidden',
+  },
+  body: {
+    color: 'black',
+    fontSize: '2vh',
+    wordBreak: 'breakAll',
+    height: '51%',
+    overflow: 'hidden',
+  },
+  buttonText: {
+    animation: 'flash 4s ease-in-out',
+  },
 }
 
 class Select extends Component {
@@ -107,8 +110,8 @@ class Select extends Component {
                     height: '70%',
                     padding: `20px ${i===0?"0px":"20px"} 20px ${i===_.size(contents)?"0px":"20px"}`,
                   }}>
-                  <div style={labelStyle}>{ content.title || "NO TITLE" }</div>
-                  <div style={bodyStyle}>{ content.body || "" }</div>
+                  <div style={styles.label}>{ content.title || "NO TITLE" }</div>
+                  <div style={styles.body}>{ content.body || "" }</div>
                 </div>
                 <div className="box" 
                     style={{
@@ -128,7 +131,9 @@ class Select extends Component {
                       fontSize: '1.5em',
                       lineHeight: '100px',
                     }}>
-                    Start
+                    <div style={styles.buttonText}>
+                      Start
+                    </div>
                   </Circle>
                 </div>
               </div>

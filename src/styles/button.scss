@@ -1,54 +1,95 @@
 
-.document-start-button {
-  height: 100px;
-  width: 100px;
+@mixin button($background-color, $color) {
+  color: $color;
+  background-color: $background-color;
+  height: 10vh;
+  width: 10vh;
+  bottom: 6vh;
+  right: 6vh;
+  font-size: 2.5vh;
+  line-height: 10vh;
   line-height: 100px;
   border-radius: 50%;
+  box-sizing: border-box;
+  box-shadow: 0vh 0vh 0vh 1vh $color, 0vh 0vh 0vh 1.8vh $background-color;
+  cursor: pointer;
+  transition: show 1.5s;
+
+  &:hover {
+    font-size: 2.7vh;
+    color: $background-color;
+    background-color: $color;
+    box-shadow: 0vh 0vh 0vh 1vh $color, 0vh 0vh 0vh 1.8vh $background-color;
+    transition: all .4s ease-out;
+  }
+}
+
+.button-black {
+  z-index: 1000;
+  position: absolute;
+  @include button(black, white);
+}
+
+.button-deep-purple {
+  z-index: 1000;
+  position: absolute;
+  @include button(white, #3023ae);
+}
+
+.button-deep-purple-white {
+  z-index: 1000;
+  position: absolute;
+  @include button(#3023ae, white);
+}
+
+.button-deep-blue {
+  z-index: 1000;
+  position: absolute;
+  @include button(white, $deep-blue);
+}
+
+.document-start-button {
+  height: 10vh;
+  width: 10vh;
+  line-height: 10vh;
+  font-size: 2.5vh;
+  border-radius: 50%;
+  box-sizing: border-box;
   text-align: center;
   cursor: pointer;
   color: black;
   background-color: white;
   border: 1px solid black;
-  box-shadow: white 0px 0px 0px 8px, #E0E0E0 0px 0px 0px 16px;
+  box-shadow: white 0vh 0vh 0vh 1vh, #E0E0E0 0vh 0vh 0vh 1.8vh;
 
   &:hover {
+    font-size: 2.7vh;
     color: white;
-    border-width: 0px;
     background-color: black;
-    box-shadow: white 0px 0px 0px 8px, #EEEEEE 0px 0px 0px 16px;
-    transform: scale(1.2);
-    transition: transform .8s ease-out,
-                border-width .1s ease-out,
-                box-shadow .8s ease-out,
-                background-color .5s ease-in;
-  }
-  &.disable {
-    &:hover {
-      color: black;
-      background-color: white;
-      border: 1px solid black;
-      box-shadow: white 0px 0px 0px 8px, #E0E0E0 0px 0px 0px 16px;
-    }
+    box-shadow: white 0vh 0vh 0vh 1vh, #EEEEEE 0vh 0vh 0vh 1.8vh;
+    transition: all .6s;
   }
 }
 
 .citibike-start-button {
-  height: 100px;
-  width: 100px;
-  line-height: 100px;
+  height: 10vh;
+  width: 10vh;
+  line-height: 10vh;
+  font-size: 2.5vh;
   border-radius: 50%;
+  box-sizing: border-box;
   text-align: center;
   cursor: pointer;
   color: $indigo900;
   background-color: white;
   border: 1px solid $indigo900;
-  box-shadow: white 0px 0px 0px 8px, #D1C4E9 0px 0px 0px 18px;
+  box-shadow: white 0vh 0vh 0vh 1vh, #D1C4E9 0vh 0vh 0vh 1.8vh;
 
   &:hover {
+    font-size: 2.7vh;
     color: white;
-    border-width: 0px;
     background-color: $indigo900;
-    box-shadow: white 0px 0px 0px 8px, #EDE7F6 0px 0px 0px 18px;
+    box-shadow: white 0vh 0vh 0vh 1vh, #EDE7F6 0vh 0vh 0vh 1.8vh;
     transition: border-width .1s ease-out;
     transition: box-shadow .8s ease-out;
     transition: background-color .5s ease-in;

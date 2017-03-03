@@ -10,7 +10,6 @@ import Result from './Result'
 import Searching from '../Searching'
 import Query from '../Query'
 import SQL from '../SQL'
-import Restart from '../Restart'
 import Circle from '../Circle'
 import lang from '../../lang'
 import { QUERY, DOCUMENT_IMAGE } from '../../const'
@@ -102,6 +101,7 @@ class Top extends Component {
           backgroundColor='rgba(0, 0, 0, 0.9)'
           headerColor={white}
           bodyColor={white}
+          buttonClassName="button-black"
           footerColor={yellow500}
           closeHandler={this.onCloseSQL.bind(this)}
           />

@@ -13,8 +13,6 @@ import { QUERY, IMG_SIZE, PRESENT_NUM, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_
 import Header from '../Header'
 import Background from './Background'
 import Query from '../Query'
-import Restart from '../Restart'
-import Close from '../Close'
 import SQL from '../SQL'
 import Button from '../Button'
 import lang from '../../lang.json'
@@ -25,7 +23,7 @@ const styles = {
     top: 0,
     bottom: 0,
     margin: 'auto 0',
-    fontSize: 40,
+    fontSize: '5vh',
     transform: 'translateY(-25%)',
   }
 }
@@ -70,6 +68,10 @@ class SearchImageTop extends Component {
   onRestart() {
     this.props.actions.restart();
     this.props.actions.imageRestart();
+  }
+
+  onCloseResult() {
+    this.props.actions.close();
   }
 
   onShowSQL() {
@@ -137,9 +139,10 @@ class SearchImageTop extends Component {
     return _.map(contents, (image, i) => {
       return <Circle
                 key={ `select-${i}` }
+                style={{zIndex: image.zIndex}}
                 onClick={ this.onClick.bind(this, i) }
                 onMouseOver={ this.onMouseOver.bind(this, i) }
-                outerClassName={ leave ? "is-center leave":`${image.className}` }>
+                outerClassName={ leave ? "is-center":`${image.className}` }>
                 <img src={ image.src }
                   onLoad={ this.onImgLoaded.bind(this, image.id) }
                   onError={ this.onImgError.bind(this, image.id) }
@@ -254,6 +257,7 @@ class SearchImageTop extends Component {
           headerColor={white}
           bodyColor={white}
           footerColor={yellow500}
+          buttonClassName="button-deep-blue"
           closeHandler={this.onCloseSQL.bind(this)}
           />
       )
@@ -283,15 +287,24 @@ class SearchImageTop extends Component {
           <Background />
           { analyzed ?
             <Button
-              style={{right: 220}}
+              style={{right: '22vh'}}
               label={lang.button.sql}
-              labelColor={deepPurple900}
-              buttonColor={white}
+              className="button-deep-purple"
               handler={this.onShowSQL.bind(this)}
               />
             : null }
-          { resultId ? <Close labelColor="#3023ae" buttonColor="white" /> : 
-            !analyzing ? <Restart labelColor="#3023ae" buttonColor="white" onClick={this.onRestart.bind(this)}/> : null }
+          { resultId ?
+            <Button
+              label="Close"
+              className="button-deep-purple"
+              handler={ this.onCloseResult.bind(this) }
+              /> : 
+            !analyzing ? 
+            <Button
+              label="Restart"
+              className="button-deep-purple"
+              handler={this.onRestart.bind(this)}/>
+              : null }
           { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
           { this.renderSQL() }
         </div>

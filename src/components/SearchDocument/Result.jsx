@@ -6,7 +6,6 @@ import * as appActions from '../../actions/appActions'
 import * as documentActions from '../../actions/searchDocumentActions'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import Restart from '../Restart'
 import Button from '../Button'
 import Overlay from '../Overlay'
 import lang from '../../lang.json'
@@ -73,6 +72,7 @@ class Result extends Component {
           subtitle={subtitle}
           color={black}
           backgroundColor="rgba(255,255,255,0.9)"
+          buttonClassName="button-black"
           closeHandler={this.onCloseFinished.bind(this)}
           />
       )
@@ -143,7 +143,7 @@ class Result extends Component {
   }
 
   render() {
-    const { searchId } = this.props.searchDocument
+    const { searchId, hideFinished } = this.props.searchDocument
     return (
       <div id="document-search-result">
         { this.renderFinished() }
@@ -152,14 +152,20 @@ class Result extends Component {
           { this.renderCenter() }
           { this.renderRight() }
         </div>
-        <Restart labelColor="white" buttonColor="black" onClick={this.onRestart.bind(this)}/>
-        <Button
-          style={{right: 220}}
-          label={lang.button.sql}
-          labelColor={white}
-          buttonColor={black}
-          handler={this.onShowSQL.bind(this)}
-          />
+        { hideFinished ?
+          <Button
+            label="Restart"
+            className="button-black"
+            handler={this.onRestart.bind(this)}/>
+          : null }
+        { hideFinished ?
+          <Button
+            style={{right: '22vh'}}
+            label={lang.button.sql}
+            className="button-black"
+            handler={this.onShowSQL.bind(this)}
+            />
+          : null }
       </div>
     )
   }
