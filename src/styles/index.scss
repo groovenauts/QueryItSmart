@@ -21,6 +21,11 @@ html, body {
   color: white;
 }
 
+body {
+  animation: fadeIn 2s ease 0s 1 normal;
+  -webkit-animation: fadeIn 2s ease 0s 1 normal;
+}
+
 h1 {
   font-size: 85px;
   margin: 20px;
