@@ -176,8 +176,7 @@ class SearchImageTop extends Component {
     if (!resultId) {
       return null
     }
-    const index = _.findIndex(resultImages, image => image.key === resultId) || 0
-    const rate = ((index + 1) / _.size(resultImages)) * 100
+    const image = _.find(resultImages, image => image.key === resultId) || {}
     return (
       <div className="content-footer">
         <div className="row center-xs"
@@ -200,7 +199,7 @@ class SearchImageTop extends Component {
                 disabled={true}
                 min={0}
                 max={100}
-                value={rate}/>
+                value={image.rate}/>
             </div>
           </div>
           <div className="col-xs-2" style={styles.sliderBothEnds}>

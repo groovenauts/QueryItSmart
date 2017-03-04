@@ -1,10 +1,9 @@
 import _ from 'lodash'
 import { types } from '../actions/index'
-import { bytesToSize } from '../utils'
-import { PRESENT_IMAGES, PRESENT_NUM } from '../const'
+import { bytesToSize, randomCoordinate } from '../utils'
+import { THUMBNAIL_SIZE, PRESENT_IMAGES, PRESENT_NUM } from '../const'
 
 const shuffled = _.shuffle(PRESENT_IMAGES)
-
 const initialState = {
   images: [],
   contents: shuffled,
@@ -12,6 +11,7 @@ const initialState = {
   resultImages: [],
   loadedImageIds: [],
   loadErrorImageIds: [],
+  loadedRandomImages: false,
   showSQL: false,
   totalSize: 0,
   analyzeId: null,
@@ -27,7 +27,8 @@ const searchImage = (state = initialState, action) => {
       const { images, error } = action
       return {
         ...state,
-        images,
+        images: addMetadata(images),
+        loadedRandomImages: true,
         error,
       }
     case types.SELECT_PRESENT_IMAGE: 
@@ -41,7 +42,7 @@ const searchImage = (state = initialState, action) => {
     case types.SIMILARED_IMAGE: {
       const { imageId, results, totalBytesProcessed } = action
       let images = _.reject(results, image => image.key === imageId)
-      images = fixPosition(images)
+      images = addMetadata2(images)
       return {
         ...state,
         analyzing: false,
@@ -101,10 +102,29 @@ const searchImage = (state = initialState, action) => {
   }
 }
 
-const fixPosition = (images) => {
+const addMetadata = (images) => {
+  const height = window.innerHeight
+  const width = window.innerWidth
+  return _.map(images, (image, i) => {
+    const offset = _.random(-19, 80)
+    const size = THUMBNAIL_SIZE + offset // min: 41, max: 140
+    const rate = (size - 40) // 1 - 100
+    const opacity = (rate / 100) / 2.5
+    const { x, y } = randomCoordinate(width - size, height - size)
+    image.offset = offset
+    image.size = size
+    image.x = x
+    image.y = y
+    image.opacity = opacity
+    return image
+  })
+}
+
+const addMetadata2 = (images) => {
   const MAX_SIZE = 200
   const MIN_SIZE = 3
   const AJUST_SIZE = 3
+  const length = _.size(images)
   return _.map(images, (image, i) => {
     let size = MAX_SIZE - (i * AJUST_SIZE) | 0
     let opacity = 1 - ((Math.floor(i / 10)) / 10)
@@ -112,6 +132,7 @@ const fixPosition = (images) => {
     image.opacity = opacity < 0 ? 0.1 : opacity
     image.x = _.random(0, window.innerWidth)
     image.y = _.random(0, window.innerHeight)
+    image.rate = ((i + 1) / length) * 100
     return image
   })
 }

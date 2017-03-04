@@ -6,9 +6,19 @@ import { TimelineMax, TweenMax, TweenLite } from 'gsap'
 import GSAP from 'react-gsap-enhancer'
 import * as actions from '../../actions/searchImageActions'
 import { IMG_SIZE, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH } from '../../const';
-import { randomCoordinate, convertCoordinate, coordinateDistanceAndDegree } from '../../utils';
+import { convertCoordinate, coordinateDistanceAndDegree, easeIn } from '../../utils';
+
+const DELAY_MS = 2000
+const MINIMUN_MS = 10
 
 class Background extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      renderRandomImageIndex: 0,
+      renderResultImageIndex: 0,
+    }
+  }
 
   componentDidMount() {
     const { actions } = this.props
@@ -16,18 +26,46 @@ class Background extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return ((nextProps.searchImage.resultId && !this.props.searchImage.resultId) ||
-      (!nextProps.searchImage.resultId && this.props.searchImage.resultId) ||
-      nextProps.searchImage.analyzing !== this.props.searchImage.analyzing ||
-      nextProps.searchImage.analyzeId !== this.props.searchImage.analyzeId ||
-      _.size(nextProps.searchImage.images) !== _.size(this.props.searchImage.images) ||
-      _.size(nextProps.searchImage.resultImages) !== _.size(this.props.searchImage.resultImages))
+    const { renderRandomImageIndex } = this.state
+    const { resultId, analyzing, analyzed, analyzeId, loadedRandomImages } = this.props
+    return ((nextProps.searchImage.resultId && !resultId) ||
+      (!nextProps.searchImage.resultId && resultId) ||
+      nextProps.searchImage.analyzing !== analyzing ||
+      nextProps.searchImage.analyzeId !== analyzeId ||
+      nextProps.searchImage.analyzed !== analyzed ||
+      nextProps.searchImage.loadedRandomImages !== loadedRandomImages ||
+      nextState.renderRandomImageIndex > renderRandomImageIndex ||
+      nextState.renderResultImageIndex > renderResultImageIndex)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { loadedRandomImages, analyzed } = this.props.searchImage
+    if (!loadedRandomImages && nextProps.searchImage.loadedRandomImages) {
+      if (_.size(nextProps.searchImage.loadedImageIds) > 0) {
+        this.setState({renderRandomImageIndex: 0})
+        this.timerForRandom = setTimeout(this.tickForRandom.bind(this), DELAY_MS)
+      }
+    }
+    if (!analyzed && nextProps.searchImage.analyzed) {
+      if (_.size(nextProps.searchImage.resultImages) > 0) {
+        this.setState({renderResultImageIndex: 0})
+        this.timerForResult = setTimeout(this.tickForResult.bind(this), DELAY_MS)
+      }
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (_.size(this.props.searchImage.images) > _.size(prevProps.searchImage.images) ||
-      _.size(this.props.searchImage.resultImages) > _.size(prevProps.searchImage.resultImages)) {
-      this.addAnimation(this.moveAnimation)
+    // Animate the added element
+    const { renderRandomImageIndex, renderResultImageIndex } = this.state
+    if (renderRandomImageIndex > prevState.renderRandomImageIndex) {
+      this.addAnimation(this.moveAnimation.bind(this, {
+        id: `random-${prevState.renderRandomImageIndex}`
+      }))
+    }
+    if (renderResultImageIndex > prevState.renderResultImageIndex) {
+      this.addAnimation(this.moveAnimation.bind(this, {
+        id: `result-${prevState.renderResultImageIndex}`
+      }))
     }
   }
 
@@ -36,8 +74,34 @@ class Background extends Component {
     actions.selectResultImage(imageId)
   }
 
-  moveAnimation({target}) {
-    let elements = target.findAll({name: 'circle'})
+  tickForRandom() {
+    const { renderRandomImageIndex } = this.state
+    const { images } = this.props.searchImage
+
+    if (renderRandomImageIndex < _.size(images)) {
+      // Render next index with setState trigger
+      this.setState({renderRandomImageIndex: renderRandomImageIndex+1})
+
+      let next = easeIn(_.size(images) - renderRandomImageIndex, _.size(images)) * DELAY_MS
+      next = next > MINIMUN_MS ? next : MINIMUN_MS
+      setTimeout(this.tickForRandom.bind(this), next)
+    }
+  }
+
+  tickForResult() {
+    const { renderResultImageIndex } = this.state
+    const { resultImages } = this.props.searchImage
+    if (renderResultImageIndex < _.size(resultImages)) {
+      this.setState({renderResultImageIndex: renderResultImageIndex+1})
+
+      let next = easeIn(_.size(resultImages) - renderResultImageIndex, _.size(resultImages)) * DELAY_MS
+      next = next > MINIMUN_MS ? next : MINIMUN_MS
+      setTimeout(this.tickForResult.bind(this), next)
+    }
+  }
+
+  moveAnimation(selector, {target}) {
+    let elements = target.findAll(selector)
     this.tl = new TimelineMax({
       repeat: -1,
       yoyo: true,
@@ -62,36 +126,33 @@ class Background extends Component {
   }
 
   renderRandomImages() {
+    const { renderRandomImageIndex } = this.state
     const { app, searchImage } = this.props
     const { width, height } = app
     const { analyzeId, resultId, images } = searchImage
 
-    return _.map(images, (image, i) => {
-      const offset = _.random(-19, 80)
-      const size = THUMBNAIL_SIZE + offset // min: 41, max: 140
-      const rate = (size - 40) // 1 - 100
-      const opacity = (rate / 100) / 2.5
-      const { x, y } = randomCoordinate(width - size, height - size)
+    return _.map(_.take(images, renderRandomImageIndex), (image, i) => {
       return (
-        <div name={`circle`} key={`present${i}`} className={ classNames("circle", "thumbnail") }
+        <div id={`random-${i}`} name={`circle`} key={`random-${i}`} className={ classNames("circle", "thumbnail") }
           style={{
             zIndex: i,
             position: 'absolute',
-            top: y,
-            left: x,
-            height: size,
-            width: size,
-            lineHeight: `${size}px`,
+            top: image.y,
+            left: image.x,
+            height: image.size,
+            width: image.size,
+            lineHeight: `${image.size}px`,
             backgroundColor: `rgba(48, 35, 174, 0.3)`,
             cursor: 'default',
           }}>
           <img
             src={ THUMBNAIL_PATH({id: image.key}) }
             style={{
-              height: size,
-              width: size,
+              height: image.size,
+              width: image.size,
               margin: 0,
-              opacity: opacity,
+              opacity: image.opacity,
+              borderWidth: 0,
             }}/>
         </div>
       )
@@ -99,6 +160,7 @@ class Background extends Component {
   }
 
   renderResultImages() {
+    const { renderResultImageIndex } = this.state
     const { app, searchImage } = this.props
     const { width, height } = app
     const { analyzing, analyzeId, resultImages } = searchImage
@@ -106,9 +168,9 @@ class Background extends Component {
       return null;
     }
 
-    return _.map(_.reverse(resultImages), (image, i) => {
+    return _.map(_.take(resultImages, renderResultImageIndex), (image, i) => {
       return (
-        <div name={`circle`} key={`result${i}`} 
+        <div id={`result-${i}`} name={`circle`} key={`result${i}`} 
           className={ classNames("circle", "thumbnail") }
           onClick={ this.onClickImage.bind(this, image.key) }
           style={{
@@ -128,6 +190,7 @@ class Background extends Component {
               height: image.size,
               width: image.size,
               margin: 0,
+              borderWidth: 0,
             }}/>
         </div>
       )
