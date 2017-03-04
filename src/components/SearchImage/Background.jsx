@@ -69,6 +69,11 @@ class Background extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timerForRandom)
+    clearInterval(this.timerForResult)
+  }
+
   onClickImage(imageId, e) {
     const { actions } = this.props
     actions.selectResultImage(imageId)
