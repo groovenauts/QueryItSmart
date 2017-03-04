@@ -168,7 +168,7 @@ class Background extends Component {
       return null;
     }
 
-    return _.map(_.take(_.reverse(resultImages), renderResultImageIndex), (image, i) => {
+    return _.map(_.take(resultImages, renderResultImageIndex), (image, i) => {
       return (
         <div id={`result-${i}`} name={`circle`} key={`result${i}`} 
           className={ classNames("circle", "thumbnail") }

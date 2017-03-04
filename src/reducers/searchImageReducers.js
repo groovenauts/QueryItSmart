@@ -1,10 +1,13 @@
 import _ from 'lodash'
 import { types } from '../actions/index'
 import { bytesToSize, randomCoordinate } from '../utils'
-import { THUMBNAIL_SIZE } from '../const'
+import { THUMBNAIL_SIZE, PRESENT_IMAGES, PRESENT_NUM } from '../const'
 
+const shuffled = _.shuffle(PRESENT_IMAGES)
 const initialState = {
   images: [],
+  contents: shuffled,
+  candidateImages: _.slice(shuffled, 0, PRESENT_NUM),
   resultImages: [],
   loadedImageIds: [],
   loadErrorImageIds: [],
@@ -28,7 +31,7 @@ const searchImage = (state = initialState, action) => {
         loadedRandomImages: true,
         error,
       }
-    case types.SELECT_PRESENT_IMAGE:
+    case types.SELECT_PRESENT_IMAGE: 
       return {
         ...state,
         analyzeId: action.imageId,
@@ -69,10 +72,13 @@ const searchImage = (state = initialState, action) => {
         ...state,
         showSQL: false,
       }
-    case types.SEARCH_IMAGE_RESTART:
+    case types.SEARCH_IMAGE_RESTART: {
+      const { contents, candidateImages } = state
       return {
         ...initialState,
+        candidateImages: nextCandidateImages(contents, candidateImages),
       }
+    }
     case types.IMG_LOADED: {
       const { loadedImageIds, loadErrorImageIds } = state
       const { id } = action
@@ -118,6 +124,7 @@ const addMetadata2 = (images) => {
   const MAX_SIZE = 200
   const MIN_SIZE = 3
   const AJUST_SIZE = 3
+  const length = _.size(images)
   return _.map(images, (image, i) => {
     let size = MAX_SIZE - (i * AJUST_SIZE) | 0
     let opacity = 1 - ((Math.floor(i / 10)) / 10)
@@ -125,8 +132,15 @@ const addMetadata2 = (images) => {
     image.opacity = opacity < 0 ? 0.1 : opacity
     image.x = _.random(0, window.innerWidth)
     image.y = _.random(0, window.innerHeight)
+    image.rate = ((i + 1) / length) * 100
     return image
   })
+}
+
+const nextCandidateImages = (contents, currents) => {
+  const prevLastId = _.last(currents).id
+  const nextFirstIndex = _.findIndex(contents, content => content.id === prevLastId) + 1
+  return _.slice([...contents, ...contents], nextFirstIndex, nextFirstIndex + PRESENT_NUM)
 }
 
 export default searchImage

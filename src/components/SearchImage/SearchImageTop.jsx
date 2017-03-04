@@ -9,7 +9,7 @@ import * as imageActions from '../../actions/searchImageActions'
 import { connect } from 'react-redux'
 
 import { darkTheme } from '../../styles/thema'
-import { QUERY, IMG_SIZE, PRESENT_NUM, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH } from '../../const'
+import { QUERY, IMG_SIZE, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH } from '../../const'
 import Header from '../Header'
 import Background from './Background'
 import Query from '../Query'
@@ -31,7 +31,7 @@ const styles = {
 class SearchImageTop extends Component {
   constructor(props) {
     super(props)
-    let contents = _.sampleSize(PRESENT_IMAGES, PRESENT_NUM)
+    let contents = props.searchImage.candidateImages
     this.state = {
       contents: _.map(contents, (content, i) => {
         content.className = CONTENT_CLASSES[i]
@@ -176,8 +176,7 @@ class SearchImageTop extends Component {
     if (!resultId) {
       return null
     }
-    const index = _.findIndex(resultImages, image => image.key === resultId) || 0
-    const rate = ((index + 1) / _.size(resultImages)) * 100
+    const image = _.find(resultImages, image => image.key === resultId) || {}
     return (
       <div className="content-footer">
         <div className="row center-xs"
@@ -200,7 +199,7 @@ class SearchImageTop extends Component {
                 disabled={true}
                 min={0}
                 max={100}
-                value={rate}/>
+                value={image.rate}/>
             </div>
           </div>
           <div className="col-xs-2" style={styles.sliderBothEnds}>

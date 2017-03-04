@@ -3,6 +3,7 @@ var basicAuth = require('basic-auth-connect');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var swig = require('swig');
 var routes = require('./server/index');
 var query = require('./server/query');
 var startQuery = require('./server/startQuery');
@@ -17,6 +18,8 @@ global.bigQuery = require('@google-cloud/bigquery')({
 });
 
 var app = express();
+app.engine('html', swig.renderFile);
+app.set('views', path.join(__dirname, '/assets'));
 app.set('view engine', 'html');
 app.use(logger('dev'));
 

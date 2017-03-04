@@ -29,7 +29,7 @@ const styles = {
   },
   title: {
     color: white,
-    fontSize: '15.5vw',
+    fontSize: '9vw',
     fontWeight: '300',
     marginBottom: 30,
   },
