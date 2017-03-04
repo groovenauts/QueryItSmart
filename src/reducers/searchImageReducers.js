@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { types } from '../actions/index'
 import { bytesToSize, randomCoordinate } from '../utils'
-import { PRESENT_IMAGES, PRESENT_NUM } from '../const'
+import { THUMBNAIL_SIZE, PRESENT_IMAGES, PRESENT_NUM } from '../const'
 
 const shuffled = _.shuffle(PRESENT_IMAGES)
 const initialState = {
@@ -124,6 +124,7 @@ const addMetadata2 = (images) => {
   const MAX_SIZE = 200
   const MIN_SIZE = 3
   const AJUST_SIZE = 3
+  const length = _.size(images)
   return _.map(images, (image, i) => {
     let size = MAX_SIZE - (i * AJUST_SIZE) | 0
     let opacity = 1 - ((Math.floor(i / 10)) / 10)
@@ -131,6 +132,7 @@ const addMetadata2 = (images) => {
     image.opacity = opacity < 0 ? 0.1 : opacity
     image.x = _.random(0, window.innerWidth)
     image.y = _.random(0, window.innerHeight)
+    image.rate = ((i + 1) / length) * 100
     return image
   })
 }
