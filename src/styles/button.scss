@@ -33,19 +33,19 @@
 .button-deep-purple {
   z-index: 1000;
   position: absolute;
-  @include button(white, #3023ae);
+  @include button(white, $indigo900);
 }
 
 .button-deep-purple-white {
   z-index: 1000;
   position: absolute;
-  @include button(#3023ae, white);
+  @include button($indigo900, white);
 }
 
 .button-deep-blue {
   z-index: 1000;
   position: absolute;
-  @include button(white, $deep-blue);
+  @include button(white, $deep_blue);
 }
 
 .document-start-button {
