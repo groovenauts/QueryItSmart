@@ -106,22 +106,22 @@ class Form extends Component {
               }}>
               <div className="row center-xs">
                 <div className="col-xs-3">
-                  <section className="box select-box">
+                  <section className="box selectbox">
                     { this.renderSelectField("month", param.month, MONTH_VALUES, MONTH_LABELS) }
                   </section>
                 </div>
                 <div className="col-xs-3">
-                  <section className="box select-box">
+                  <section className="box selectbox">
                     { this.renderSelectField("weekday", param.weekday, WEEKDAY_VALUES, WEEKDAY_LABELS) }
                   </section>
                 </div>
                 <div className="col-xs-3">
-                  <section className="box select-box">
+                  <section className="box selectbox">
                     { this.renderSelectField("weather", param.weather, WEATHERS) }
                   </section>
                 </div>
-                <div className="col-xs-3 select-box-suffix temperature-f">
-                  <section className="box select-box">
+                <div className="col-xs-3 selectbox-suffix temperature-f">
+                  <section className="box selectbox">
                     { this.renderSelectField("temperature", param.temperature, TEMPERATURES) }
                   </section>
                 </div>
