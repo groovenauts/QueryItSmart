@@ -66,11 +66,11 @@
     },
     "searching": {
       "title": "Analyzing...",
-      "subtitle": "On 644 bike stations & 24 hours<br />with BigQuery. Elapsed ${time} sec"
+      "subtitle": "On 644 bike stations/24 hours<br />with BigQuery. Elapsed ${time} sec"
     },
     "finished": {
       "title": "Finished",
-      "subtitle": "644 bike stations & 24 hours and ${size} processed<br />in ${time} seconds with with Google BigQuery"
+      "subtitle": "644 bike stations/24 hours and ${size} processed<br />in ${time} seconds with with Google BigQuery"
     }
   },
   "sql": {
