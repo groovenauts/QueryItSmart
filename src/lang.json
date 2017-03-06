@@ -70,7 +70,7 @@
     },
     "finished": {
       "title": "Finished",
-      "subtitle": "644 bike stations/24 hours and ${size} processed<br />in ${time} seconds with with Google BigQuery"
+      "subtitle": "644 bike stations/24 hours and ${size} processed<br />in ${time} seconds with Google BigQuery"
     }
   },
   "sql": {
