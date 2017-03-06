@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import Slider from 'material-ui/Slider'
+import _ from 'lodash'
 import { deepPurple900 } from 'material-ui/styles/colors'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/appActions'
@@ -13,9 +14,12 @@ import Finished from '../Finished'
 import { roundElapsed } from '../../utils'
 
 const AUTO_SLIDER_INTERVAL = 1200
-const SLIDER_SCALE = 6
+/**
+ * For converting slider values
+ * [6,..23,0,..6]
+ */
 const START_HOUR = 6
-const TIME_MAP = _.times(24, num => {
+const TIME_MAP = _.times(25, num => {
   if (num + START_HOUR >= 24) {
     return num - (24 - START_HOUR)
   } else {
@@ -25,11 +29,22 @@ const TIME_MAP = _.times(24, num => {
 
 const hour2index = (hour) => _.findIndex(TIME_MAP, time => time === hour)
 
+const template = _.template('<b><%= hour %></b><div style="font-size: 1.3vh;font-weight: 400;"><%= suffix %><div>')
+const SCALE_MAP = {
+  '6': template({hour: 6, suffix: 'am'}),
+  '12': template({hour: 12, suffix: 'pm'}),
+  '18': template({hour: 6, suffix: 'pm'}),
+  '0': template({hour: 0, suffix: 'am'}),
+}
+
 const styles = {
   sliderPrefix: {
     top: 0,
     bottom: 0,
     margin: 'auto 0',
+    borderRight: `solid 1px ${deepPurple900}`,
+    marginRight: '2vh',
+    userSelect: 'none',
   }
 }
 
@@ -190,15 +205,15 @@ class Result extends Component {
                 return (
                   <div key={`hour-${i}`}
                     className="box"
-                    style={{width: '1em'}}>
-                    {`${ i === 0 || _.size(TIME_MAP)-1 === i || _hour % 6 === 0 ? _hour : "" }`}
+                    style={{width: '1em'}}
+                    dangerouslySetInnerHTML={{__html: SCALE_MAP[_.toString(_hour)] || ""}}>
                   </div>
                 )
               }) }
             </div>
             <Slider
               min={0}
-              max={23}
+              max={24}
               value={_.indexOf(TIME_MAP, hour) || 0}
               style={{
                 paddingRight: 4,
