@@ -22,7 +22,7 @@
     },
     "analyzed": {
       "title": "Finished",
-      "subtitle": "1,127,714 images and ${size} processed<br />in ${time} seconds with BigQuery"
+      "subtitle": "1,159,606 images and ${size} processed<br />in ${time} seconds with BigQuery"
     },
     "detail": {
       "title": "",
@@ -65,12 +65,12 @@
       "weather": "Weather"
     },
     "searching": {
-      "title": "Searching...",
-      "subtitle": "On 1 million Wikimedia Commons images<br />with BigQuery. Elapsed ${time} sec"
+      "title": "Analyzing...",
+      "subtitle": "On 644 bike stations/24 hours<br />with BigQuery. Elapsed ${time} sec"
     },
     "finished": {
       "title": "Finished",
-      "subtitle": "1,127,714 images and ${size} processed<br />in ${time} seconds with with Google BigQuery"
+      "subtitle": "644 bike stations/24 hours and ${size} processed<br />in ${time} seconds with Google BigQuery"
     }
   },
   "sql": {
