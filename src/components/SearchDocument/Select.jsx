@@ -55,6 +55,17 @@ class Select extends Component {
       contents,
       count: 0,
     }
+
+    setTimeout(() => {
+      this.timer = setInterval(() => {
+        const { contents, count } = this.state
+        if (count < _.size(contents)) {
+          this.animateTrigger()
+        } else {
+          clearInterval(this.timer)
+        }
+      }, 1000)
+    }, 1000)
   }
 
   componentWillUnmount() {
@@ -67,17 +78,6 @@ class Select extends Component {
     const { actions } = this.props
     const target = _.find(this.state.contents, item => item.id === id)
     actions.searchDocument(target.queryType, id, target.compiledQuery({id}), target.categoryName)
-  }
-
-  onTypingDone() {
-    this.timer = setInterval(() => {
-      const { contents, count } = this.state
-      if (count < _.size(contents)) {
-        this.animateTrigger()
-      } else {
-        clearInterval(this.timer)
-      }
-    }, 800)
   }
 
   animateTrigger() {
@@ -107,9 +107,7 @@ class Select extends Component {
               </div>
               <div style={{fontSize: '4vh', padding: 20}}>
                 <Typist
-                  avgTypingDelay={60}
-                  cursor={TYPING_OPTION.cursor}
-                  onTypingDone={this.onTypingDone.bind(this)}>
+                  cursor={TYPING_OPTION.cursor}>
                   { lang.searchDocument.select.subtitle }
                 </Typist>
               </div>

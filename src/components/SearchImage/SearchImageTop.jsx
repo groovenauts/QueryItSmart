@@ -43,6 +43,17 @@ class SearchImageTop extends Component {
       start: null,
       elapsed: 0,
     }
+
+    setTimeout(() => {
+      this.appearTimer = setInterval(() => {
+        const { contents, count } = this.state
+        if (count < _.size(contents)) {
+          this.animateTrigger()
+        } else {
+          clearInterval(this.appearTimer)
+        }
+      }, 1000)
+    }, 1000)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -127,17 +138,6 @@ class SearchImageTop extends Component {
 
   onImgError(id, e) {
     this.props.actions.imgError(id)
-  }
-
-  onTypingDone() {
-    this.appearTimer = setInterval(() => {
-      const { contents, count } = this.state
-      if (count < _.size(contents)) {
-        this.animateTrigger()
-      } else {
-        clearInterval(this.appearTimer)
-      }
-    }, 800)
   }
 
   animateTrigger() {
@@ -260,8 +260,7 @@ class SearchImageTop extends Component {
         <Header 
           title={ lang.searchImage.select.title }
           subtitle={ lang.searchImage.select.subtitle }
-          animate={ true }
-          onTypingDone={ this.onTypingDone.bind(this) }/>
+          animate={ true }/>
       )
     }
     return null
