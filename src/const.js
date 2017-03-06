@@ -73,7 +73,6 @@ export const THUMBNAIL_SIZE = 60,
   MONTH_LABELS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   WEEKDAY_LABELS = ["Sunday", "Monday","Thesday","Wednesday", "Thursday", "Friday", "Saturday"],
   WEATHERS = ["sunny", "rain", "snow"],
-  TEMPERATURES = _.range(-10, 76),
   TYPING_OPTION = {
     cursor: {
       show: false,

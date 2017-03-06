@@ -7,7 +7,7 @@ import { indigo900, grey400 } from 'material-ui/styles/colors'
 import { bindActionCreators } from 'redux'
 import * as actions from '../../actions/forecastActions'
 import { connect } from 'react-redux'
-import { MONTH_LABELS, MONTH_VALUES, WEEKDAY_LABELS, WEEKDAY_VALUES, WEATHERS, TEMPERATURES } from '../../const'
+import { MONTH_LABELS, MONTH_VALUES, WEEKDAY_LABELS, WEEKDAY_VALUES, WEATHERS } from '../../const'
 import Circle from '../Circle'
 import lang from '../../lang.json'
 
@@ -32,6 +32,14 @@ class Form extends Component {
     const { actions, forecast } = this.props
     const { param } = forecast
     actions.requestForecast(param)
+  }
+
+  onChangeStepper(key, value) {
+    const { actions, forecast } = this.props
+    const { param } = forecast
+    if (_.get(param, key) !== value) {
+      actions.changeParam(key, value)
+    }
   }
 
   renderHeader() {
@@ -90,7 +98,7 @@ class Form extends Component {
 
   renderContent() {
     const { displayForm } = this.state
-    const { param } = this.props.forecast
+    const { param, temperatureAve } = this.props.forecast
     const disabled = _.reduce(param, (ret, value, key) => {
       if (!ret && _.isNull(value)) {
         ret = true
@@ -100,6 +108,9 @@ class Form extends Component {
     if (!displayForm) {
       return null     
     }
+    const rangeTemperatures = _.range(temperatureAve - 10, temperatureAve + 11)
+    const disableInclement = _.last(rangeTemperatures) === param.temperature
+    const disableDeclement = _.first(rangeTemperatures) === param.temperature
     return (
       <div id="demand-forecast-content" style={{zIndex:2}}>
         <div className="row center-xs">
@@ -139,8 +150,18 @@ class Form extends Component {
                   </section>
                 </div>
                 <div className="col-xs-3 selectbox-suffix temperature-f">
-                  <section className="box selectbox">
-                    { this.renderSelectField("temperature", param.temperature, TEMPERATURES) }
+                  <section className="box selectbox is-expand-none">
+                    { this.renderSelectField("temperature", param.temperature, rangeTemperatures) }
+                    <span className="stepper">
+                      <span className={ classNames("plus", `${disableInclement ? "is-disable":""}`) }
+                        onClick={ this.onChangeStepper.bind(this, "temperature", param.temperature + (disableInclement ? 0:1)) }>
+                        <i className="material-icons">add</i>
+                      </span>
+                      <span className={ classNames("minus", `${disableDeclement ? "is-disable":""}`) }
+                        onClick={ this.onChangeStepper.bind(this, "temperature", param.temperature - (disableDeclement ? 0:1)) }>
+                        <i className="material-icons">remove</i>
+                      </span>
+                    </span>
                   </section>
                 </div>
               </div>
