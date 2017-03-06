@@ -20,15 +20,16 @@ class Map extends Component {
         return {location: new google.maps.LatLng(obj.latitude, obj.longitude), weight: obj.usage || 1}
       })
       if (this.heatmap) {
-        this.heatmap.setMap(null);
+        this.heatmap.setData(data);
+      } else {
+        this.heatmap = new google.maps.visualization.HeatmapLayer({
+          dissipating: true,
+          data: data,
+          maxIntensity: 26.0,
+          radius: 20,
+          map: this.map
+        })
       }
-      this.heatmap = new google.maps.visualization.HeatmapLayer({
-        dissipating: true,
-        data: data,
-        maxIntensity: 26.0,
-        radius: 20,
-        map: this.map
-      })
     } else if (this.heatmap) {
       this.heatmap.setMap(null);
     }
