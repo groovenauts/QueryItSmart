@@ -106,10 +106,10 @@ const addMetadata = (images) => {
   const height = window.innerHeight
   const width = window.innerWidth
   return _.map(images, (image, i) => {
-    const offset = _.random(-19, 80)
-    const size = THUMBNAIL_SIZE + offset // min: 41, max: 140
-    const rate = (size - 40) // 1 - 100
-    const opacity = (rate / 100) / 2.5
+    const offset = _.random(-19, 40)
+    const size = THUMBNAIL_SIZE + offset // size: 41 - 100
+    const rate = (size - 40) // rate: 1 - 60
+    const opacity = (rate / 100) / 2.0
     const { x, y } = randomCoordinate(width - size, height - size)
     image.offset = offset
     image.size = size
@@ -122,7 +122,7 @@ const addMetadata = (images) => {
 
 const addMetadata2 = (images) => {
   const MAX_SIZE = 200
-  const MIN_SIZE = 3
+  const MIN_SIZE = 4
   const AJUST_SIZE = 3
   const length = _.size(images)
   return _.map(images, (image, i) => {
