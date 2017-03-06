@@ -7,9 +7,10 @@ import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/appActions'
 import * as imageActions from '../../actions/searchImageActions'
 import { connect } from 'react-redux'
+import Typist from 'react-typist';
 
 import { darkTheme } from '../../styles/thema'
-import { QUERY, IMG_SIZE, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH } from '../../const'
+import { QUERY, IMG_SIZE, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH, TYPING_OPTION } from '../../const'
 import Header from '../Header'
 import Background from './Background'
 import Query from '../Query'
@@ -37,6 +38,7 @@ class SearchImageTop extends Component {
         content.className = CONTENT_CLASSES[i]
         return content
       }),
+      count: 0,
       leave: false,
       start: null,
       elapsed: 0,
@@ -46,22 +48,25 @@ class SearchImageTop extends Component {
   componentWillReceiveProps(nextProps) {
     // Just finished analysis
     if (this.props.searchImage.analyzing && !nextProps.searchImage.analyzing) {
-      if (this.timer) {
-        clearInterval(this.timer)
+      if (this.leaveTimer) {
+        clearInterval(this.leaveTimer)
       }
     }
   }
 
   componentWillUnmount() {
-    if (this.timer) {
-      clearInterval(this.timer)
+    if (this.leaveTimer) {
+      clearInterval(this.leaveTimer)
+    }
+    if (this.appearTimer) {
+      clearInterval(this.appearTimer)
     }
   }
 
   onSelectPresent(imageId, e) {
     const { actions } = this.props
     this.setState({ start: new Date() })
-    this.timer = setInterval(this.tick.bind(this), 50)
+    this.leaveTimer = setInterval(this.tick.bind(this), 50)
     actions.selectPresent(imageId)
   }
 
@@ -92,7 +97,7 @@ class SearchImageTop extends Component {
     setTimeout(() => {
       actions.selectPresent(contents[index].id)
       this.setState({start: new Date()})
-      this.timer = setInterval(this.tick.bind(this), 50)
+      this.leaveTimer = setInterval(this.tick.bind(this), 50)
     }, 1000)
   }
 
@@ -124,6 +129,22 @@ class SearchImageTop extends Component {
     this.props.actions.imgError(id)
   }
 
+  onTypingDone() {
+    this.appearTimer = setInterval(() => {
+      const { contents, count } = this.state
+      if (count < _.size(contents)) {
+        this.animateTrigger()
+      } else {
+        clearInterval(this.appearTimer)
+      }
+    }, 800)
+  }
+
+  animateTrigger() {
+    const { count } = this.state
+    this.setState({count: count+1})
+  }
+
   tick() {
     this.setState({ elapsed: new Date() - this.state.start })
   }
@@ -134,15 +155,15 @@ class SearchImageTop extends Component {
   }
 
   renderContents = () => {
-    const { contents, leave } = this.state
+    const { contents, count, leave } = this.state
     const { resultId, loadedImageIds } = this.props.searchImage
-    return _.map(contents, (image, i) => {
+    return _.map(_.take(contents, count), (image, i) => {
       return <Circle
                 key={ `select-${i}` }
                 style={{zIndex: image.zIndex}}
                 onClick={ this.onClick.bind(this, i) }
                 onMouseOver={ this.onMouseOver.bind(this, i) }
-                outerClassName={ leave ? "is-center":`${image.className}` }>
+                outerClassName={ classNames(leave ? "is-center":`${image.className}`, `${count < _.size(contents) ? "animated fadeIn":""}`) }>
                 <img src={ image.src }
                   onLoad={ this.onImgLoaded.bind(this, image.id) }
                   onError={ this.onImgError.bind(this, image.id) }
@@ -238,7 +259,9 @@ class SearchImageTop extends Component {
       return (
         <Header 
           title={ lang.searchImage.select.title }
-          subtitle={ lang.searchImage.select.subtitle } />
+          subtitle={ lang.searchImage.select.subtitle }
+          animate={ true }
+          onTypingDone={ this.onTypingDone.bind(this) }/>
       )
     }
     return null
@@ -265,6 +288,7 @@ class SearchImageTop extends Component {
   }
 
   render() {
+    const { count } = this.state
     const { app, searchImage } = this.props
     const { resultId, analyzing, analyzed, analyzeId, images, resultImages } = searchImage
     return (
@@ -298,7 +322,7 @@ class SearchImageTop extends Component {
               className="button-deep-purple"
               handler={ this.onCloseResult.bind(this) }
               /> : 
-            !analyzing ? 
+            !analyzing && count > 0 ? 
             <Button
               label="Restart"
               className="button-deep-purple"

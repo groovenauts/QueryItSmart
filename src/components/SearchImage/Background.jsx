@@ -234,10 +234,9 @@ class Background extends Component {
             { this.renderPulsate() }
           } else if (analyzeId || resultId) {
             { this.renderResultImages() }
-          } else {
-            { this.renderRandomImages() }
           }
         }}
+        { this.renderRandomImages() }
         { resultId ? this.renderLayer() : null }
       </div>
     )

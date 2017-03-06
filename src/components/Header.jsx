@@ -15,13 +15,9 @@ class Header extends Component {
     }
   }
 
-  onTypingDone() {
-    this.setState({finishedTyping: true})
-  }
-
   renderSubTitle() {
     const { finishedTyping } = this.state
-    const { title, subtitle, style, animate } = this.props
+    const { title, subtitle, style, animate, onTypingDone=()=>{} } = this.props
     const className = classNames("subtitle", `${title ? "":"large"}`)
     if (subtitle) {
       if (animate && !finishedTyping) {
@@ -29,7 +25,10 @@ class Header extends Component {
           <div className={className}>
             <Typist
               cursor={TYPING_OPTION.cursor}
-              onTypingDone={this.onTypingDone.bind(this)}>
+              onTypingDone={e => {
+                this.setState({finishedTyping: true})
+                onTypingDone()
+              }}>
               { removeHTMLTag(subtitle) }
             </Typist>
           </div>

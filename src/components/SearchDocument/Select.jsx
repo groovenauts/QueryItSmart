@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../../actions/searchDocumentActions'
 import { connect } from 'react-redux'
 import _ from 'lodash'
+import Typist from 'react-typist';
+import { TYPING_OPTION } from '../../const'
 import { QUERY } from '../../const'
 import HACKER_NEWS from '../../data/hacker_news.json'
 import STACK_OVERFLOW from '../../data/stackoverflow.json'
@@ -51,6 +53,13 @@ class Select extends Component {
     this.state = {
       category: null,
       contents,
+      count: 0,
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer)
     }
   }
 
@@ -60,11 +69,27 @@ class Select extends Component {
     actions.searchDocument(target.queryType, id, target.compiledQuery({id}), target.categoryName)
   }
 
+  onTypingDone() {
+    this.timer = setInterval(() => {
+      const { contents, count } = this.state
+      if (count < _.size(contents)) {
+        this.animateTrigger()
+      } else {
+        clearInterval(this.timer)
+      }
+    }, 800)
+  }
+
+  animateTrigger() {
+    const { count } = this.state
+    this.setState({count: count+1})
+  }
+
   renderHeader() {
     return (
       <div id="document-search-header">
         <div className="row center-xs">
-          <div className="col-xs-6">
+          <div className="col-xs-6 animated fadeIn">
             <div className="box"
                 style={{
                   position: 'absolute',
@@ -81,7 +106,12 @@ class Select extends Component {
                 { lang.searchDocument.select.title }
               </div>
               <div style={{fontSize: '4vh', padding: 20}}>
-                { lang.searchDocument.select.subtitle }
+                <Typist
+                  avgTypingDelay={60}
+                  cursor={TYPING_OPTION.cursor}
+                  onTypingDone={this.onTypingDone.bind(this)}>
+                  { lang.searchDocument.select.subtitle }
+                </Typist>
               </div>
             </div>
           </div>
@@ -90,14 +120,14 @@ class Select extends Component {
     )
   }
   renderContents() {
-    const { contents } = this.state
+    const { contents, count } = this.state
     return (
       <div id="document-search-content">
         <div className="row" style={{height: '100%'}}>
-          { _.map(contents, (content, i) => {
+          { _.map(_.take(contents, count), (content, i) => {
             return (
               <div key={`content-${i}`}
-                  className="col-xs-3"
+                  className="col-xs-3 animated fadeInUp"
                   style={{
                     position: 'relative',
                     height: '100%',
@@ -122,7 +152,7 @@ class Select extends Component {
                     }}>
                   <Circle
                     onClick={this.onClick.bind(this, content.id)}
-                    innerClassName="document-start-button"
+                    innerClassName="document-start-button  animated zoomIn"
                     style={{
                       position: 'absolute',
                       height: 100,

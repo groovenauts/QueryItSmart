@@ -83,7 +83,7 @@ class Result extends Component {
     const { searchId } = this.props.searchDocument
     const source = _.find([...HACKER_NEWS, ...STACK_OVERFLOW], o => o.id === searchId) || {}
     return (
-      <div className="col-xs-4" style={{position: 'relative', height: '100%'}}>
+      <div className="col-xs-4 animated slideInLeft" style={{position: 'relative', height: '100%'}}>
         <div className="box" style={{
             wordWrap: 'break-word', 
             padding: '30px 10px 30px 30px',
@@ -107,7 +107,7 @@ class Result extends Component {
             { _.map(_results, (ret, i) => {
               return (
                 <li key={`doc-${i}`}
-                  className={ classNames(`${resultId && ret.id === resultId ? "is-selected":""}`)}
+                  className={ classNames(`${resultId && ret.id === resultId ? "is-selected":""}`, " animated slideDown")}
                   onClick={this.onSelectDocument.bind(this, ret.id)}>
                   <div className="list-item">
                     <div className="label">{ score(ret.similarity) }</div>
@@ -126,7 +126,7 @@ class Result extends Component {
     const { resultId, results } = this.props.searchDocument
     const select = _.find(results, ret => ret.id === resultId) || {}
     return (
-      <div className="col-xs-4" style={{position: 'relative', height: '100%'}}>
+      <div className="col-xs-4 animated slideInLeft" style={{position: 'relative', height: '100%'}}>
         <div className="box"
           style={{
             wordWrap: 'break-word',
