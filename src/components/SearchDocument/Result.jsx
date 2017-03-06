@@ -37,6 +37,22 @@ const styles = {
   }
 }
 class Result extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      renderRight: false, // For transition
+    }
+    setTimeout(() => {
+      this.setState({renderRight: true})
+    }, 300)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { resultId } = this.props.searchDocument
+    if (resultId !== nextProps.searchDocument.resultId) {
+      this.setState({renderRight: true})
+    }
+  }
 
   onRestart() {
     this.props.actions.restart();
@@ -55,7 +71,11 @@ class Result extends Component {
     const { actions, searchDocument } = this.props
     const { resultId } = searchDocument
     if (id !== resultId) {
-      actions.selectDocument(id)
+      this.setState({renderRight: false})
+      // For transition
+      setTimeout(() => {
+        actions.selectDocument(id)
+      }, 100)
     }
   }
 
@@ -123,10 +143,12 @@ class Result extends Component {
     )
   }
   renderRight() {
+    const { renderRight } = this.state
     const { resultId, results } = this.props.searchDocument
     const select = _.find(results, ret => ret.id === resultId) || {}
+    const transitionClassName = renderRight ? "animated slideInDown":"animated slideOutUp"
     return (
-      <div className="col-xs-4 animated slideInDown" style={{position: 'relative', height: '100%'}}>
+      <div className={classNames("col-xs-4", transitionClassName)} style={{position: 'relative', height: '100%'}}>
         <div className="box"
           style={{
             wordWrap: 'break-word',
