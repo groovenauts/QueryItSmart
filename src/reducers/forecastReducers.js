@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { types } from '../actions/index'
 import { bytesToSize } from '../utils'
 import TEMPERATURES from '../data/average_temperatures.json'
+import { TIME_MAP } from '../const'
 
 const location = "newyork"
 const unit = "fahrenheit"
@@ -23,6 +24,7 @@ const initialState = {
   searching: false,
   finished: false,
   hour: new Date().getHours(),
+  sliderValue: _.findIndex(TIME_MAP, time => time === new Date().getHours()),
   results: [],
   totalSize: 0,
   basedTimeResult: {},
@@ -86,10 +88,13 @@ const forecast = (state = initialState, action) => {
         finishedTime: action.time,
         error: action.error,
       }
-    case types.FORECAST_HOUR_CHANGE: 
-    return {
-      ...state,
-      hour: action.hour
+    case types.FORECAST_SLIDER_CHANGE: {
+      const { value } = action
+      return {
+        ...state,
+        hour: TIME_MAP[Math.round(value)],
+        sliderValue: value,
+      }
     }
     case types.FORECAST_FINISHED_CLOSE:
       return {

@@ -12,22 +12,9 @@ import Button from '../Button'
 import lang from '../../lang.json'
 import Finished from '../Finished'
 import { roundElapsed } from '../../utils'
+import { TIME_MAP } from '../../const'
 
-const AUTO_SLIDER_INTERVAL = 1200
-/**
- * For converting slider values
- * [6,..23,0,..6]
- */
-const START_HOUR = 6
-const TIME_MAP = _.times(25, num => {
-  if (num + START_HOUR >= 24) {
-    return num - (24 - START_HOUR)
-  } else {
-    return num + START_HOUR
-  }
-})
-
-const hour2index = (hour) => _.findIndex(TIME_MAP, time => time === hour)
+const AUTO_SLIDER_INTERVAL = 100
 
 const template = _.template('<b><%= hour %></b><div style="font-size: 1.3vh;font-weight: 400;"><%= suffix %><div>')
 const SCALE_MAP = {
@@ -86,11 +73,8 @@ class Result extends Component {
   }
 
   onChangeSlider(e, value) {
-    const { actions, forecast } = this.props
-    const currentHour = TIME_MAP[value | 0]
-    if (currentHour !== forecast.hour) {
-      actions.changeHour(currentHour)
-    }
+    const { actions } = this.props
+    actions.changeSlider(value)
   }
 
   restartAutoSlider() {
@@ -112,17 +96,9 @@ class Result extends Component {
   autoSlider() {
     const { autoMode } = this.state
     const { actions, forecast } = this.props
-    const { hour } = forecast
+    const { sliderValue } = forecast
     if (autoMode) {
-      const currentIndex = hour2index(hour)
-      const nextIndex = do {
-        if (currentIndex >= 23) {
-          0
-        } else {
-          currentIndex + 1
-        }
-      }
-      actions.changeHour(TIME_MAP[nextIndex])
+      actions.changeSlider(sliderValue + 0.1 > 24 ? 0 : sliderValue + 0.1)
     }
   }
 
@@ -160,7 +136,7 @@ class Result extends Component {
   }
   renderSlider() {
     const { autoMode } = this.state
-    const { hour, hideFinished } = this.props.forecast
+    const { hour, hideFinished, sliderValue } = this.props.forecast
     if (!hideFinished) {
       return null
     }
@@ -214,7 +190,7 @@ class Result extends Component {
             <Slider
               min={0}
               max={24}
-              value={_.indexOf(TIME_MAP, hour) || 0}
+              value={sliderValue}
               style={{
                 paddingRight: 4,
                 paddingLeft: 4,

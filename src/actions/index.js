@@ -31,7 +31,7 @@ export const types = {
   SEARCH_DOCUMENT_SQL_SHOW: "search_document_sql_show",
   SEARCH_DOCUMENT_SQL_CLOSE: "search_document_sql_close",
   // for demand forecast
-  FORECAST_HOUR_CHANGE: "forecast_hour_change",
+  FORECAST_SLIDER_CHANGE: "forecast_slider_change",
   FORECAST_PARAM_CHANGE: "forecast_param_change",
   FORECAST_REQUEST_START: "forecast_request_start",
   FORECAST_REQUEST_FINISH: "forecast_request_finish",
