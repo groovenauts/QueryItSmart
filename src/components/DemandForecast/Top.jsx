@@ -74,7 +74,7 @@ class Top extends Component {
       return (
         <Searching
           imgSrc={BIKE_IMAGE}
-          title={lang.searchDocument.searching.title}
+          title={lang.demandForecast.searching.title}
           subtitle={subtitle}
           marqueeText={sql}
           pulseColor={deepPurple900}
