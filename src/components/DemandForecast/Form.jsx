@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
+import Typist from 'react-typist';
+import { TYPING_OPTION } from '../../const'
 
 import { indigo900, grey400 } from 'material-ui/styles/colors'
 import { bindActionCreators } from 'redux'
@@ -10,6 +12,15 @@ import Circle from '../Circle'
 import lang from '../../lang.json'
 
 class Form extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      displayForm: false,
+    }
+    setTimeout(() => {
+      this.setState({displayForm: true})
+    }, 2000)
+  }
 
   onChange_ = (key, e) => {
     const { actions } = this.props
@@ -45,7 +56,10 @@ class Form extends Component {
                 { lang.demandForecast.header.title }
               </div>
               <div className="subtitle">
-                { lang.demandForecast.header.subtitle }
+                <Typist
+                  cursor={TYPING_OPTION.cursor}>
+                  { lang.demandForecast.header.subtitle }
+                </Typist>
               </div>
             </div>
           </div>
@@ -75,6 +89,7 @@ class Form extends Component {
   }
 
   renderContent() {
+    const { displayForm } = this.state
     const { param } = this.props.forecast
     const disabled = _.reduce(param, (ret, value, key) => {
       if (!ret && _.isNull(value)) {
@@ -82,10 +97,13 @@ class Form extends Component {
       }
       return ret
     }, false)
+    if (!displayForm) {
+      return null     
+    }
     return (
       <div id="demand-forecast-content" style={{zIndex:2}}>
         <div className="row center-xs">
-          <div className="col-xs-8" style={{
+          <div className="col-xs-8 animated slideInUp" style={{
               backgroundColor: 'white',
               paddingLeft: 40,
               paddingRight: 40,
