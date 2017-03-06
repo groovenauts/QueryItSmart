@@ -14,7 +14,7 @@ export default class Searching extends Component {
     return (
       <div id="searching" style={{zIndex: 1000}}>
         <Header title={ title } subtitle={ subtitle } style={{color: textColor}}/>
-        <div className="content">
+        <div className="content animated zoomIn">
           <Circle
             outerClassName="is-center">
             <img src={ imgSrc } className="large border-bold" />

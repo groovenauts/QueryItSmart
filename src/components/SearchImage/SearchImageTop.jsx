@@ -174,13 +174,17 @@ class SearchImageTop extends Component {
 
   renderContent(imageId, images, callback=()=>{}) {
     const image = _.find(images, image => image.key === imageId)
-    return <Circle
-              handler={ callback }
-              outerClassName="is-center">
-              <img className="large border-bold"
-                src={ THUMBNAIL_PATH({id: imageId}) }
-                />
-          </Circle>
+    return (
+      <div className="animated zoomIn">
+        <Circle
+          handler={ callback }
+          outerClassName="is-center">
+          <img className="large border-bold"
+            src={ THUMBNAIL_PATH({id: imageId}) }
+            />
+        </Circle>
+      </div>
+    )
   }
 
   imageName(imageId) {

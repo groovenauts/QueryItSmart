@@ -21,7 +21,7 @@ class Form extends Component {
                 maxWidth: '80%',
                 transform: 'translateY(14vh)',
               }}>
-              <div className="title">{ title }</div>
+              <div className="title animated fadeIn">{ title }</div>
               <div className="subtitle">{ subtitle }</div>
             </div>
           </div>
