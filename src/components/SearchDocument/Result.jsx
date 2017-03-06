@@ -126,7 +126,7 @@ class Result extends Component {
     const { resultId, results } = this.props.searchDocument
     const select = _.find(results, ret => ret.id === resultId) || {}
     return (
-      <div className="col-xs-4 animated slideInLeft" style={{position: 'relative', height: '100%'}}>
+      <div className="col-xs-4 animated slideInDown" style={{position: 'relative', height: '100%'}}>
         <div className="box"
           style={{
             wordWrap: 'break-word',
