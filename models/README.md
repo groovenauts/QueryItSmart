@@ -61,7 +61,7 @@ The UDF files are on GCS and can be read public.
 ```
 gs://queryit_smart/citibike/udf/tensor.js
 gs://queryit_smart/citibike/udf/weights1.js
-gs://queryit_smart/citibike/udf/biases.js
+gs://queryit_smart/citibike/udf/biases1.js
 ...
 ```
 
