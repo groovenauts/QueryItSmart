@@ -46,6 +46,7 @@ const forecast = (state = initialState, action) => {
           ...state,
           param: {
             ...state.param,
+            [key]: value,
             temperature: ave,
           },
           temperatureAve: ave,

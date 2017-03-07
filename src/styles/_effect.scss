@@ -10,7 +10,7 @@
 }
 
 
-@keyframes fadeIn {
+@keyframes fadeInSlowly {
   from {
     opacity: 0;
   }
@@ -19,6 +19,6 @@
   }
 }
 
-.fadeIn {
-  animation: fadeIn 5s ease-in;
+.fadeInSlowly {
+  animation: fadeInSlowly 5s ease-in;
 }
