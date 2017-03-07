@@ -69,6 +69,11 @@ class Background extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timerForRandom)
+    clearInterval(this.timerForResult)
+  }
+
   onClickImage(imageId, e) {
     const { actions } = this.props
     actions.selectResultImage(imageId)
@@ -174,7 +179,7 @@ class Background extends Component {
           className={ classNames("circle", "thumbnail") }
           onClick={ this.onClickImage.bind(this, image.key) }
           style={{
-            zIndex: i,
+            zIndex: i + 100,
             position: 'absolute',
             top: image.y,
             left: image.x,
@@ -229,10 +234,9 @@ class Background extends Component {
             { this.renderPulsate() }
           } else if (analyzeId || resultId) {
             { this.renderResultImages() }
-          } else {
-            { this.renderRandomImages() }
           }
         }}
+        { this.renderRandomImages() }
         { resultId ? this.renderLayer() : null }
       </div>
     )

@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { demandForecastTheme } from '../../styles/thema'
 import { deepPurple900, yellow500, white } from 'material-ui/styles/colors'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/appActions'
 import * as forecastActions from '../../actions/forecastActions'
@@ -14,7 +13,6 @@ import Result from './Result'
 import Map from './Map'
 import Query from '../Query'
 import SQL from '../SQL'
-import Restart from '../Restart'
 import lang from '../../lang'
 import { QUERY, BIKE_IMAGE } from '../../const'
 import { roundElapsed } from '../../utils'
@@ -108,6 +106,7 @@ class Top extends Component {
           headerColor={white}
           bodyColor={white}
           footerColor={yellow500}
+          buttonClassName="button-deep-blue"
           closeHandler={this.onCloseSQL.bind(this)}
           />
       )
@@ -119,7 +118,7 @@ class Top extends Component {
     const { searching, finished, param, basedTimeResult, hour, showSQL } = this.props.forecast
     const style = searching || !finished ? { backgroundColor: 'white', opacity: 0.6, zIndex: 1, } : {}
     return (
-      <div id="demand-forecast" className="container" style={showSQL ? {filter: 10} :{}}>
+      <div id="demand-forecast" className="container animated fadeIn" style={showSQL ? {filter: 10} :{}}>
         { !finished ? <div className="container" style={style} /> : null }
         { this.renderSQL() }
         { this.renderForm() }

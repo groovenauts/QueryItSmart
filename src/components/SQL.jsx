@@ -28,7 +28,7 @@ const styles = {
     textAlign: 'left',
     fontWeight: 100,
     position: 'absolute',
-    bottom: 'calc(6vh + 60px)',
+    bottom: 'calc(10vh + 60px)',
     top: 'calc(8vh + 20px)',
     left: '50%',
     transform: 'translate(-50%)',
@@ -57,6 +57,7 @@ class SQL extends Component {
       backgroundColor=black,
       bodyColor=white,
       footerColor=yellowA700,
+      buttonClassName,
       closeHandler=()=>{}
     } = this.props
     return (
@@ -67,8 +68,7 @@ class SQL extends Component {
           { footer ? <div style={{...styles.footer, ...{color: footerColor}}}>{ footer }</div> : null }
         </div>
         <Button
-          labelColor={backgroundColor}
-          buttonColor={white}
+          className={buttonClassName}
           label='Close'
           handler={ closeHandler }
           { ...this.props }

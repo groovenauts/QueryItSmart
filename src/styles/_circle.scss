@@ -1,30 +1,3 @@
-@keyframes pulsate2 {
-  0%   {
-    transform: translate(-50%, -50%);
-  }
-  20% {
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.05);
-  }
-  40% {
-    //5%
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 47px rgba(255, 255, 255, 0.05);
-  }
-  60% {
-    //10%
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 77px rgba(255, 255, 255, 0.1);
-  }
-  80% {
-    //26%
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 0px 107px rgba(255, 255, 255, 2.6);
-  }
-  100% {
-    opacity: 0;
-  }
-}
 
 .circle {
   height: $img-size;
@@ -41,16 +14,6 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
-    &.bg-circle {
-      background-image: radial-gradient(circle, #E8EAF6, #3F51B5 50%, #303F9F 60%, #311B92);
-    }
-    &.bg-right {
-      background-image: linear-gradient(to right, #E8EAF6, #3F51B5);
-    }
-    &.bg-left {
-      background-image: linear-gradient(to right, #3F51B5, #E8EAF6);
-    }
   }
 }
 
@@ -62,7 +25,7 @@
 .circle-outer {
   height: $img-size;
   width: $img-size;
-  background-color: white;    
+  background-color: white;
   border-radius: 50%;
   border: 0px;
   display: inline-block;
@@ -87,13 +50,6 @@
   }
 }
 
-.bg-clear {
-  opacity: 0;
-  > img {
-    opacity: 0;
-  }
-}
-
 .is-center {
   position: absolute;
 }
@@ -107,13 +63,6 @@
   transform: translate(calc(-14vw - 100%), -50%);
 }
 
-.hover-lite {
-  &:hover {
-    animation: simple 1s;
-    animation-iteration-count: 1;
-  }
-}
-
 .hover {
   &:hover {
     z-index: 100;
@@ -125,7 +74,7 @@
 .hover-center {
   &:hover {
     z-index: 100;
-    animation: pulsate2center 1s;
+    animation: pulseContents 1s;
     animation-iteration-count: 1;
   }
 }
@@ -133,7 +82,7 @@
 .hover-right {
   &:hover {
     z-index: 100;
-    animation: pulsate2right 1s;
+    animation: pulseContents 1s;
     animation-iteration-count: 1;
   }
 }
@@ -141,7 +90,7 @@
 .hover-left {
   &:hover {
     z-index: 100;
-    animation: pulsate2left 1s;
+    animation: pulseContents 1s;
     animation-iteration-count: 1;
   }
 }

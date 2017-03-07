@@ -43,8 +43,8 @@ export const changeParam = (key, value) => {
   return { type: types.FORECAST_PARAM_CHANGE, key, value }
 }
 
-export const changeHour = (hour) => {
-  return { type: types.FORECAST_HOUR_CHANGE, hour }
+export const changeSlider = (value) => {
+  return { type: types.FORECAST_SLIDER_CHANGE, value }
 }
 
 export const showSQL = () => {

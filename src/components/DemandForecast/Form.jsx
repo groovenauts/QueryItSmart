@@ -1,15 +1,26 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
+import Typist from 'react-typist';
+import { TYPING_OPTION } from '../../const'
 
 import { indigo900, grey400 } from 'material-ui/styles/colors'
 import { bindActionCreators } from 'redux'
 import * as actions from '../../actions/forecastActions'
 import { connect } from 'react-redux'
-import { MONTH_LABELS, MONTH_VALUES, WEEKDAY_LABELS, WEEKDAY_VALUES, WEATHERS, TEMPERATURES } from '../../const'
+import { MONTH_LABELS, MONTH_VALUES, WEEKDAY_LABELS, WEEKDAY_VALUES, WEATHERS } from '../../const'
 import Circle from '../Circle'
 import lang from '../../lang.json'
 
 class Form extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      displayForm: false,
+    }
+    setTimeout(() => {
+      this.setState({displayForm: true})
+    }, 2000)
+  }
 
   onChange_ = (key, e) => {
     const { actions } = this.props
@@ -21,6 +32,14 @@ class Form extends Component {
     const { actions, forecast } = this.props
     const { param } = forecast
     actions.requestForecast(param)
+  }
+
+  onChangeStepper(key, value) {
+    const { actions, forecast } = this.props
+    const { param } = forecast
+    if (_.get(param, key) !== value) {
+      actions.changeParam(key, value)
+    }
   }
 
   renderHeader() {
@@ -45,7 +64,10 @@ class Form extends Component {
                 { lang.demandForecast.header.title }
               </div>
               <div className="subtitle">
-                { lang.demandForecast.header.subtitle }
+                <Typist
+                  cursor={TYPING_OPTION.cursor}>
+                  { lang.demandForecast.header.subtitle }
+                </Typist>
               </div>
             </div>
           </div>
@@ -75,17 +97,24 @@ class Form extends Component {
   }
 
   renderContent() {
-    const { param } = this.props.forecast
+    const { displayForm } = this.state
+    const { param, temperatureAve } = this.props.forecast
     const disabled = _.reduce(param, (ret, value, key) => {
       if (!ret && _.isNull(value)) {
         ret = true
       }
       return ret
     }, false)
+    if (!displayForm) {
+      return null     
+    }
+    const rangeTemperatures = _.range(temperatureAve - 10, temperatureAve + 11)
+    const disableInclement = _.last(rangeTemperatures) === param.temperature
+    const disableDeclement = _.first(rangeTemperatures) === param.temperature
     return (
       <div id="demand-forecast-content" style={{zIndex:2}}>
         <div className="row center-xs">
-          <div className="col-xs-8" style={{
+          <div className="col-xs-8 animated slideInUp" style={{
               backgroundColor: 'white',
               paddingLeft: 40,
               paddingRight: 40,
@@ -106,23 +135,33 @@ class Form extends Component {
               }}>
               <div className="row center-xs">
                 <div className="col-xs-3">
-                  <section className="box select-box">
+                  <section className="box selectbox">
                     { this.renderSelectField("month", param.month, MONTH_VALUES, MONTH_LABELS) }
                   </section>
                 </div>
                 <div className="col-xs-3">
-                  <section className="box select-box">
+                  <section className="box selectbox">
                     { this.renderSelectField("weekday", param.weekday, WEEKDAY_VALUES, WEEKDAY_LABELS) }
                   </section>
                 </div>
                 <div className="col-xs-3">
-                  <section className="box select-box">
+                  <section className="box selectbox">
                     { this.renderSelectField("weather", param.weather, WEATHERS) }
                   </section>
                 </div>
-                <div className="col-xs-3 select-box-suffix temperature-f">
-                  <section className="box select-box">
-                    { this.renderSelectField("temperature", param.temperature, TEMPERATURES) }
+                <div className="col-xs-3 selectbox-suffix temperature-f">
+                  <section className="box selectbox is-expand-none">
+                    { this.renderSelectField("temperature", param.temperature, rangeTemperatures) }
+                    <span className="stepper">
+                      <span className={ classNames("plus", `${disableInclement ? "is-disable":""}`) }
+                        onClick={ this.onChangeStepper.bind(this, "temperature", param.temperature + (disableInclement ? 0:1)) }>
+                        <i className="material-icons">add</i>
+                      </span>
+                      <span className={ classNames("minus", `${disableDeclement ? "is-disable":""}`) }
+                        onClick={ this.onChangeStepper.bind(this, "temperature", param.temperature - (disableDeclement ? 0:1)) }>
+                        <i className="material-icons">remove</i>
+                      </span>
+                    </span>
                   </section>
                 </div>
               </div>

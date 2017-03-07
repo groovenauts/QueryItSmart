@@ -1,0 +1,122 @@
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -46%) scale(.1);
+    opacity: .1;
+  }
+  50% {
+    transform: translate(-50%, -46%) scale(5);
+    opacity: .5;
+  }
+  100% {
+    transform: translate(-50%, -46%) scale(10);
+    opacity: 0;
+  }
+}
+
+.pulse {
+  div {
+    border-radius: 50%;
+    background-color: #53a0fd;
+    top: 54%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+
+    &:nth-child(1) { animation: pulse 2.4s infinite; }
+    &:nth-child(2) { animation: pulse 2.4s infinite .3s; }
+    &:nth-child(3) { animation: pulse 2.4s infinite .6s; }
+  }
+}
+
+@keyframes pulseContents {
+  0% { box-shadow: none; }
+  5% {
+    box-shadow: 0px 0px 0px 2.2vh rgba(255, 255, 255, 0.25);
+  }
+  50% {
+    box-shadow: 0px 0px 0px .4vh rgba(255, 255, 255, 0.25), 0px 0px 0px 4.2vh rgba(255, 255, 255, 0.1);
+  }
+  100% { box-shadow: none; }
+}
+
+@keyframes pulse-small {
+  100% {
+    top: -16px;
+    right: -16px;
+    bottom: -16px;
+    left: -16px;
+    opacity: 0;
+  }
+}
+
+.hover-ripple-out {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    border: rgba(255, 255, 255, 0.5) solid 3px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+    animation-delay: 1s;
+    animation-duration: 2s;
+    animation-name: pulse-small;
+    animation-iteration-count: infinite;
+  }
+}
+
+
+@keyframes pulse-fullscreen {
+  from {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  to {
+    opacity: 0.2;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(100, 100, 1);
+  }
+}
+
+.pulse-fullscreen {
+  animation: pulse-fullscreen 2s;
+  animation-iteration-count: 1;
+}
+
+
+@keyframes beacon {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale (3);
+    opacity: 0;
+  }
+}
+
+.beacon {
+  &:before {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 0px 0px 20px 2px white;
+    animation: beacon 3s infinite ease-in-out;
+  }
+}

@@ -6,7 +6,6 @@ import * as appActions from '../../actions/appActions'
 import * as documentActions from '../../actions/searchDocumentActions'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import Restart from '../Restart'
 import Button from '../Button'
 import Overlay from '../Overlay'
 import lang from '../../lang.json'
@@ -38,6 +37,22 @@ const styles = {
   }
 }
 class Result extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      renderRight: false, // For transition
+    }
+    setTimeout(() => {
+      this.setState({renderRight: true})
+    }, 300)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { resultId } = this.props.searchDocument
+    if (resultId !== nextProps.searchDocument.resultId) {
+      this.setState({renderRight: true})
+    }
+  }
 
   onRestart() {
     this.props.actions.restart();
@@ -56,7 +71,11 @@ class Result extends Component {
     const { actions, searchDocument } = this.props
     const { resultId } = searchDocument
     if (id !== resultId) {
-      actions.selectDocument(id)
+      this.setState({renderRight: false})
+      // For transition
+      setTimeout(() => {
+        actions.selectDocument(id)
+      }, 100)
     }
   }
 
@@ -73,6 +92,7 @@ class Result extends Component {
           subtitle={subtitle}
           color={black}
           backgroundColor="rgba(255,255,255,0.9)"
+          buttonClassName="button-black"
           closeHandler={this.onCloseFinished.bind(this)}
           />
       )
@@ -83,7 +103,7 @@ class Result extends Component {
     const { searchId } = this.props.searchDocument
     const source = _.find([...HACKER_NEWS, ...STACK_OVERFLOW], o => o.id === searchId) || {}
     return (
-      <div className="col-xs-4" style={{position: 'relative', height: '100%'}}>
+      <div className="col-xs-4 animated slideInLeft" style={{position: 'relative', height: '100%'}}>
         <div className="box" style={{
             wordWrap: 'break-word', 
             padding: '30px 10px 30px 30px',
@@ -107,7 +127,7 @@ class Result extends Component {
             { _.map(_results, (ret, i) => {
               return (
                 <li key={`doc-${i}`}
-                  className={ classNames(`${resultId && ret.id === resultId ? "is-selected":""}`)}
+                  className={ classNames(`${resultId && ret.id === resultId ? "is-selected":""}`, " animated slideDown")}
                   onClick={this.onSelectDocument.bind(this, ret.id)}>
                   <div className="list-item">
                     <div className="label">{ score(ret.similarity) }</div>
@@ -123,10 +143,12 @@ class Result extends Component {
     )
   }
   renderRight() {
+    const { renderRight } = this.state
     const { resultId, results } = this.props.searchDocument
     const select = _.find(results, ret => ret.id === resultId) || {}
+    const transitionClassName = renderRight ? "animated slideInDown":"animated slideOutUp"
     return (
-      <div className="col-xs-4" style={{position: 'relative', height: '100%'}}>
+      <div className={classNames("col-xs-4", transitionClassName)} style={{position: 'relative', height: '100%'}}>
         <div className="box"
           style={{
             wordWrap: 'break-word',
@@ -143,7 +165,7 @@ class Result extends Component {
   }
 
   render() {
-    const { searchId } = this.props.searchDocument
+    const { searchId, hideFinished } = this.props.searchDocument
     return (
       <div id="document-search-result">
         { this.renderFinished() }
@@ -152,14 +174,20 @@ class Result extends Component {
           { this.renderCenter() }
           { this.renderRight() }
         </div>
-        <Restart labelColor="white" buttonColor="black" onClick={this.onRestart.bind(this)}/>
-        <Button
-          style={{right: 220}}
-          label={lang.button.sql}
-          labelColor={white}
-          buttonColor={black}
-          handler={this.onShowSQL.bind(this)}
-          />
+        { hideFinished ?
+          <Button
+            label="Restart"
+            className="button-black"
+            handler={this.onRestart.bind(this)}/>
+          : null }
+        { hideFinished ?
+          <Button
+            style={{right: '22vh'}}
+            label={lang.button.sql}
+            className="button-black"
+            handler={this.onShowSQL.bind(this)}
+            />
+          : null }
       </div>
     )
   }

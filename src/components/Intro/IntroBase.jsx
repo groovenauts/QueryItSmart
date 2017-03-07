@@ -43,9 +43,9 @@ const styles = {
   },
   button: {
     position: 'relative',
-    height: '8vw',
-    width: '8vw',
-    lineHeight: '8vw',
+    height: '9vw',
+    width: '9vw',
+    lineHeight: '9vw',
     borderRadius: '50%',
     textAlign: 'center',
     cursor: 'pointer',
@@ -54,8 +54,12 @@ const styles = {
     margin: '30px auto 0',
     top: 0,
     left: 0,
-    fontSize: '2vw',
-  }
+    fontSize: '2.5vw',
+  },
+  buttonText: {
+    color: themeColor,
+    animation: 'flash 4s infinite ease-in-out',
+  },
 }
 
 class IntroBase extends Component {
@@ -101,10 +105,12 @@ class IntroBase extends Component {
             </div>
           }
           <div
-            className={`${clicked ? "pulse-fullscreen":"beacon"}`}
+            className={`${clicked ? "pulse-fullscreen":"animated zoomIn hover-ripple-out"}`}
             style={styles.button}
             onClick={this.onClick.bind(this)}>
-            { `${clicked ? "":"Start"}` }
+            <div style={styles.buttonText}>
+              { `${clicked ? "":"Start"}` }
+            </div>
           </div>
         </section>
       </div>

@@ -16,7 +16,7 @@ class Overlay extends Component {
   render() {
     const { backgroundColor } = this.props
     return (
-      <div className="container"
+      <div className="container animated fadeIn"
         style={{...styles.outer, ...{backgroundColor: backgroundColor}}}>
         { this.props.children }
       </div>

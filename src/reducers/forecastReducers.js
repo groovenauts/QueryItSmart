@@ -1,20 +1,30 @@
 import _ from 'lodash'
 import { types } from '../actions/index'
 import { bytesToSize } from '../utils'
-import { TEMPERATURES } from '../const'
-// import stations from '../config/stations'
+import TEMPERATURES from '../data/average_temperatures.json'
+import { TIME_MAP } from '../const'
+
+const location = "newyork"
+const unit = "fahrenheit"
+
+const averageTemperature = (month) => _.get(TEMPERATURES, `${location}.${unit}.${month}`, 0)
+
+const currentDate = new Date()
+const temperatureAve = averageTemperature(currentDate.getMonth())
 
 const initialState = {
   param: {
     month: new Date().getMonth()+1,
     weekday: new Date().getDay()+1,
-    temperature: TEMPERATURES[(_.size(TEMPERATURES)/2) | 0],
+    temperature: temperatureAve,
     weather: "sunny",
   },
+  temperatureAve: temperatureAve,
   sql: null,
   searching: false,
   finished: false,
   hour: new Date().getHours(),
+  sliderValue: _.findIndex(TIME_MAP, time => time === new Date().getHours()),
   results: [],
   totalSize: 0,
   basedTimeResult: {},
@@ -30,12 +40,24 @@ const forecast = (state = initialState, action) => {
   switch (action.type) {
     case types.FORECAST_PARAM_CHANGE: {
       const { key, value } = action
-      return {
-        ...state,
-        param: {
-          ...state.param,
-          [key]: value
-        },
+      if (key === "month") {
+        const ave = averageTemperature(value - 1)
+        return {
+          ...state,
+          param: {
+            ...state.param,
+            temperature: ave,
+          },
+          temperatureAve: ave,
+        }
+      } else {
+        return {
+          ...state,
+          param: {
+            ...state.param,
+            [key]: value
+          },
+        }
       }
     }
     case types.FORECAST_REQUEST_START:
@@ -66,11 +88,14 @@ const forecast = (state = initialState, action) => {
         finishedTime: action.time,
         error: action.error,
       }
-    case types.FORECAST_HOUR_CHANGE:
+    case types.FORECAST_SLIDER_CHANGE: {
+      const { value } = action
       return {
         ...state,
-        hour: action.hour
+        hour: TIME_MAP[Math.round(value)],
+        sliderValue: value,
       }
+    }
     case types.FORECAST_FINISHED_CLOSE:
       return {
         ...state,

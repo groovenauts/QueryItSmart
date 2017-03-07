@@ -35,6 +35,7 @@ class Finished extends Component {
       subtitle,
       color=white,
       backgroundColor=black,
+      buttonClassName="",
       closeHandler=()=>{}
     } = this.props
     return (
@@ -47,9 +48,8 @@ class Finished extends Component {
             : null }
         </div>
         <Button
-          labelColor={backgroundColor}
-          buttonColor={color}
           label='Close'
+          className={ buttonClassName }
           handler={ closeHandler }
           { ...this.props }
         />

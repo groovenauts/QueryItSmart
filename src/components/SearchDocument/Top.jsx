@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import { yellow500, white, black, grey500 } from 'material-ui/styles/colors'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { bindActionCreators } from 'redux'
 import * as actions from '../../actions/searchDocumentActions'
 import { connect } from 'react-redux'
@@ -11,7 +10,6 @@ import Result from './Result'
 import Searching from '../Searching'
 import Query from '../Query'
 import SQL from '../SQL'
-import Restart from '../Restart'
 import Circle from '../Circle'
 import lang from '../../lang'
 import { QUERY, DOCUMENT_IMAGE } from '../../const'
@@ -103,6 +101,7 @@ class Top extends Component {
           backgroundColor='rgba(0, 0, 0, 0.9)'
           headerColor={white}
           bodyColor={white}
+          buttonClassName="button-black"
           footerColor={yellow500}
           closeHandler={this.onCloseSQL.bind(this)}
           />

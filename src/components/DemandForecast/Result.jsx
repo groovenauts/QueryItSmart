@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import Slider from 'material-ui/Slider'
+import _ from 'lodash'
 import { deepPurple900 } from 'material-ui/styles/colors'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/appActions'
@@ -8,29 +9,29 @@ import * as forecastActions from '../../actions/forecastActions'
 import { connect } from 'react-redux'
 import Circle from '../Circle'
 import Button from '../Button'
-import Restart from '../Restart'
 import lang from '../../lang.json'
 import Finished from '../Finished'
 import { roundElapsed } from '../../utils'
+import { TIME_MAP } from '../../const'
 
-const AUTO_SLIDER_INTERVAL = 1200
-const SLIDER_SCALE = 6
-const START_HOUR = 6
-const TIME_MAP = _.times(24, num => {
-  if (num + START_HOUR >= 24) {
-    return num - (24 - START_HOUR)
-  } else {
-    return num + START_HOUR
-  }
-})
+const AUTO_SLIDER_INTERVAL = 100
 
-const hour2index = (hour) => _.findIndex(TIME_MAP, time => time === hour)
+const template = _.template('<b><%= hour %></b><div style="font-size: 1.3vh;font-weight: 400;"><%= suffix %><div>')
+const SCALE_MAP = {
+  '6': template({hour: 6, suffix: 'am'}),
+  '12': template({hour: 12, suffix: 'pm'}),
+  '18': template({hour: 6, suffix: 'pm'}),
+  '0': template({hour: 0, suffix: 'am'}),
+}
 
 const styles = {
   sliderPrefix: {
     top: 0,
     bottom: 0,
     margin: 'auto 0',
+    borderRight: `solid 1px ${deepPurple900}`,
+    marginRight: '2vh',
+    userSelect: 'none',
   }
 }
 
@@ -72,11 +73,8 @@ class Result extends Component {
   }
 
   onChangeSlider(e, value) {
-    const { actions, forecast } = this.props
-    const currentHour = TIME_MAP[value | 0]
-    if (currentHour !== forecast.hour) {
-      actions.changeHour(currentHour)
-    }
+    const { actions } = this.props
+    actions.changeSlider(value)
   }
 
   restartAutoSlider() {
@@ -98,17 +96,9 @@ class Result extends Component {
   autoSlider() {
     const { autoMode } = this.state
     const { actions, forecast } = this.props
-    const { hour } = forecast
+    const { sliderValue } = forecast
     if (autoMode) {
-      const currentIndex = hour2index(hour)
-      const nextIndex = do {
-        if (currentIndex >= 23) {
-          0
-        } else {
-          currentIndex + 1
-        }
-      }
-      actions.changeHour(TIME_MAP[nextIndex])
+      actions.changeSlider(sliderValue + 0.1 > 24 ? 0 : sliderValue + 0.1)
     }
   }
 
@@ -125,6 +115,7 @@ class Result extends Component {
           subtitle={subtitle}
           color={deepPurple900}
           backgroundColor="rgba(255,255,255,0.7)"
+          buttonClassName="button-deep-purple-white"
           closeHandler={this.onCloseFinished.bind(this)}
           />
       )
@@ -145,7 +136,7 @@ class Result extends Component {
   }
   renderSlider() {
     const { autoMode } = this.state
-    const { hour, hideFinished } = this.props.forecast
+    const { hour, hideFinished, sliderValue } = this.props.forecast
     if (!hideFinished) {
       return null
     }
@@ -190,16 +181,16 @@ class Result extends Component {
                 return (
                   <div key={`hour-${i}`}
                     className="box"
-                    style={{width: '1em'}}>
-                    {`${ i === 0 || _.size(TIME_MAP)-1 === i || _hour % 6 === 0 ? _hour : "" }`}
+                    style={{width: '1em'}}
+                    dangerouslySetInnerHTML={{__html: SCALE_MAP[_.toString(_hour)] || ""}}>
                   </div>
                 )
               }) }
             </div>
             <Slider
               min={0}
-              max={23}
-              value={_.indexOf(TIME_MAP, hour) || 0}
+              max={24}
+              value={sliderValue}
               style={{
                 paddingRight: 4,
                 paddingLeft: 4,
@@ -221,14 +212,16 @@ class Result extends Component {
         {/*{ this.renderTitle() }*/}
         { this.renderSlider() }
         { hideFinished ?
-          <Restart labelColor="white" buttonColor={deepPurple900} onClick={this.onRestart.bind(this)} />
+          <Button
+            label="Restart"
+            className="button-deep-purple-white"
+            handler={this.onRestart.bind(this)} />
           : null }
         { hideFinished ?
           <Button
-            style={{right: 220}}
+            style={{right: '22vh'}}
             label={lang.button.sql}
-            labelColor="white"
-            buttonColor={deepPurple900}
+            className="button-deep-purple-white"
             handler={this.onShowSQL.bind(this)} />
           : null }
       </div>

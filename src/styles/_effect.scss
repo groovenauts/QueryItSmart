@@ -1,0 +1,10 @@
+.center-gradation-blue {
+  z-index: 1;
+  background-image: radial-gradient(circle, #53a0fd, #3023ae 60%, #3023ae);
+}
+
+.blur {
+  pointer-events: none;
+  filter: blur(10px);
+  transition: filter 1.5s ease-in;
+}

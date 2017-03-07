@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Slider from 'material-ui/Slider'
 import { white, deepPurple900, yellow500 } from 'material-ui/styles/colors'
@@ -8,14 +7,13 @@ import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/appActions'
 import * as imageActions from '../../actions/searchImageActions'
 import { connect } from 'react-redux'
+import Typist from 'react-typist';
 
 import { darkTheme } from '../../styles/thema'
-import { QUERY, IMG_SIZE, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH } from '../../const'
+import { QUERY, IMG_SIZE, CONTENT_CLASSES, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH, TYPING_OPTION } from '../../const'
 import Header from '../Header'
 import Background from './Background'
 import Query from '../Query'
-import Restart from '../Restart'
-import Close from '../Close'
 import SQL from '../SQL'
 import Button from '../Button'
 import lang from '../../lang.json'
@@ -26,7 +24,7 @@ const styles = {
     top: 0,
     bottom: 0,
     margin: 'auto 0',
-    fontSize: 40,
+    fontSize: '5vh',
     transform: 'translateY(-25%)',
   }
 }
@@ -40,37 +38,56 @@ class SearchImageTop extends Component {
         content.className = CONTENT_CLASSES[i]
         return content
       }),
+      count: 0,
       leave: false,
       start: null,
       elapsed: 0,
     }
+
+    setTimeout(() => {
+      this.appearTimer = setInterval(() => {
+        const { contents, count } = this.state
+        if (count < _.size(contents)) {
+          this.animateTrigger()
+        } else {
+          clearInterval(this.appearTimer)
+        }
+      }, 1000)
+    }, 1000)
   }
 
   componentWillReceiveProps(nextProps) {
     // Just finished analysis
     if (this.props.searchImage.analyzing && !nextProps.searchImage.analyzing) {
-      if (this.timer) {
-        clearInterval(this.timer)
+      if (this.leaveTimer) {
+        clearInterval(this.leaveTimer)
       }
     }
   }
 
   componentWillUnmount() {
-    if (this.timer) {
-      clearInterval(this.timer)
+    if (this.leaveTimer) {
+      clearInterval(this.leaveTimer)
+    }
+    if (this.appearTimer) {
+      clearInterval(this.appearTimer)
     }
   }
 
   onSelectPresent(imageId, e) {
     const { actions } = this.props
     this.setState({ start: new Date() })
-    this.timer = setInterval(this.tick.bind(this), 50)
+    this.leaveTimer = setInterval(this.tick.bind(this), 50)
     actions.selectPresent(imageId)
   }
 
   onRestart() {
     this.props.actions.restart();
     this.props.actions.imageRestart();
+  }
+
+  onCloseResult() {
+    this.props.actions.close();
   }
 
   onShowSQL() {
@@ -91,7 +108,7 @@ class SearchImageTop extends Component {
     setTimeout(() => {
       actions.selectPresent(contents[index].id)
       this.setState({start: new Date()})
-      this.timer = setInterval(this.tick.bind(this), 50)
+      this.leaveTimer = setInterval(this.tick.bind(this), 50)
     }, 1000)
   }
 
@@ -123,6 +140,11 @@ class SearchImageTop extends Component {
     this.props.actions.imgError(id)
   }
 
+  animateTrigger() {
+    const { count } = this.state
+    this.setState({count: count+1})
+  }
+
   tick() {
     this.setState({ elapsed: new Date() - this.state.start })
   }
@@ -133,16 +155,15 @@ class SearchImageTop extends Component {
   }
 
   renderContents = () => {
-    const { contents, leave } = this.state
+    const { contents, count, leave } = this.state
     const { resultId, loadedImageIds } = this.props.searchImage
-    // const loaded = _.size(loadedImageIds) === _.size(contents)
-                // outerClassName={ leave ? "is-center leave":`${image.className} ${loaded ? "":"bg-clear"}` }
-    return _.map(contents, (image, i) => {
+    return _.map(_.take(contents, count), (image, i) => {
       return <Circle
                 key={ `select-${i}` }
+                style={{zIndex: image.zIndex}}
                 onClick={ this.onClick.bind(this, i) }
                 onMouseOver={ this.onMouseOver.bind(this, i) }
-                outerClassName={ leave ? "is-center leave":`${image.className}` }>
+                outerClassName={ classNames(leave ? "is-center":`${image.className}`, `${count < _.size(contents) ? "animated fadeIn":""}`) }>
                 <img src={ image.src }
                   onLoad={ this.onImgLoaded.bind(this, image.id) }
                   onError={ this.onImgError.bind(this, image.id) }
@@ -153,13 +174,17 @@ class SearchImageTop extends Component {
 
   renderContent(imageId, images, callback=()=>{}) {
     const image = _.find(images, image => image.key === imageId)
-    return <Circle
-              handler={ callback }
-              outerClassName="is-center">
-              <img className="large border-bold"
-                src={ THUMBNAIL_PATH({id: imageId}) }
-                />
-          </Circle>
+    return (
+      <div className="animated zoomIn">
+        <Circle
+          handler={ callback }
+          outerClassName="is-center">
+          <img className="large border-bold"
+            src={ THUMBNAIL_PATH({id: imageId}) }
+            />
+        </Circle>
+      </div>
+    )
   }
 
   imageName(imageId) {
@@ -238,7 +263,8 @@ class SearchImageTop extends Component {
       return (
         <Header 
           title={ lang.searchImage.select.title }
-          subtitle={ lang.searchImage.select.subtitle } />
+          subtitle={ lang.searchImage.select.subtitle }
+          animate={ true }/>
       )
     }
     return null
@@ -256,6 +282,7 @@ class SearchImageTop extends Component {
           headerColor={white}
           bodyColor={white}
           footerColor={yellow500}
+          buttonClassName="button-deep-blue"
           closeHandler={this.onCloseSQL.bind(this)}
           />
       )
@@ -264,44 +291,47 @@ class SearchImageTop extends Component {
   }
 
   render() {
+    const { count } = this.state
     const { app, searchImage } = this.props
     const { resultId, analyzing, analyzed, analyzeId, images, resultImages } = searchImage
     return (
       <MuiThemeProvider muiTheme={darkTheme}>
         <div className={ classNames("container", "center-gradation-blue") }>
-          <ReactCSSTransitionGroup
-            transitionName="fadeinout"
-            transitionAppear={true}
-            transitionAppearTimeout={500}
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}>
-            { this.renderHeader() }
-          </ReactCSSTransitionGroup>
-            <div className="content">
-              { do {
-                if (resultId) {
-                  { this.renderContent(resultId, resultImages, this.onClickResult.bind(this)) }
-                } else if (analyzeId) {
-                  { this.renderContent(analyzeId, PRESENT_IMAGES) }
-                } else {
-                  { this.renderContents() }
-                }
-              }}
-            </div>
-            { this.renderFooter() }
-            <Background />
-            { analyzed ?
-              <Button
-                style={{right: 220}}
-                label={lang.button.sql}
-                labelColor={deepPurple900}
-                buttonColor={white}
-                handler={this.onShowSQL.bind(this)}
-                />
+          { this.renderHeader() }
+          <div className="content">
+            { do {
+              if (resultId) {
+                { this.renderContent(resultId, resultImages, this.onClickResult.bind(this)) }
+              } else if (analyzeId) {
+                { this.renderContent(analyzeId, PRESENT_IMAGES) }
+              } else {
+                { this.renderContents() }
+              }
+            }}
+          </div>
+          { this.renderFooter() }
+          <Background />
+          { analyzed ?
+            <Button
+              style={{right: '22vh'}}
+              label={lang.button.sql}
+              className="button-deep-purple"
+              handler={this.onShowSQL.bind(this)}
+              />
+            : null }
+          { resultId ?
+            <Button
+              label="Close"
+              className="button-deep-purple"
+              handler={ this.onCloseResult.bind(this) }
+              /> : 
+            !analyzing && count > 0 ? 
+            <Button
+              label="Restart"
+              className="button-deep-purple"
+              handler={this.onRestart.bind(this)}/>
               : null }
-            { resultId ? <Close labelColor="#3023ae" buttonColor="white" /> : 
-              !analyzing ? <Restart labelColor="#3023ae" buttonColor="white" onClick={this.onRestart.bind(this)}/> : null }
-            { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
+          { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
           { this.renderSQL() }
         </div>
       </MuiThemeProvider>

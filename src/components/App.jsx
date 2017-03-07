@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actions from '../actions/appActions'
@@ -71,7 +70,7 @@ class App extends Component {
                     key={ `channel-${i}` }
                     onClick={ this.onClick.bind(this, i) }
                     onMouseOver={ this.onMouseOver.bind(this, i) }
-                    outerClassName={ leave ? "is-center leave":image.className }>
+                    outerClassName={ leave ? "is-center":image.className }>
                     <img src={ image.src } />
                   </Circle>
           })

@@ -1,4 +1,4 @@
-.select-box {
+.selectbox {
   $indigo900: #1A237E;
   position: relative;
 
@@ -18,7 +18,7 @@
     position: absolute;
     color: $indigo900;
     background-color: $indigo900;
-    width: 3vw;
+    width: 2vw;
     height: 58px;
     right: 0;
     border-top-right-radius: 4px;
@@ -32,18 +32,27 @@
     position: absolute;
     top: 50%;
     bottom: 60%;
-    width: 0.7vw;
-    height: 0.7vw;
-    right: 1.1vw;
+    width: 0.5vw;
+    height: 0.5vw;
+    right: 0.7vw;
     margin: auto 0;
     transform: rotate(135deg);
     border-top: 1px solid white;
     border-right: 1px solid white;
     pointer-events: none;
   }
+
+  &.is-expand-none {
+    &:before {
+      content: none;
+    }
+    &:after {
+      content: none;
+    }
+  }
 }
 
-.select-box-suffix {
+.selectbox-suffix {
   position: relative;
 
   &.temperature-f {
@@ -58,6 +67,48 @@
       width: 0.7vw;
       transform: translateY(-50%);
       pointer-events: none;
+    }
+  }
+
+  .stepper {
+    position: absolute;
+    background-color: white;
+    right: 0px;
+    height: 58px;
+    width: 2vw;
+    top: 0px;
+    user-select: none;
+
+    .plus {
+      position: absolute;
+      height: 49%;
+      width: 100%;
+      top: 0px;
+      left: 0px;
+      border-radius: 0px 6px 0px 0px;
+      color: white;
+      background-color: $indigo900;
+      > i {
+        font-size: 16px;
+        line-height: 28px;
+      }
+    }
+    .minus {
+      position: absolute;
+      height: 49%;
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+      border-radius: 0px 0px 6px 0px;
+      color: white;
+      background-color: $indigo900;
+      > i {
+        font-size: 16px;
+        line-height: 28px;
+      }
+    }
+    .is-disable {
+      opacity: 0.4;
     }
   }
 }

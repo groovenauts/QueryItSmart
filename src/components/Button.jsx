@@ -7,32 +7,18 @@ const textStyle={
   lineHeight: '1em',
   transform: 'translate(-50%, -50%)',
   overflow: 'hidden',
-  overflow: 'hidden',
   top: '50%',
   left: '50%',
+  textAlign: 'center',
 }
 
 class Button extends Component {
 
   render() {
-    const { label, style, handler, buttonColor, labelColor } = this.props
-    const defaultStyle = {
-      zIndex: 1000,
-      position: 'absolute',
-      backgroundColor: buttonColor,
-      height: 100,
-      width: 100,
-      bottom: 60,
-      right: 60,
-      fontSize: '26px',
-      lineHeight: '100px',
-      color: labelColor,
-      boxShadow: `0px 0px 0px 8px ${labelColor}, 0px 0px 0px 18px ${buttonColor}`,
-      transition: 'show 1.5s linear'
-    }
+    const { label, style={}, handler, className="" } = this.props
     return (
-      <div className={ classNames("circle") }
-        style={ _.defaults(style, defaultStyle) }
+      <div className={ className }
+        style={ style }
         onClick={ handler }>
         <div style={textStyle}>
           { label }

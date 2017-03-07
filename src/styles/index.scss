@@ -2,17 +2,14 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Mono:400,700);
 @import url(https://fonts.googleapis.com/css?family=Inconsolata:400,100);
 @import 'variables';
-@import 'util';
 @import 'circle';
-@import 'progress';
-@import 'background';
 @import 'effect';
 @import 'marquee';
 @import 'transition';
 @import 'layout';
 @import 'list';
 @import 'button';
-@import 'select';
+@import 'selectbox';
 
 html, body {
   width:  100%;
@@ -22,6 +19,11 @@ html, body {
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
   color: white;
+}
+
+body {
+  animation: fadeIn 2s ease 0s 1 normal;
+  -webkit-animation: fadeIn 2s ease 0s 1 normal;
 }
 
 h1 {
@@ -102,7 +104,7 @@ i.material-icons {
     font-weight: 300;
   }
   > .subtitle {
-    font-size: 4vh;
+    font-size: 4.4vh;
     font-weight: 100;
     &.large {
       font-size: 7vh;

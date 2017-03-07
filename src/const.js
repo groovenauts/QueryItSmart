@@ -73,7 +73,6 @@ export const THUMBNAIL_SIZE = 60,
   MONTH_LABELS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   WEEKDAY_LABELS = ["Sunday", "Monday","Thesday","Wednesday", "Thursday", "Friday", "Saturday"],
   WEATHERS = ["sunny", "rain", "snow"],
-  TEMPERATURES = _.range(-10, 76),
   TYPING_OPTION = {
     cursor: {
       show: false,
@@ -86,3 +85,15 @@ export const MONTH_VALUES = _.times(_.size(MONTH_LABELS), i => i+1)
 export const WEEKDAY_VALUES = _.times(_.size(WEEKDAY_LABELS), i => i+1)
 
 
+/**
+ * For converting slider values
+ * [6,..23,0,..6]
+ */
+const START_HOUR = 6
+export const TIME_MAP = _.times(25, num => {
+  if (num + START_HOUR >= 24) {
+    return num - (24 - START_HOUR)
+  } else {
+    return num + START_HOUR
+  }
+})
