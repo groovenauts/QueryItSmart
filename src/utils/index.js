@@ -17,7 +17,3 @@ export const roundElapsed = (time) => {
 export function removeHTMLTag(str) {
   return str.replace(/<(?:.|\n)*?>/gm, '')
 }
-
-export const easeIn = (t, d, exponent=3) => {
-  return Math.pow(t / d, exponent);
-}

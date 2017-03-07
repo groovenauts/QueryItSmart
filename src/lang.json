@@ -18,7 +18,8 @@
     },
     "analyzing": {
       "title": "Searching...",
-      "subtitle": "On 1 million Wikimedia Commons images<br />with BigQuery. Elapsed ${time} sec"
+      "subtitle": "On 1 million Wikimedia Commons images<br />with BigQuery. Elapsed ${time} sec",
+      "footer": "Key Image"
     },
     "analyzed": {
       "title": "Finished",

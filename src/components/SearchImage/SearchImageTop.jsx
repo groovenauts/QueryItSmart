@@ -197,44 +197,52 @@ class SearchImageTop extends Component {
   }
 
   renderFooter() {
-    const { resultImages, resultId } = this.props.searchImage
-    if (!resultId) {
-      return null
-    }
-    const image = _.find(resultImages, image => image.key === resultId) || {}
-    return (
-      <div className="content-footer">
-        <div className="row center-xs"
-          style={{
-            width: '50vw',
-            position: 'absolute',
-            paddingTop: 40,
-            left: 0,
-            right: 0,
-            margin: '0 auto',
-          }}>
-          <div className="col-xs-2" style={styles.sliderBothEnds}>
-            <div className="box">
-              Near
-            </div>
+    const { resultImages, resultId, analyzing } = this.props.searchImage
+    if (analyzing) {
+      return (
+        <div className="content-footer" style={{fontSize: '5vh'}}>
+          <div className="row center-xs">
+            { lang.searchImage.analyzing.footer }
           </div>
-          <div className="col-xs-8">
-            <div className="box">
-              <Slider
-                disabled={true}
-                min={0}
-                max={100}
-                value={image.rate}/>
+        </div>
+      )
+    } else if (resultId) {
+      const image = _.find(resultImages, image => image.key === resultId) || {}
+      return (
+        <div className="content-footer">
+          <div className="row center-xs"
+            style={{
+              width: '50vw',
+              position: 'absolute',
+              paddingTop: 40,
+              left: 0,
+              right: 0,
+              margin: '0 auto',
+            }}>
+            <div className="col-xs-2" style={styles.sliderBothEnds}>
+              <div className="box">
+                Near
+              </div>
             </div>
-          </div>
-          <div className="col-xs-2" style={styles.sliderBothEnds}>
-            <div className="box">
-              Far
+            <div className="col-xs-8">
+              <div className="box">
+                <Slider
+                  disabled={true}
+                  min={0}
+                  max={100}
+                  value={image.rate}/>
+              </div>
+            </div>
+            <div className="col-xs-2" style={styles.sliderBothEnds}>
+              <div className="box">
+                Far
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
+    return null
   }
 
   renderHeader() {

@@ -6,103 +6,35 @@ import { TimelineMax, TweenMax, TweenLite } from 'gsap'
 import GSAP from 'react-gsap-enhancer'
 import * as actions from '../../actions/searchImageActions'
 import { IMG_SIZE, THUMBNAIL_SIZE, PRESENT_IMAGES, THUMBNAIL_PATH } from '../../const';
-import { convertCoordinate, coordinateDistanceAndDegree, easeIn } from '../../utils';
-
-const DELAY_MS = 2000
-const MINIMUN_MS = 10
+import { convertCoordinate, coordinateDistanceAndDegree } from '../../utils';
 
 class Background extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      renderRandomImageIndex: 0,
-      renderResultImageIndex: 0,
-    }
-  }
-
   componentDidMount() {
     const { actions } = this.props
     actions.loadImages()
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { renderRandomImageIndex } = this.state
     const { resultId, analyzing, analyzed, analyzeId, loadedRandomImages } = this.props
     return ((nextProps.searchImage.resultId && !resultId) ||
       (!nextProps.searchImage.resultId && resultId) ||
       nextProps.searchImage.analyzing !== analyzing ||
       nextProps.searchImage.analyzeId !== analyzeId ||
       nextProps.searchImage.analyzed !== analyzed ||
-      nextProps.searchImage.loadedRandomImages !== loadedRandomImages ||
-      nextState.renderRandomImageIndex > renderRandomImageIndex ||
-      nextState.renderResultImageIndex > renderResultImageIndex)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { loadedRandomImages, analyzed } = this.props.searchImage
-    if (!loadedRandomImages && nextProps.searchImage.loadedRandomImages) {
-      if (_.size(nextProps.searchImage.loadedImageIds) > 0) {
-        this.setState({renderRandomImageIndex: 0})
-        this.timerForRandom = setTimeout(this.tickForRandom.bind(this), DELAY_MS)
-      }
-    }
-    if (!analyzed && nextProps.searchImage.analyzed) {
-      if (_.size(nextProps.searchImage.resultImages) > 0) {
-        this.setState({renderResultImageIndex: 0})
-        this.timerForResult = setTimeout(this.tickForResult.bind(this), DELAY_MS)
-      }
-    }
+      nextProps.searchImage.loadedRandomImages !== loadedRandomImages)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // Animate the added element
-    const { renderRandomImageIndex, renderResultImageIndex } = this.state
-    if (renderRandomImageIndex > prevState.renderRandomImageIndex) {
-      this.addAnimation(this.moveAnimation.bind(this, {
-        id: `random-${prevState.renderRandomImageIndex}`
-      }))
+    const { loadedRandomImages, analyzed } = this.props.searchImage
+    if (loadedRandomImages && !prevProps.searchImage.loadedRandomImages ||
+        analyzed && !prevProps.searchImage.analyzed) {
+      this.addAnimation(this.moveAnimation.bind(this, {name: 'circle'}))
     }
-    if (renderResultImageIndex > prevState.renderResultImageIndex) {
-      this.addAnimation(this.moveAnimation.bind(this, {
-        id: `result-${prevState.renderResultImageIndex}`
-      }))
-    }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerForRandom)
-    clearInterval(this.timerForResult)
   }
 
   onClickImage(imageId, e) {
     const { actions } = this.props
     actions.selectResultImage(imageId)
-  }
-
-  tickForRandom() {
-    const { renderRandomImageIndex } = this.state
-    const { images } = this.props.searchImage
-
-    if (renderRandomImageIndex < _.size(images)) {
-      // Render next index with setState trigger
-      this.setState({renderRandomImageIndex: renderRandomImageIndex+1})
-
-      let next = easeIn(_.size(images) - renderRandomImageIndex, _.size(images)) * DELAY_MS
-      next = next > MINIMUN_MS ? next : MINIMUN_MS
-      setTimeout(this.tickForRandom.bind(this), next)
-    }
-  }
-
-  tickForResult() {
-    const { renderResultImageIndex } = this.state
-    const { resultImages } = this.props.searchImage
-    if (renderResultImageIndex < _.size(resultImages)) {
-      this.setState({renderResultImageIndex: renderResultImageIndex+1})
-
-      let next = easeIn(_.size(resultImages) - renderResultImageIndex, _.size(resultImages)) * DELAY_MS
-      next = next > MINIMUN_MS ? next : MINIMUN_MS
-      setTimeout(this.tickForResult.bind(this), next)
-    }
   }
 
   moveAnimation(selector, {target}) {
@@ -131,14 +63,13 @@ class Background extends Component {
   }
 
   renderRandomImages() {
-    const { renderRandomImageIndex } = this.state
     const { app, searchImage } = this.props
     const { width, height } = app
     const { analyzeId, resultId, images } = searchImage
 
-    return _.map(_.take(images, renderRandomImageIndex), (image, i) => {
+    return _.map(images, (image, i) => {
       return (
-        <div id={`random-${i}`} name={`circle`} key={`random-${i}`} className={ classNames("circle", "thumbnail") }
+        <div name={`circle`} key={`random-${i}`} className={ classNames("circle", "thumbnail", "fadeIn") }
           style={{
             zIndex: i,
             position: 'absolute',
@@ -165,7 +96,6 @@ class Background extends Component {
   }
 
   renderResultImages() {
-    const { renderResultImageIndex } = this.state
     const { app, searchImage } = this.props
     const { width, height } = app
     const { analyzing, analyzeId, resultImages } = searchImage
@@ -173,10 +103,10 @@ class Background extends Component {
       return null;
     }
 
-    return _.map(_.take(resultImages, renderResultImageIndex), (image, i) => {
+    return _.map(resultImages, (image, i) => {
       return (
-        <div id={`result-${i}`} name={`circle`} key={`result${i}`} 
-          className={ classNames("circle", "thumbnail") }
+        <div name={`circle`} key={`result${i}`} 
+          className={ classNames("circle", "thumbnail", "fadeIn") }
           onClick={ this.onClickImage.bind(this, image.key) }
           style={{
             zIndex: i + 100,
@@ -232,11 +162,13 @@ class Background extends Component {
         { do {
           if (analyzing) {
             { this.renderPulsate() }
+            { this.renderRandomImages() }
           } else if (analyzeId || resultId) {
             { this.renderResultImages() }
+          } else {
+            { this.renderRandomImages() }
           }
         }}
-        { this.renderRandomImages() }
         { resultId ? this.renderLayer() : null }
       </div>
     )
