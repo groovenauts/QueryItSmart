@@ -69,7 +69,7 @@ class Background extends Component {
 
     return _.map(images, (image, i) => {
       return (
-        <div name={`circle`} key={`random-${i}`} className={ classNames("circle", "thumbnail", "fadeIn") }
+        <div name={`circle`} key={`random-${i}`} className={ classNames("circle", "thumbnail", "fadeInSlowly") }
           style={{
             zIndex: i,
             position: 'absolute',
@@ -106,7 +106,7 @@ class Background extends Component {
     return _.map(resultImages, (image, i) => {
       return (
         <div name={`circle`} key={`result${i}`} 
-          className={ classNames("circle", "thumbnail", "fadeIn") }
+          className={ classNames("circle", "thumbnail", "fadeInSlowly") }
           onClick={ this.onClickImage.bind(this, image.key) }
           style={{
             zIndex: i + 100,
