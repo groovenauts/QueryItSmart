@@ -21,10 +21,11 @@ docker build -t image_name_you_like .
 ## Run
 
 At the top directory of this project, run the following command.
-Please replace `(API_KEY)` with your API Key generated in Setup section.
+Please replace `MY_API_KEY` with your API Key generated in Setup section.
+Replace `MY_USER` and `MY_PASS` with your user/password for HTTP basic authentication.
 
 ```
-docker run -d -v $PWD/config:/usr/app/config -p8080:8080 -e API_KEY=(API_KEY) chikanaga/queryit-smart-app:latest
+docker run -d -v $PWD/config:/usr/app/config -p8080:8080 -e BASIC_USER=MY_USER -e BASIC_PASSWORD=MY_PASS -e API_KEY=MY_API_KEY chikanaga/queryit-smart-app:latest
 ```
 
 Open `http://localhost:8080` (if you use Virtual Machine or CCE to run docker container, replace `localhost` with your VM address) in browser.
