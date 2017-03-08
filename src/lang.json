@@ -5,7 +5,7 @@
   },
   "channel": {
     "title": "",
-    "subtitle": "What kind of data you like to search?"
+    "subtitle": "What kind of data would you like to search?"
   },
   "intro2": {
     "title": "Try BigQuery",
@@ -14,16 +14,16 @@
   "searchImage": {
     "select": {
       "title": "Image",
-      "subtitle": "Choose one of those to start finding similar images from 1 million images on Wikimedia Commons with BigQuery."
+      "subtitle": "Choose one of the images below. <b>BigQuery</b> will find similar images from 1 millions images stored on Wikimedia Commons"
     },
     "analyzing": {
       "title": "Searching...",
-      "subtitle": "On 1 million Wikimedia Commons images<br />with BigQuery. Elapsed ${time} sec",
+      "subtitle": "From one million images<br />with <b>BigQuery</b>. Elapsed ${time} sec",
       "footer": "Key Image"
     },
     "analyzed": {
       "title": "Finished",
-      "subtitle": "1,159,606 images and ${size} processed<br />in ${time} seconds with BigQuery"
+      "subtitle": "1,159,606 images and ${size} processed<br />in ${time} seconds with <b>BigQuery</b>"
     },
     "detail": {
       "title": "",
@@ -38,15 +38,15 @@
     },
     "select": {
       "title": "Document",
-      "subtitle": "Choose one of those to start finding similar documents from 10 million documents on StackOverflow with BigQuery."
+      "subtitle": "Choose one of the documents below. <b>BigQuery</b> will find similar documents from 10 millions documents on Stack Overflow"
     },
     "searching": {
       "title": "Searching...",
-      "subtitle": "On 10 million ${source} documents<br />with BigQuery. Elapsed ${time} sec"
+      "subtitle": "From 10 million documents<br />with <b>BigQuery</b>. Elapsed ${time} sec"
     },
     "finished": {
       "title": "Finished",
-      "subtitle": "10,000,000 documents and ${size} processed<br />in ${time} seconds with BigQuery"
+      "subtitle": "10,000,000 documents and ${size} processed<br />in ${time} seconds with <b>BigQuery</b>"
     },
     "detail": {
       "label1": "Source",
@@ -56,7 +56,7 @@
   "demandForecast": {
     "header": {
       "title": "NYC Citi Bike Demand Forecast",
-      "subtitle": "Specify the conditions (day of week, month, weather and temperature) for forecasting the demand for NYC Citi Bike with BigQuery"
+      "subtitle": "Specify the conditions (day of week, month, weather and temperature) for forecasting the demand for NYC Citi Bike with <b>BigQuery</b>"
     },
     "form": {
       "title": "Please specify the conditions",
@@ -67,11 +67,11 @@
     },
     "searching": {
       "title": "Analyzing...",
-      "subtitle": "On 644 bike stations/24 hours<br />with BigQuery. Elapsed ${time} sec"
+      "subtitle": "On 644 bike stations over 24 hours<br />with <b>BigQuery</b>. Elapsed ${time} sec"
     },
     "finished": {
       "title": "Finished",
-      "subtitle": "644 bike stations/24 hours and ${size} processed<br />in ${time} seconds with Google BigQuery"
+      "subtitle": "644 bike stations over 24 hours and ${size} processed<br />in ${time} seconds with <b>BigQuery</b>"
     }
   },
   "sql": {

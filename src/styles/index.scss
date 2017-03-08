@@ -107,7 +107,7 @@ i.material-icons {
     font-size: 4.4vh;
     font-weight: 100;
     &.large {
-      font-size: 7vh;
+      font-size: 6.5vh;
     }
   }
 }
@@ -121,7 +121,7 @@ i.material-icons {
 
 .content-footer {
   z-index: 1001;
-  width: calc(96vh + 8vh + 14vw);
+  width: calc(50vw + 32vh);
   position: absolute;
   top: 54%;
   left: 50%;
