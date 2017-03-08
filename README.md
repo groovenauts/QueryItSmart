@@ -1,6 +1,8 @@
-# QueryItSmart
+# QueryIt Smart
 
-QueryIt Smart is the demonstration application for BigQuery & Cloud Machine Learning.
+QueryIt Smart is the demonstration application where it combines [BigQuery](http://cloud.google.com/bigquery) for
+large scale data analytics and [Cloud Machine Learning Engine](http://cloud.google.com/ml) for scalable machine
+learning analytics. See [What is it?](whatisit.md) page for details of the technology.
 
 ## Preparation
 
