@@ -72,7 +72,7 @@ export const THUMBNAIL_SIZE = 60,
     { id: "10000086", src: "./images/10000086.jpg", name: "JELLYFISH" },
   ],
   MONTH_LABELS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-  WEEKDAY_LABELS = ["Sunday", "Monday","Thesday","Wednesday", "Thursday", "Friday", "Saturday"],
+  WEEKDAY_LABELS = ["Sunday", "Monday","Tuesday","Wednesday", "Thursday", "Friday", "Saturday"],
   WEATHERS = ["sunny", "rain", "snow"],
   TYPING_OPTION = {
     cursor: {
