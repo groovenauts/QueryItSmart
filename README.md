@@ -34,4 +34,4 @@ Open `http://localhost:8080` (if you use Virtual Machine or CCE to run docker co
 
 ## Modify datasets
 
-See [models/README.md] to know how to customize datasets for Image search and Document search.
+See [models/README.md](models/README.md) to know how to customize datasets for Image search and Document search.
