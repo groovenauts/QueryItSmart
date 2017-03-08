@@ -38,6 +38,10 @@ $ gcloud beta ml jobs submit training ${JOB_ID} \
 After the job finished, you will get newline-delimited json file contains key and vector attribute for each image.
 You can load load the newline-delimited json file into BigQuery to use image search.
 
+### Change image directory URL
+
+Please specify the images' base URL by environment variable `IMAGE_BASE_URL`.
+
 ## Document Search
 
 ### Vectorized Stack Overflow posts
