@@ -12,6 +12,7 @@ import STACK_OVERFLOW from '../../data/stackoverflow.json'
 import Query from '../Query'
 import lang from '../../lang.json'
 import Circle from '../Circle'
+import { removeHTMLTag } from '../../utils'
 
 const styles = {
   label: {
@@ -54,6 +55,7 @@ class Select extends Component {
       category: null,
       contents,
       count: 0,
+      finishedTyping: false,
     }
 
     setTimeout(() => {
@@ -86,6 +88,8 @@ class Select extends Component {
   }
 
   renderHeader() {
+    const { finishedTyping } = this.state
+    const subtitle = lang.searchDocument.select.subtitle
     return (
       <div id="document-search-header">
         <div className="row center-xs">
@@ -106,10 +110,16 @@ class Select extends Component {
                 { lang.searchDocument.select.title }
               </div>
               <div style={{fontSize: '4vh', padding: 20}}>
-                <Typist
-                  cursor={TYPING_OPTION.cursor}>
-                  { lang.searchDocument.select.subtitle }
-                </Typist>
+                { finishedTyping ?
+                  <div dangerouslySetInnerHTML={{__html: subtitle}} /> :
+                  <Typist
+                    cursor={TYPING_OPTION.cursor}
+                    onTypingDone={e => {
+                      this.setState({finishedTyping: true})
+                    }}>
+                    { removeHTMLTag(subtitle) }
+                  </Typist>
+                }
               </div>
             </div>
           </div>

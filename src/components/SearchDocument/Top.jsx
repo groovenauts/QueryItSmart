@@ -64,7 +64,6 @@ class Top extends Component {
     if (searching) {
       const elapsed = roundElapsed(this.state.elapsed - startTime)
       const subtitle = _.template(lang.searchDocument.searching.subtitle)({
-        source: category,
         time: elapsed,
       })
       return (

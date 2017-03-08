@@ -10,12 +10,14 @@ import { connect } from 'react-redux'
 import { MONTH_LABELS, MONTH_VALUES, WEEKDAY_LABELS, WEEKDAY_VALUES, WEATHERS } from '../../const'
 import Circle from '../Circle'
 import lang from '../../lang.json'
+import { removeHTMLTag } from '../../utils'
 
 class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {
       displayForm: false,
+      finishedTyping: false,
     }
     setTimeout(() => {
       this.setState({displayForm: true})
@@ -43,6 +45,8 @@ class Form extends Component {
   }
 
   renderHeader() {
+    const { finishedTyping } = this.state
+    const subtitle = lang.demandForecast.header.subtitle
     return (
       <div id="demand-forecast-header">
         <div className="row center-xs">
@@ -64,10 +68,16 @@ class Form extends Component {
                 { lang.demandForecast.header.title }
               </div>
               <div className="subtitle">
-                <Typist
-                  cursor={TYPING_OPTION.cursor}>
-                  { lang.demandForecast.header.subtitle }
-                </Typist>
+                { finishedTyping ?
+                  <div dangerouslySetInnerHTML={{__html: subtitle}} /> :
+                  <Typist
+                    cursor={TYPING_OPTION.cursor}
+                    onTypingDone={e => {
+                      this.setState({finishedTyping: true})
+                    }}>
+                    { removeHTMLTag(subtitle) }
+                  </Typist>
+                }
               </div>
             </div>
           </div>
