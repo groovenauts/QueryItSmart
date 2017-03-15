@@ -1,4 +1,4 @@
-FROM node
+FROM node:6.9
 
 WORKDIR /usr/app
 RUN npm install --global yarn@0.16.1
