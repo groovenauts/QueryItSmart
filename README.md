@@ -27,7 +27,7 @@ Please replace `MY_API_KEY` with your API Key generated in Setup section.
 Replace `MY_USER` and `MY_PASS` with your user/password for HTTP basic authentication.
 
 ```
-docker run -d -v $PWD/config:/usr/app/config -p8080:8080 -e BASIC_USER=MY_USER -e BASIC_PASSWORD=MY_PASS -e API_KEY=MY_API_KEY queryit-smart:latest
+docker run -d -v $PWD/config:/usr/app/config -p 8080:8080 -e BASIC_USER=MY_USER -e BASIC_PASSWORD=MY_PASS -e API_KEY=MY_API_KEY queryit-smart:latest
 ```
 
 Open `http://localhost:8080` (if you use Virtual Machine or CCE to run docker container, replace `localhost` with your VM address) in browser.
