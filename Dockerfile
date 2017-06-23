@@ -1,11 +1,10 @@
-FROM node:6.9
+FROM node:8.0
 
 WORKDIR /usr/app
-RUN npm install --global yarn@0.16.1
-ADD yarn.lock /usr/app/yarn.lock
 ADD .babelrc /usr/app/.babelrc
 ADD package.json /usr/app/package.json
-RUN yarn install
+ADD package-lock.json /usr/app/package-lock.json
+RUN npm install
 ADD . /usr/app
 RUN npm run build
 

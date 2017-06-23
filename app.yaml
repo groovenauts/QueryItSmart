@@ -1,2 +1,12 @@
-runtime: nodejs
+service: queryit-smart
+api_version: 1
+runtime: custom
 env: flex
+env_variables:
+  BASIC_USER: nextdemo
+  BASIC_PASSWORD: 201703
+  API_KEY: ''
+  IMAGE_BASE_URL: ''
+instance_class: F1
+automatic_scaling:
+  min_idle_instances: 0

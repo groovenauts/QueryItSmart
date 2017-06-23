@@ -16,6 +16,8 @@ For Map API used in demand forecast, you should generate API key from Google Clo
 
 ## Build Docker Image
 
+[NOTE] Service account's JSON key is included in the container. If you do not want to include it, docker build by removing config/service_account.json.
+
 ```
 docker build -t queryit-smart:latest .
 ```
