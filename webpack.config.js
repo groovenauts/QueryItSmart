@@ -27,8 +27,8 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', 'index.js', 'index.jsx', '.json', 'index.json', 'index.html'],
-    modulesDirectories: ["node_modules"],
+    extensions: ['.js', '.jsx', 'index.js', '.json'],
+    modules: ["node_modules"]
   },
   devtool: 'inline-source-map',
   plugins: [],
