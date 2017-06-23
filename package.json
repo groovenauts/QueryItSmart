@@ -25,6 +25,7 @@
     "body-parser": "^1.16.1",
     "classnames": "^2.2.5",
     "express": "^4.14.1",
+    "express-recaptcha": "^2.1.0",
     "flexboxgrid": "^6.3.1",
     "fs": "^0.0.1-security",
     "gsap": "^1.19.1",
