@@ -20,7 +20,7 @@ If the reCAPTCHA authentication is required, it is should regiter Site key and S
 
 ## Build Docker Image
 
-[NOTE] Service account's JSON key is included in the container. If you do not want to include it, docker build by removing config/service_account.json.
+[NOTE] Service account's JSON key is will be include in the container. If you do not want to include it, docker build by removing config/service_account.json.
 
 ```
 docker build -t queryit-smart:latest .
