@@ -9,6 +9,9 @@
     "start:dev": "NODE_ENV=development node server.js",
     "start": "NODE_ENV=production node server.js"
   },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "keywords": [
     "webpack"
   ],
