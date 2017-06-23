@@ -30,6 +30,5 @@ module.exports = {
     extensions: ['.js', '.jsx', 'index.js', '.json'],
     modules: ["node_modules"]
   },
-  devtool: 'inline-source-map',
   plugins: [],
 }
