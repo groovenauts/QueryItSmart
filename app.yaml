@@ -1,4 +1,3 @@
-service: queryit-smart
 api_version: 1
 runtime: nodejs
 env: flex
