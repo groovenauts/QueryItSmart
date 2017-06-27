@@ -18,25 +18,35 @@ For Map API used in demand forecast, you should generate API key from Google Clo
 
 If the reCAPTCHA authentication is required, it is should regiter Site key and Secret key from [Get reCAPTCHA](https://www.google.com/recaptcha/admin).
 
-## Build Docker Image
-
-[NOTE] Service account's JSON key is will be include in the container. If you do not want to include it, docker build by removing config/service_account.json.
-
-```
-docker build -t queryit-smart:latest .
-```
-
 ## Run
 
-At the top directory of this project, run the following command.
-Please replace `MY_API_KEY` with your API Key generated in Setup section.
-Replace `MY_SITE_KEY` and `MY_SECRET_KEY` with your regitered Site key/Secret key for reCAOTCHA, If needed authentication.
+Running on the Google App Engine.
+
+### 1. Settings
+
+Change the following setting values in app.yaml.
 
 ```
-docker run -d -p 8080:8080 -e API_KEY=MY_API_KEY -e RECAPTCHA_SITE_KEY=MY_SITE_KEY -e RECAPTCHA_SECRET_KEY=MY_SECRET_KEY queryit-smart:latest
+API_KEY: 'YOUR_API_KEY' // Required: Map API Key
+RECAPTCHA_SITE_KEY: 'YOUR_RECAPTCHA_SITE_KEY' // Optional: Site Key of reCAPTCHA
+RECAPTCHA_SECRET_KEY: 'YOUR_RECAPTCHA_SECRET_KEY' // Optional: Secret Key of reCAPTCHA
 ```
 
-Open `http://localhost:8080` (if you use Virtual Machine or CCE to run docker container, replace `localhost` with your VM address) in browser.
+### 2. Deployment and Run
+
+Perform the following gcloud command to deploy App Engine application in your GCP project.
+
+```
+glocud app deploy
+```
+
+### 3. Viewing your application
+
+After you deploy your app to App Engine, you can run the following command to launch your browser and view the app at https://[YOUR_PROJECT_ID].appspot.com:
+
+```
+gcloud app browse
+```
 
 ## Modify datasets
 
