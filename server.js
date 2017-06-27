@@ -10,7 +10,7 @@ var startQuery = require('./server/startQuery');
 
 const SERVICE_ACCOUNT = "./config/service_account.json";
 global.bigQuery = require('@google-cloud/bigquery')({
-  projectId: require(SERVICE_ACCOUNT).projectId,
+  projectId: require(SERVICE_ACCOUNT).project_id,
   keyFilename: SERVICE_ACCOUNT
 });
 
