@@ -1,11 +1,11 @@
 service: queryit-smart
 api_version: 1
-runtime: custom
+runtime: nodejs
 env: flex
 env_variables:
+  API_KEY: ''
   RECAPTCHA_SITE_KEY: ''
   RECAPTCHA_SECRET_KEY: ''
-  API_KEY: ''
   IMAGE_BASE_URL: ''
 instance_class: F1
 automatic_scaling:
