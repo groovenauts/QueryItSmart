@@ -16,6 +16,10 @@ const wrapSelectPresent = imageId => dispatch => {
     })
   }).catch((err) => {
     console.log("Error", err)
+    dispatch({
+      type: types.SEARCH_IMAGE_ERROR,
+      err: JSON.stringify(err),
+    })
   })
 }
 

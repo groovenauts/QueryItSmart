@@ -106,6 +106,8 @@ i.material-icons {
   > .subtitle {
     font-size: 4.4vh;
     font-weight: 100;
+    overflow: hidden;
+    height: 2.4em;
     &.large {
       font-size: 6.5vh;
     }

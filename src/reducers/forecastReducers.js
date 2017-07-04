@@ -86,8 +86,9 @@ const forecast = (state = initialState, action) => {
     case types.FORECAST_REQUEST_ERROR:
       return {
         ...state,
-        finishedTime: action.time,
-        error: action.error,
+        searching: false,
+        finished: true,
+        error: action.err,
       }
     case types.FORECAST_SLIDER_CHANGE: {
       const { value } = action

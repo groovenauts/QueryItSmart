@@ -52,6 +52,13 @@ const searchImage = (state = initialState, action) => {
         totalSize: bytesToSize(totalBytesProcessed),
       }
     }
+    case types.SEARCH_IMAGE_ERROR:
+      return {
+        ...state,
+        analyzing: false,
+        analyzed: false,
+        error: action.err,
+      }
     case types.SELECT_RESULT_IMAGE:
       return {
         ...state,

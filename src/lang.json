@@ -74,6 +74,10 @@
       "subtitle": "644 bike stations over 24 hours and ${size} processed<br />in ${time} seconds with <b>BigQuery</b>"
     }
   },
+  "error": {
+    "title": "Error",
+    "subtitle": ""
+  },
   "sql": {
     "header": "SQL",
     "footer": "Search 'QueryIt Smart' on GitHub to learn more."

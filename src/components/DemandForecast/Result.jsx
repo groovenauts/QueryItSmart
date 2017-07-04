@@ -104,19 +104,19 @@ class Result extends Component {
 
   renderFinished() {
     const { error, elapsedTime, totalSize, hideFinished } = this.props.forecast
-    if (!error && !hideFinished) {
-      const subtitle = _.template(lang.demandForecast.finished.subtitle)({
+    if (!hideFinished) {
+      const subtitle = error ? error : _.template(lang.demandForecast.finished.subtitle)({
         size: totalSize || '-',
         time: roundElapsed(elapsedTime),
       })
       return (
         <Finished
-          title={lang.demandForecast.finished.title}
+          title={error ? lang.error.title : lang.demandForecast.finished.title}
           subtitle={subtitle}
           color={deepPurple900}
           backgroundColor="rgba(255,255,255,0.7)"
           buttonClassName="button-deep-purple-white"
-          closeHandler={this.onCloseFinished.bind(this)}
+          closeHandler={error ? this.onRestart.bind(this) : this.onCloseFinished.bind(this)}
           />
       )
     }

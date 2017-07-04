@@ -81,19 +81,19 @@ class Result extends Component {
 
   renderFinished() {
     const { error, elapsedTime, totalSize, hideFinished } = this.props.searchDocument
-    if (!error && !hideFinished) {
-      const subtitle = _.template(lang.searchDocument.finished.subtitle)({
+    if (!hideFinished) {
+      const subtitle = error ? error : _.template(lang.searchDocument.finished.subtitle)({
         size: totalSize || '-',
         time: roundElapsed(elapsedTime),
       })
       return (
         <Finished
-          title={lang.searchDocument.finished.title}
+          title={error ? lang.error.title : lang.searchDocument.finished.title}
           subtitle={subtitle}
           color={black}
           backgroundColor="rgba(255,255,255,0.9)"
           buttonClassName="button-black"
-          closeHandler={this.onCloseFinished.bind(this)}
+          closeHandler={error ? this.onRestart.bind(this) : this.onCloseFinished.bind(this)}
           />
       )
     }
@@ -165,7 +165,7 @@ class Result extends Component {
   }
 
   render() {
-    const { searchId, hideFinished } = this.props.searchDocument
+    const { searchId, hideFinished, error } = this.props.searchDocument
     return (
       <div id="document-search-result">
         { this.renderFinished() }

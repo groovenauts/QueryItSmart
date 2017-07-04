@@ -21,6 +21,7 @@ export const types = {
   SEARCH_IMAGE_RESTART: "search_image_restart",
   SEARCH_IMAGE_SQL_SHOW: "search_image_sql_show",
   SEARCH_IMAGE_SQL_CLOSE: "search_image_sql_close",
+  SEARCH_IMAGE_ERROR: 'search_image_error',
   // for serach document
   SEARCH_DOCUMENT_START: 'search_document_start',
   SEARCH_DOCUMENT_FINISHED: 'search_document_finished',

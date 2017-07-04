@@ -246,8 +246,14 @@ class SearchImageTop extends Component {
   }
 
   renderHeader() {
-    const { resultId, analyzeId, analyzing, analyzed, totalSize } = this.props.searchImage
-    if (resultId) {
+    const { resultId, analyzeId, analyzing, analyzed, totalSize, error } = this.props.searchImage
+    if (error) {
+      return (
+        <Header
+          title={ `${lang.error.title}`}
+          subtitle={error} />
+      )
+    } else if (resultId) {
       return (
         <Header title={ this.imageName(analyzeId) } />
       )
