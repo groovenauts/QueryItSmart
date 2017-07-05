@@ -9,9 +9,6 @@ var query = require('./server/query');
 var startQuery = require('./server/startQuery');
 
 const SERVICE_ACCOUNT = "./config/service_account.json";
-const BASIC_USER = process.env.BASIC_USER || "nextdemo";
-const BASIC_PASSWORD = process.env.BASIC_PASSWORD || "201703";
-
 global.bigQuery = require('@google-cloud/bigquery')({
   projectId: require(SERVICE_ACCOUNT).projectId,
   keyFilename: SERVICE_ACCOUNT
@@ -22,10 +19,6 @@ app.engine('html', swig.renderFile);
 app.set('views', path.join(__dirname, '/assets'));
 app.set('view engine', 'html');
 app.use(logger('dev'));
-
-if (process.env.NODE_ENV !== "development") {
-  app.use(basicAuth(BASIC_USER, BASIC_PASSWORD));
-}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
