@@ -176,16 +176,30 @@ class SearchImageTop extends Component {
   }
 
   renderContent(imageId, images, callback=()=>{}) {
+    const { analyzing } = this.props.searchImage
     const image = _.find(images, image => image.key === imageId)
+    const style = {
+      height: 60,
+      width: 60,
+      backgroundColor: 'white'
+    }
     return (
       <div className="animated zoomIn">
         <Circle
+          style={{zIndex: 1000}}
           handler={ callback }
           outerClassName="is-center">
           <img className="large border-bold"
             src={ THUMBNAIL_PATH({id: imageId}) }
             />
         </Circle>
+        { analyzing ?
+        <div className="pulse">
+          <div className="is-center" style={{...style}}/>
+          <div className="is-center" style={{...style}}/>
+          <div className="is-center" style={{...style}}/>
+        </div>
+        : null }
       </div>
     )
   }
