@@ -157,13 +157,16 @@ class SearchImageTop extends Component {
   renderContents = () => {
     const { contents, count, leave } = this.state
     const { resultId, loadedImageIds } = this.props.searchImage
+    const animating = count < _.size(contents)
     return _.map(_.take(contents, count), (image, i) => {
+      let className = classNames(leave ? "is-center":`${image.className}`, `${animating ? "animated fadeIn":""}`)
+      className = animating ? className : _.replace(className, /( hover-.* )/, " ")
       return <Circle
                 key={ `select-${i}` }
                 style={{zIndex: image.zIndex}}
                 onClick={ this.onClick.bind(this, i) }
                 onMouseOver={ this.onMouseOver.bind(this, i) }
-                outerClassName={ classNames(leave ? "is-center":`${image.className}`, `${count < _.size(contents) ? "animated fadeIn":""}`) }>
+                outerClassName={ className }>
                 <img src={ image.src }
                   onLoad={ this.onImgLoaded.bind(this, image.id) }
                   onError={ this.onImgError.bind(this, image.id) }
