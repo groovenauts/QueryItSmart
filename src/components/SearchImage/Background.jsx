@@ -46,15 +46,15 @@ class Background extends Component {
     let anims = _.map(elements, element => {
       return TweenLite.fromTo(element, 60, 
         {
-          x: _.random(-70, 70),
-          y: _.random(-70, 70),
+          x: _.random(-50, 50),
+          y: _.random(-50, 50),
           rotation: _.random(-30, 30),
           yoyo: true,
         },
         {
-          x: _.random(-120, 120),
-          y: _.random(-120, 180),
-          rotation: _.random(-60, 90),
+          x: _.random(-60, 60),
+          y: _.random(-60, 60),
+          rotation: _.random(-20, 20),
         },
       )
     })

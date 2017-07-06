@@ -6,7 +6,6 @@
   border-radius: 50%;
   border: 1px sold white;
   text-align: center;
-  cursor: pointer;
 
   .text {
     user-select: none;
@@ -67,7 +66,7 @@
   &:hover {
     z-index: 100;
     transition: all 1s;
-    transform: scale(1.8)
+    transform: scale(1.3)
   }
 }
 
