@@ -9,6 +9,11 @@
   transition: filter 1.5s ease-in;
 }
 
+.intro-blur {
+  overflow: hidden;
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
+}
 
 @keyframes fadeInSlowly {
   from {

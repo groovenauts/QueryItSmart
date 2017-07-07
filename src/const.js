@@ -98,3 +98,5 @@ export const TIME_MAP = _.times(25, num => {
     return num + START_HOUR
   }
 })
+
+export const THEME_COLOR = '#3c85f4'

@@ -10,6 +10,7 @@ export const types = {
   FINISHED_INTRO: "finished_intro",
   NEXT_INTRO: "next_intro",
   SELECT_CHANNEL: "select_channel",
+  CAPTCHA_VERIFY: "captcha_verify",
   // for search image
   IMG_LOADED: "img_loaded",
   IMG_LOAD_ERR: "img_load_err",

@@ -107,7 +107,7 @@ class Channel extends Component {
   render() {
     const { app } = this.props
     return (
-      <div id="channel">
+      <div id="channel" className={app.authorized?"":"intro-blur"}>
         { do {
             if (app.channel === 0) {
               <SearchImage />

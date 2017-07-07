@@ -7,6 +7,7 @@ const initialState = {
   page: 0,
   channel: -1,
   finishedIntro: false,
+  authorized: !window.siteKey,
 }
 
 const app = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const app = (state = initialState, action) => {
         ...state,
         width,
         height
+      }
+    case types.CAPTCHA_VERIFY:
+      return {
+        ...state,
+        authorized: action.authorized
       }
     case types.RESTART:
       return {

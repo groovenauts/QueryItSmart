@@ -12,7 +12,7 @@
   border-radius: 50%;
   box-sizing: border-box;
   box-shadow: 0vh 0vh 0vh 1vh $color, 0vh 0vh 0vh 1.8vh $background-color;
-  cursor: pointer;
+  cursor: default;
   transition: show 1.5s;
 
   &:hover {
@@ -56,7 +56,7 @@
   border-radius: 50%;
   box-sizing: border-box;
   text-align: center;
-  cursor: pointer;
+  cursor: default;
   color: black;
   background-color: white;
   border: 1px solid black;
@@ -79,7 +79,7 @@
   border-radius: 50%;
   box-sizing: border-box;
   text-align: center;
-  cursor: pointer;
+  cursor: default;
   color: $indigo900;
   background-color: white;
   border: 1px solid $indigo900;

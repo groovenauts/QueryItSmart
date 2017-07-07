@@ -1,4 +1,7 @@
 {
+  "recaptcha": {
+    "title": "Please check before you start."
+  },
   "intro": {
     "title": "QueryIt Smart",
     "subtitle": "Powered by BigQuery"

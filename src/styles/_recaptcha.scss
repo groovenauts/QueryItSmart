@@ -1,0 +1,32 @@
+#recaptcha {
+  z-index: 2000;
+  .box {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    display: flex;
+  }
+  label {
+    font-size: 23px;
+    display: inherit;
+    color: white;
+    margin-bottom: 22px;
+    animation-duration: 5s;
+  }
+  .recaptcha-container {
+    text-align: center;
+    margin: 0 auto;
+    top: 40%;
+    position: relative;
+  }
+}
+
+.g-recaptcha {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+#html_element {
+  width: 100%;
+  padding: 0px 20px;
+}
