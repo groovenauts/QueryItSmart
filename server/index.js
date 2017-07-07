@@ -17,27 +17,20 @@ const templateOption = {
   apiKey: API_KEY,
   imageBaseUrl: IMAGE_BASE_URL,
   gaTrackingId: GA_TRACKING_ID,
-};
-const loginOption = {
-  siteKey: SITE_KEY,
-  captcha: recaptcha.render()
+  siteKey: hasAuthentication ? SITE_KEY : '',
 };
 
 router.get('/', function(req, res) {
-  if (hasAuthentication) {
-    res.render('login', loginOption);
-  } else {
-    res.render('template', templateOption);
-  }
+  res.render('template', templateOption);
 });
 
 router.post('/', function(req, res) {
   if (hasAuthentication) {
     recaptcha.verify(req, function(error) {
       if (error) {
-        res.render('login', loginOption);
+        res.status(500).send({success: false});
       } else {
-        res.render('template', templateOption);
+        res.status(200).send({success: true});
       }
     });
   }

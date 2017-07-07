@@ -10,6 +10,7 @@ const textStyle={
   top: '50%',
   left: '50%',
   textAlign: 'center',
+  userSelect: 'none',
 }
 
 class Button extends Component {

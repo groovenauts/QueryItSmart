@@ -18,6 +18,7 @@ const wrapRequest = (queryType, queryParams) => dispatch => {
     dispatch({
       type: types.FORECAST_REQUEST_ERROR,
       time: new Date(),
+      err: JSON.stringify(err),
     })
   })
 }

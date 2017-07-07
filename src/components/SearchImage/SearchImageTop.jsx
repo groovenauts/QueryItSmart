@@ -157,13 +157,16 @@ class SearchImageTop extends Component {
   renderContents = () => {
     const { contents, count, leave } = this.state
     const { resultId, loadedImageIds } = this.props.searchImage
+    const animating = count < _.size(contents)
     return _.map(_.take(contents, count), (image, i) => {
+      let className = classNames(leave ? "is-center":`${image.className}`, `${animating ? "animated fadeIn":""}`)
+      className = animating ? className : _.replace(className, /( hover-.* )/, " ")
       return <Circle
                 key={ `select-${i}` }
                 style={{zIndex: image.zIndex}}
                 onClick={ this.onClick.bind(this, i) }
                 onMouseOver={ this.onMouseOver.bind(this, i) }
-                outerClassName={ classNames(leave ? "is-center":`${image.className}`, `${count < _.size(contents) ? "animated fadeIn":""}`) }>
+                outerClassName={ className }>
                 <img src={ image.src }
                   onLoad={ this.onImgLoaded.bind(this, image.id) }
                   onError={ this.onImgError.bind(this, image.id) }
@@ -173,16 +176,30 @@ class SearchImageTop extends Component {
   }
 
   renderContent(imageId, images, callback=()=>{}) {
+    const { analyzing } = this.props.searchImage
     const image = _.find(images, image => image.key === imageId)
+    const style = {
+      height: 60,
+      width: 60,
+      backgroundColor: 'white'
+    }
     return (
       <div className="animated zoomIn">
         <Circle
+          style={{zIndex: 1000}}
           handler={ callback }
           outerClassName="is-center">
           <img className="large border-bold"
             src={ THUMBNAIL_PATH({id: imageId}) }
             />
         </Circle>
+        { analyzing ?
+        <div className="pulse">
+          <div className="is-center" style={{...style}}/>
+          <div className="is-center" style={{...style}}/>
+          <div className="is-center" style={{...style}}/>
+        </div>
+        : null }
       </div>
     )
   }
@@ -246,8 +263,14 @@ class SearchImageTop extends Component {
   }
 
   renderHeader() {
-    const { resultId, analyzeId, analyzing, analyzed, totalSize } = this.props.searchImage
-    if (resultId) {
+    const { resultId, analyzeId, analyzing, analyzed, totalSize, error } = this.props.searchImage
+    if (error) {
+      return (
+        <Header
+          title={ `${lang.error.title}`}
+          subtitle={error} />
+      )
+    } else if (resultId) {
       return (
         <Header title={ this.imageName(analyzeId) } />
       )

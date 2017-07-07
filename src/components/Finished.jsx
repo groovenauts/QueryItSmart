@@ -24,6 +24,9 @@ const styles = {
   subtitle: {
     fontSize: '4vh',
     fontWeight: 100,
+    maxWidth: '90vw',
+    overflow: 'hidden',
+    height: '2.4em',
   }
 }
 

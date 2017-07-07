@@ -1,4 +1,7 @@
 {
+  "recaptcha": {
+    "title": "Please check before you start."
+  },
   "intro": {
     "title": "QueryIt Smart",
     "subtitle": "Powered by BigQuery"
@@ -73,6 +76,10 @@
       "title": "Finished",
       "subtitle": "644 bike stations over 24 hours and ${size} processed<br />in ${time} seconds with <b>BigQuery</b>"
     }
+  },
+  "error": {
+    "title": "Error",
+    "subtitle": ""
   },
   "sql": {
     "header": "SQL",

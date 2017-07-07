@@ -10,6 +10,7 @@
 @import 'list';
 @import 'button';
 @import 'selectbox';
+@import 'recaptcha';
 
 html, body {
   width:  100%;
@@ -60,7 +61,7 @@ i.material-icons {
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-  cursor: pointer;
+  cursor: default;
 
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
@@ -106,6 +107,7 @@ i.material-icons {
   > .subtitle {
     font-size: 4.4vh;
     font-weight: 100;
+    overflow: hidden;
     &.large {
       font-size: 6.5vh;
     }

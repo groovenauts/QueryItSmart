@@ -23,7 +23,7 @@ const wrapSearchDocument = (queryType, id, sql) => dispatch => {
     dispatch({
       type: types.SEARCH_DOCUMENT_ERROR,
       id,
-      err
+      err: JSON.stringify(err),
     })
   })
 }

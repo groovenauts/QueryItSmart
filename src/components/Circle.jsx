@@ -11,7 +11,7 @@ class Circle extends Component {
         className={ classNames("circle-outer", outerClassName) }
         onClick={ onClick }
         onMouseOver= { onMouseOver }>
-        <div className={ classNames("circle", "thumbnail", innerClassName) }>
+        <div className={ classNames("circle", "thumbnail", "animated", "fadeIn", innerClassName) }>
           { this.props.children }
         </div>
       </div>

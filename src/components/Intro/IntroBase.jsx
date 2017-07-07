@@ -5,10 +5,9 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../../actions/appActions'
 import { connect } from 'react-redux'
 import Typist from 'react-typist';
-import { TYPING_OPTION } from '../../const'
+import { TYPING_OPTION, THEME_COLOR } from '../../const'
 import { removeHTMLTag } from '../../utils'
 
-const themeColor = '#3c85f4'
 const styles = {
   outer: {
     position: 'relative',
@@ -17,7 +16,7 @@ const styles = {
     height: '100%',
     width: '100%',
     pointerEvents: 'auto',
-    backgroundColor: themeColor,
+    backgroundColor: THEME_COLOR,
   },
   inner: {
     width: '100%',
@@ -32,6 +31,7 @@ const styles = {
     fontSize: '9vw',
     fontWeight: '300',
     marginBottom: 30,
+    userSelect: 'none',
   },
   subtitle: {
     color: white,
@@ -48,17 +48,19 @@ const styles = {
     lineHeight: '9vw',
     borderRadius: '50%',
     textAlign: 'center',
-    cursor: 'pointer',
-    color: themeColor,
+    color: THEME_COLOR,
     backgroundColor: white,
     margin: '30px auto 0',
     top: 0,
     left: 0,
     fontSize: '2.5vw',
+    userSelect: 'none',
   },
   buttonText: {
-    color: themeColor,
+    color: THEME_COLOR,
     animation: 'flash 4s infinite ease-in-out',
+    userSelect: 'none',
+    cursor: 'default',
   },
 }
 
@@ -85,8 +87,9 @@ class IntroBase extends Component {
   render() {
     const { finishedTyping, clicked } = this.state
     const { title, subtitle, titleStyle } = this.props
+    const { authorized } = this.props.app
     return (
-      <div style={styles.outer}>
+      <div style={styles.outer} className={authorized?"":"intro-blur"}>
         <section style={styles.inner}>
           <div style={{...styles.title, ...titleStyle}}>
             {title}
@@ -113,6 +116,7 @@ class IntroBase extends Component {
             </div>
           </div>
         </section>
+        <a className="footer-logo" href="https://www.magellanic-clouds.com/blocks/" target="_blank" />
       </div>
     )
   }

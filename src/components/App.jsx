@@ -4,12 +4,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actions from '../actions/appActions'
 import _ from 'lodash'
+import ReCAPTCHA from './ReCAPTCHA'
 import Circle from './Circle'
 import Intro from './Intro/Intro'
 import Intro2 from './Intro/Intro2'
 import Channel from './Channel'
 import lang from '../lang.json'
-import { INTRO_TIME } from '../const'
+import { INTRO_TIME, THEME_COLOR } from '../const'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
@@ -81,13 +82,17 @@ class App extends Component {
 
   render() {
     const { app, forecast } = this.props
-    const { page } = app
+    const { page, authorized } = app
     const { finished, showSQL } = forecast
     // For google map
-    const style = finished && !showSQL ? {pointerEvents: 'none'} : {}
+    let style = finished && !showSQL ? {pointerEvents: 'none'} : {}
+    style = _.defaults({
+      backgroundColor: authorized ? '' : page === 1 ? 'black' : THEME_COLOR
+    }, style)
     return (
       <div id="app" style={style}>
         { page === 0 ? <Intro /> : page === 1 ? <Channel /> : <Intro2 /> }
+        <ReCAPTCHA siteKey={window.siteKey} />
       </div>
     )
   }
