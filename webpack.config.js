@@ -23,7 +23,11 @@ module.exports = {
       {
         test: /\.(png|wav)$/,
         loader: 'file-loader'
-      }      
+      },
+      {
+        test: /\.svg$/,
+        loader: "url-loader?mimetype=image/svg+xml"
+      },
     ]
   },
   resolve: {

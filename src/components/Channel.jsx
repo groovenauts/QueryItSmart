@@ -123,6 +123,7 @@ class Channel extends Component {
               </div>
             }
         }}
+        <a className="footer-logo" href="https://www.magellanic-clouds.com/blocks/" target="_blank" />
       </div>
     )
   }

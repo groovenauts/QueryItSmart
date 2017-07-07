@@ -116,6 +116,7 @@ class IntroBase extends Component {
             </div>
           </div>
         </section>
+        <a className="footer-logo" href="https://www.magellanic-clouds.com/blocks/" target="_blank" />
       </div>
     )
   }
