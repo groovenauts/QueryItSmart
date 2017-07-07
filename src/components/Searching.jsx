@@ -20,7 +20,7 @@ export default class Searching extends Component {
             <img src={ imgSrc } className="large border-bold" />
           </Circle>
         </div>
-        <div className="pulse">
+        <div className="pulse fadeInSlowly">
           <div className="is-center" style={{...style, ...{backgroundColor: pulseColor}}}/>
           <div className="is-center" style={{...style, ...{backgroundColor: pulseColor}}}/>
           <div className="is-center" style={{...style, ...{backgroundColor: pulseColor}}}/>

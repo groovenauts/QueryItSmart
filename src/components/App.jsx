@@ -82,12 +82,12 @@ class App extends Component {
 
   render() {
     const { app, forecast } = this.props
-    const { page } = app
+    const { page, authorized } = app
     const { finished, showSQL } = forecast
     // For google map
     let style = finished && !showSQL ? {pointerEvents: 'none'} : {}
     style = _.defaults({
-      backgroundColor: page === 1 ? 'black' : THEME_COLOR
+      backgroundColor: authorized ? '' : page === 1 ? 'black' : THEME_COLOR
     }, style)
     return (
       <div id="app" style={style}>
