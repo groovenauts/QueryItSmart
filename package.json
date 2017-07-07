@@ -8,13 +8,12 @@
     "start": "NODE_ENV=production node server.js"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": "8.0.0"
   },
   "dependencies": {
     "@google-cloud/bigquery": "^0.9.5",
     "babel-preset-stage-0": "^6.22.0",
     "babel-preset-stage-3": "^6.22.0",
-    "basic-auth-connect": "^1.0.0",
     "body-parser": "^1.16.1",
     "classnames": "^2.2.5",
     "express": "^4.14.1",
