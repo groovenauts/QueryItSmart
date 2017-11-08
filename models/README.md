@@ -52,7 +52,7 @@ The posts from Stack Overflow are stored in BigQuery table `[queryit-smart:stack
 
 The instruction to vectorize arbitrary documents is shown in the following Jupyter notebook.
 
-https://github.com/kazunori279/cloudml-demo/blob/master/Similarity+search+on+Stack+Overflow.ipynb
+https://github.com/kazunori279/cloudml-demo/blob/master/Next17%20Similarity%20Search%20on%20Stack%20Overflow.ipynb
 
 At first you should create word dictionaries about the documents, and convert it to UDF (JavaScript) to create document vectors table.
 
