@@ -20,7 +20,7 @@ class Encode64DoFn(beam.DoFn):
 
 def run(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument("--project-id", dest="project_id", required=True,
+    parser.add_argument("--gcs-project-id", dest="project_id", required=True,
             help='GCP Project ID.')
     parser.add_argument("--input-table", dest="input_table", required=True,
             help='Input BigQuery table name.')
