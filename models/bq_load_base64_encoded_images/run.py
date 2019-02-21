@@ -29,7 +29,7 @@ def run(argv=None):
             help="Bucket name contains images.")
     parser.add_argument("--image-prefix", dest="image_prefix", required=True,
             help="GCS object name prefix.")
-    known_args, pipeline_args = parser.parse_knownargs(argv)
+    known_args, pipeline_args = parser.parse_known_args(argv)
 
     p = beam.Pipeline(argv.pipeline_args)
     schema = 'key:STRING, image_base64:STRING'
