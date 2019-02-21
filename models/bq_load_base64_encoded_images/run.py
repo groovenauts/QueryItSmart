@@ -15,7 +15,7 @@ class Encode64DoFn(beam.DoFn):
         self.client = gcs.Client(project_id)
         self.bucket = self.client.get_bucket(bucket_name)
 
-    def process(self, element, project_id, bucket_name, prefix):
+    def process(self, element):
         key = element["key"]
         name = prefix + "/" + key + ".jpg"
         result = {}
