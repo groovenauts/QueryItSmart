@@ -5,6 +5,11 @@ import logging
 import apache_beam as beam
 
 class Encode64DoFn(beam.DoFn):
+    def __init__(self):
+        super(Encode64DoFn, self).__init__()
+        self.client = None
+        self.bucket = None
+
     def process(self, element, project_id, bucket_name, prefix):
         import base64
         from google.cloud import storage as gcs
@@ -12,9 +17,11 @@ class Encode64DoFn(beam.DoFn):
         name = prefix + "/" + key + ".jpg"
         result = {}
         result["key"] = key
-        client = gcs.Client(project_id)
-        bucket = client.get_bucket(bucket_name)
-        blob = gcs.Blob(name, bucket)
+        if self.client == None:
+            self.client = gcs.Client(project_id)
+        if self.bucket == None:
+            self.bucket = self.client.get_bucket(bucket_name)
+        blob = gcs.Blob(name, self.bucket)
         result["image_base64"] = base64.urlsafe_b64encode(blob.download_as_string())
         return [result]
 
