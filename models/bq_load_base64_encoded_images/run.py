@@ -5,10 +5,10 @@ import base64
 import logging
 
 import apache_beam as beam
-from google.cloud import storage as gcs
 
 class Encode64DoFn(beam.DoFn):
     def process(self, element, bucket_name, prefix):
+        from google.cloud import storage as gcs
         key = element["key"]
         name = prefix + "/" + key + ".jpg"
         result = {}
@@ -31,7 +31,7 @@ def run(argv=None):
             help="GCS object name prefix.")
     known_args, pipeline_args = parser.parse_known_args(argv)
 
-    p = beam.Pipeline(argv.pipeline_args)
+    p = beam.Pipeline(argv=pipeline_args)
     schema = 'key:STRING, image_base64:STRING'
     images = p | 'ReadFromBQ' >> beam.io.Read(beam.io.BigQuerySource(known_args.input_table))
     b64encode = images | 'Encode64' >> beam.ParDo(Encode64DoFn(), known_args.image_bucket, known_args.image_prefix)
