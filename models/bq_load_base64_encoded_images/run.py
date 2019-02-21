@@ -1,13 +1,12 @@
 import argparse
 import json
-import os
-import base64
 import logging
 
 import apache_beam as beam
 
 class Encode64DoFn(beam.DoFn):
     def process(self, element, bucket_name, prefix):
+        import base64
         from google.cloud import storage as gcs
         key = element["key"]
         name = prefix + "/" + key + ".jpg"
