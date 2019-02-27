@@ -2,7 +2,6 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var swig = require('swig');
 var routes = require('./server/index');
 var query = require('./server/query');
 var startQuery = require('./server/startQuery');
@@ -15,9 +14,8 @@ global.bigQuery = new BigQuery({
 });
 
 var app = express();
-app.engine('html', swig.renderFile);
 app.set('views', path.join(__dirname, '/assets'));
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 app.use(logger('dev'));
 
 app.use(bodyParser.json());
