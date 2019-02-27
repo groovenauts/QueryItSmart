@@ -7,7 +7,7 @@ router.post('/', function(req, res) {
   sql = _.template(QUERY_TEMPLATES[req.body.queryType])(req.body.queryParams)
   options = req.body.options
   options.query = sql
-  bigQuery.startQuery(req.body.options)
+  bigQuery.createQueryJob(req.body.options)
     .then((results) => {
       job = results[0];
       return job.promise();

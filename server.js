@@ -2,21 +2,20 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var swig = require('swig');
 var routes = require('./server/index');
 var query = require('./server/query');
 var startQuery = require('./server/startQuery');
 
 const SERVICE_ACCOUNT = "./config/service_account.json";
-global.bigQuery = require('@google-cloud/bigquery')({
+const { BigQuery } = require('@google-cloud/bigquery');
+global.bigQuery = new BigQuery({
   projectId: require(SERVICE_ACCOUNT).project_id,
   keyFilename: SERVICE_ACCOUNT
 });
 
 var app = express();
-app.engine('html', swig.renderFile);
 app.set('views', path.join(__dirname, '/assets'));
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 app.use(logger('dev'));
 
 app.use(bodyParser.json());
