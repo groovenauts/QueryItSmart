@@ -37,7 +37,7 @@ RECAPTCHA_SECRET_KEY: 'YOUR_RECAPTCHA_SECRET_KEY' // Optional: Secret Key of reC
 Perform the following gcloud command to deploy App Engine application in your GCP project.
 
 ```
-glocud app deploy
+gcloud app deploy
 ```
 
 ### 3. Viewing your application
