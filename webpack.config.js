@@ -1,16 +1,15 @@
 var webpack = require('webpack')
+var path = require('path');
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: './assets/app.js'
+    path: path.resolve(__dirname, './assets'),
+    filename: 'app.js'
   },
+  mode: 'development',
   module: {
-    loaders: [
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
+    rules: [
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
@@ -18,7 +17,7 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
+        loader: "style-loader!css-loader!sass-loader"
       },
       {
         test: /\.(png|wav)$/,
@@ -29,6 +28,9 @@ module.exports = {
         loader: "url-loader?mimetype=image/svg+xml"
       },
     ]
+  },
+  performance: {
+    hints: false
   },
   resolve: {
     extensions: ['.js', '.jsx', 'index.js', '.json'],
