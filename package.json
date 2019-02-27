@@ -8,7 +8,7 @@
     "start": "NODE_ENV=production node server.js"
   },
   "engines": {
-    "node": "8.0.0"
+    "node": ">=8"
   },
   "dependencies": {
     "@google-cloud/bigquery": "^0.9.5",
