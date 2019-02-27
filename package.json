@@ -35,9 +35,9 @@
     "react-typist": "^1.0.3",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "superagent": "^3.4.3",
+    "superagent": "^4.1.0",
     "swig": "^1.4.2",
-    "url-loader": "^0.5.9",
+    "url-loader": "^1.1.2",
     "webpack": "2.6.1"
   },
   "devDependencies": {
