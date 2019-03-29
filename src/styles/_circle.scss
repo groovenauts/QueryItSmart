@@ -56,10 +56,18 @@
 .is-right {
   position: absolute;
   transform: translate(14vw, -50%);
+
+  &.near {
+    transform: translate(8vw, -50%);
+  }
 }
 .is-left {
   position: absolute;
   transform: translate(calc(-14vw - 100%), -50%);
+
+  &.near {
+    transform: translate(calc(-8vw - 100%), -50%);
+  }
 }
 
 .hover {

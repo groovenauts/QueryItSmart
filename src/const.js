@@ -30,15 +30,29 @@ export const CONTENT_CLASSES = [
   "is-right hover-right",
 ]
 
+export const CHANNEL_IMAGES = _.thru([
+  { id: "image", name: "Wikimedia Commons Images", src: './images/image.jpg', className: CONTENT_CLASSES[0] },
+  // { id: "text", name: "Stack Overflow Questions", src: './images/text.jpg', className: CONTENT_CLASSES[1] },
+  { id: "map", name: "NYC City Bike Usage Forecast", src: './images/map.jpg', className: CONTENT_CLASSES[2] }
+], channels => {
+  return _.map(channels, channel => {
+    let nextClassName = channel.className;
+    if (_.size(channels) === 2) {
+      if (_.first(channels).id === channel.id || _.last(channels).id === channel.id) {
+        nextClassName += " near"
+      }
+    }
+    return {
+      ...channel,
+      className: nextClassName,
+    }
+  });
+});
+
 export const THUMBNAIL_SIZE = 60,
   IMG_SIZE = 240,
   DOCUMENT_IMAGE = "./images/alfabet.png",
   BIKE_IMAGE = "./images/bike.png",
-  CHANNEL_IMAGES = [
-    { id: "image", name: "Wikimedia Commons Images", src: './images/image.jpg', className: CONTENT_CLASSES[0] },
-    { id: "text", name: "Stack Overflow Questions", src: './images/text.jpg', className: CONTENT_CLASSES[1] },
-    { id: "map", name: "NYC City Bike Usage Forecast", src: './images/map.jpg', className: CONTENT_CLASSES[2] }
-  ],
   PRESENT_IMAGES = [
     { id: "10000086", src: "./images/10000086.jpg", name: "JELLYFISH" },
     { id: "00000359", src: "./images/00000359.jpg", name: "BEE" },
