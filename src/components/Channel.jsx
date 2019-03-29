@@ -21,14 +21,12 @@ class Channel extends Component {
     }
   }
 
-  onClick(index) {
-    const { contents } = this.state
+  onClick(id) {
     const { actions } = this.props
-    const id = contents[index].id
     this.setState({leave: true})
     // For animation of leave
     setTimeout(() => {
-      actions.selectChannel(index)
+      actions.selectChannel(id)
       this.setState({leave: false})
     }, 1000)
   }
