@@ -27,8 +27,8 @@ export const recaptchaVerify = value => dispatch => {
     })
 }
 
-export const selectChannel = index => {
-  return { type: types.SELECT_CHANNEL, index }
+export const selectChannel = channelId => {
+  return { type: types.SELECT_CHANNEL, channelId }
 }
 
 export const resizeWindow = (width, height) => {

@@ -64,14 +64,13 @@ class Channel extends Component {
 
   renderContents() {
     const { contents, leave } = this.state
-    const { channel } = this.props.app
     return (
       <div className="content">
         { _.map(contents, (image, i) => {
           return <Circle
                     style={{zIndex: image.zIndex}}
                     key={ `channel-${i}` }
-                    onClick={ this.onClick.bind(this, i) }
+                    onClick={ this.onClick.bind(this, image.id) }
                     onMouseOver={ this.onMouseOver.bind(this, i) }
                     outerClassName={ leave ? "is-center":image.className }>
                     <img src={ image.src } />
@@ -83,22 +82,18 @@ class Channel extends Component {
   }
 
   renderFooter() {
-    const { leave } = this.state
+    const { contents, leave } = this.state
     if (leave) {
       return null
     }
     return (
       <div className="content-footer">
         <div className="flex-container">
-          <div className={ classNames("flex-item") }>
-            Wikimedia Commons Images
-          </div>
-          <div className={ classNames("flex-item") }>
-            Stack Overflow Questions
-          </div>
-          <div className={ classNames("flex-item") }>
-            NYC City Bike Usage Forecast
-          </div>
+          {_.map(contents, (content, i) => (
+            <div key={ `channel-name-${i}`} className={ classNames("flex-item") }>
+              {content.name}
+            </div>
+          ))}
         </div>
       </div>
     )
@@ -109,11 +104,11 @@ class Channel extends Component {
     return (
       <div id="channel" className={app.authorized?"":"intro-blur"}>
         { do {
-            if (app.channel === 0) {
+            if (app.channel === "image") {
               <SearchImage />
-            } else if (app.channel === 1) {
+            } else if (app.channel === "text") {
               <SearchDocument />
-            } else if (app.channel === 2) {
+            } else if (app.channel === "map") {
               <DemandForecast />
             } else {
               <div className={ classNames("container") } style={{ backgroundColor: 'black' }}>
