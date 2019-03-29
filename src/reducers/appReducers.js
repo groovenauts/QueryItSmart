@@ -5,7 +5,7 @@ const initialState = {
   width: _.get(window, 'innerWidth', 0),
   height: _.get(window, 'innerHeight', 0),
   page: 0,
-  channel: -1,
+  channel: null,
   finishedIntro: false,
   authorized: !window.siteKey,
 }
@@ -28,7 +28,7 @@ const app = (state = initialState, action) => {
       return {
         ...state,
         page: 0,
-        channel: -1,
+        channel: null,
       }
     case types.NEXT_INTRO:
       return {
@@ -42,10 +42,10 @@ const app = (state = initialState, action) => {
         page: 1,
       }
     case types.SELECT_CHANNEL:
-      const { index } = action
+      const { channelId } = action
       return {
         ...state,
-        channel: index,
+        channel: channelId,
         finishedIntro: true,
       }
     default:

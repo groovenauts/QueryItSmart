@@ -70,7 +70,7 @@ class Channel extends Component {
           return <Circle
                     style={{zIndex: image.zIndex}}
                     key={ `channel-${i}` }
-                    onClick={ this.onClick.bind(this, i) }
+                    onClick={ this.onClick.bind(this, image.id) }
                     onMouseOver={ this.onMouseOver.bind(this, i) }
                     outerClassName={ leave ? "is-center":image.className }>
                     <img src={ image.src } />
@@ -104,11 +104,11 @@ class Channel extends Component {
     return (
       <div id="channel" className={app.authorized?"":"intro-blur"}>
         { do {
-            if (app.channel === 0) {
+            if (app.channel === "image") {
               <SearchImage />
-            } else if (app.channel === 1) {
+            } else if (app.channel === "text") {
               <SearchDocument />
-            } else if (app.channel === 2) {
+            } else if (app.channel === "map") {
               <DemandForecast />
             } else {
               <div className={ classNames("container") } style={{ backgroundColor: 'black' }}>
