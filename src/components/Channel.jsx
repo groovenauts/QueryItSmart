@@ -64,7 +64,6 @@ class Channel extends Component {
 
   renderContents() {
     const { contents, leave } = this.state
-    const { channel } = this.props.app
     return (
       <div className="content">
         { _.map(contents, (image, i) => {
@@ -83,22 +82,18 @@ class Channel extends Component {
   }
 
   renderFooter() {
-    const { leave } = this.state
+    const { contents, leave } = this.state
     if (leave) {
       return null
     }
     return (
       <div className="content-footer">
         <div className="flex-container">
-          <div className={ classNames("flex-item") }>
-            Wikimedia Commons Images
-          </div>
-          <div className={ classNames("flex-item") }>
-            Stack Overflow Questions
-          </div>
-          <div className={ classNames("flex-item") }>
-            NYC City Bike Usage Forecast
-          </div>
+          {_.map(contents, (content, i) => (
+            <div key={ `channel-name-${i}`} className={ classNames("flex-item") }>
+              {content.name}
+            </div>
+          ))}
         </div>
       </div>
     )
