@@ -132,7 +132,7 @@ class Result extends Component {
       }}>
         { lang.demandForecast.header.title }
       </div>
-    )    
+    )
   }
   renderSlider() {
     const { autoMode } = this.state
