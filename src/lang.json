@@ -17,7 +17,7 @@
   "searchImage": {
     "select": {
       "title": "Image",
-      "subtitle": "Choose one of the images below. <b>BigQuery</b> will find similar images from 1 millions images stored on Wikimedia Commons"
+      "subtitle": "Choose one of the images below. <b>BigQuery</b> will find similar images from 1 million images stored on Wikimedia Commons"
     },
     "analyzing": {
       "title": "Searching...",
