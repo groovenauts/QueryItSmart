@@ -100,10 +100,6 @@ The file is public readable and you canalso download a file via HTTPS.
 
 `https://storage.googleapis.com/queryit-smart-ml/citibike_prediction_savedmodel/saved_model.pb`
 
-### Train model
-
-TBD
-
 # Deprecated models
 
 The sections below are deprecated models.
