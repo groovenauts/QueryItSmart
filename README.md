@@ -1,14 +1,14 @@
 # QueryIt Smart
 
 QueryIt Smart is the demonstration application where it combines [BigQuery](http://cloud.google.com/bigquery) for
-large scale data analytics and [Cloud Machine Learning Engine](http://cloud.google.com/ml) for scalable machine
-learning analytics. See [What is it?](whatisit.md) page for details of the technology.
+large scale data analytics and [Cloud Machine Learning Engine](https://cloud.google.com/ml-engine/) for scalable
+machine learning analytics. See [What is it?](whatisit.md) page for details of the technology.
 
 ## Preparation
 
 ### Service Account JSON key
-You need to have a Google Cloud Platform project and get service account's JSON key.
-Pleace it to `config/service_account.json`.
+You need to have a Google Cloud Platform project with enabled billing account and get the service account's JSON key.
+The service account JSON key have to be placed as `config/service_account.json`.
 
 ### API Key
 
@@ -16,13 +16,14 @@ For Map API used in demand forecast, you should generate API key from Google Clo
 
 ### reCAPTCHA API keys
 
-If the reCAPTCHA authentication is required, it is should regiter Site key and Secret key from [Get reCAPTCHA](https://www.google.com/recaptcha/admin).
+If you want to enable the reCAPTCHA authentication, regiter Site key and Secret key from [Get reCAPTCHA](https://www.google.com/recaptcha/admin).
+This step is optional.
 
-## Run
+## Run Demo Application
 
 Running on the Google App Engine.
 
-### 1. Settings
+### 1. Configurations
 
 Change the following setting values in app.yaml.
 
@@ -32,17 +33,17 @@ RECAPTCHA_SITE_KEY: 'YOUR_RECAPTCHA_SITE_KEY' // Optional: Site Key of reCAPTCHA
 RECAPTCHA_SECRET_KEY: 'YOUR_RECAPTCHA_SECRET_KEY' // Optional: Secret Key of reCAPTCHA
 ```
 
-### 2. Deployment and Run
+### 2. Deploy
 
 Perform the following gcloud command to deploy App Engine application in your GCP project.
 
 ```
-gcloud app deploy
+gcloud --project YOUR-PROJECT-ID app deploy
 ```
 
-### 3. Viewing your application
+### 3. Browse your application
 
-After you deploy your app to App Engine, you can run the following command to launch your browser and view the app at https://[YOUR_PROJECT_ID].appspot.com:
+After you deployed to App Engine, you can run the following command to launch your browser and view the app at https://[YOUR-PROJECT-ID].appspot.com:
 
 ```
 gcloud app browse
@@ -50,4 +51,4 @@ gcloud app browse
 
 ## Modify datasets
 
-See [models/README.md](models/README.md) to know how to customize datasets for Image search and Document search.
+See [models/README.md](models/README.md) to know how to customize datasets for Image search etc.
