@@ -3,9 +3,9 @@ import classNames from 'classnames'
 
 class Query extends Component {
   render() {
-    const { text, color } = this.props
+    const { text, color, type } = this.props
     return (
-      <div className="box-marquee">
+      <div className={"box-marquee " + type}>
         <pre style={{color}}>{ text }</pre>
       </div>
     )

@@ -362,7 +362,7 @@ class SearchImageTop extends Component {
               className="button-deep-purple"
               handler={this.onRestart.bind(this)}/>
               : null }
-          { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } /> : null }
+          { analyzing ? <Query text={ QUERY.similar.sql({id: analyzeId}) } type="image-search" /> : null }
           { this.renderSQL() }
         </div>
       </MuiThemeProvider>
