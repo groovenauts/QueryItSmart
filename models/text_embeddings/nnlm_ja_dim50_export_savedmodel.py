@@ -10,13 +10,13 @@ import tf_graph_util
 graph = tf.Graph()
 
 with graph.as_default():
-    embed = hub.Module("https://tfhub.dev/google/nnlm-en-dim50-with-normalization/1")
+    embed = hub.Module("https://tfhub.dev/google/nnlm-ja-dim50-with-normalization/1")
 
     pl = tf.placeholder(shape=[None], dtype=tf.string)
 
     vector = tf.identity(embed(pl), name="OUTPUT")
 
-    savedmodel_dir = "nnlm_en_dim50_savedmodel"
+    savedmodel_dir = "nnlm_ja_dim50_savedmodel"
     tmp_savedmodel_dir = savedmodel_dir + "_tmp"
     if (os.path.exists(tmp_savedmodel_dir)):
         shutil.rmtree(tmp_savedmodel_dir)
