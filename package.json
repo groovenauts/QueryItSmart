@@ -26,7 +26,7 @@
     "express-recaptcha": "^2.3.0",
     "flexboxgrid": "^6.3.1",
     "fs": "^0.0.1-security",
-    "gsap": "^1.20.6",
+    "gsap": "^3.6.0",
     "lodash": "^4.17.19",
     "material-ui": "^0.18.7",
     "morgan": "^1.9.1",
