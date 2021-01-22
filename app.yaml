@@ -1,4 +1,4 @@
-runtime: nodejs10
+runtime: nodejs12
 env_variables:
   API_KEY: ''
   RECAPTCHA_SITE_KEY: ''
