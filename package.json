@@ -29,7 +29,7 @@
     "gsap": "^3.6.0",
     "lodash": "^4.17.21",
     "material-ui": "^0.18.7",
-    "morgan": "^1.9.1",
+    "morgan": "^1.10.1",
     "path": "^0.12.7",
     "react": "^15.6.2",
     "react-async-script": "^0.8.0",
